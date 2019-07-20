@@ -6,4 +6,4 @@ S. Cayci, A. Eryilmaz, R. Srikant, <a href="https://github.com/semihcayci/SIGMET
 
 S. Cayci, A. Eryilmaz, "Optimal Learning for Dynamic Coding in Deadline-Constrained Multi-Channel Networks", IEEE/ACM Transactions on Networking (2019).
 
-<embed src="https://semihcayci.github.io/SIGMETRICS19_p43.pdf" type="application/pdf" />
+<embed src="https://semihcayci.github.io/SIGMETRICS19_p43.pdf" type="application/pdf"/>
