@@ -1,4 +1,3 @@
-## 
 I am a PhD candidate in the Electrical and Computer Engineering Department at The Ohio State University. My research interests include <b>machine learning</b>, <b>applied probability</b> and <b>information theory</b>.
 
 ## Publications
