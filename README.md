@@ -5,7 +5,7 @@ I am a PhD candidate in Electrical and Computer Engineering at The Ohio State Un
 
 Below you can find links to some of my recent publications.
 
-S. Cayci, A. Eryilmaz, R. Srikant, "Learning to Control Renewal Processes with Bandit Feedback"</a>, Proceedings of the ACM on Measurement and Analysis of Computing Systems 3, no. 2 (2019): 43. [<a href="https://semihcayci.github.io/SIGMETRICS19_p43.pdf
+S. Cayci, A. Eryilmaz, R. Srikant, "Learning to Control Renewal Processes with Bandit Feedback", Proceedings of the ACM on Measurement and Analysis of Computing Systems 3, no. 2, vol. 43, 2019 / ACM SIGMETRICS 2019 [<a href="https://semihcayci.github.io/SIGMETRICS19_p43.pdf
 ">paper,</a>][slides][poster]
 
 S. Cayci, A. Eryilmaz, <a href="https://semihcayci.github.io/OptLearning_TON_Paper.pdf
