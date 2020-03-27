@@ -2,6 +2,10 @@
 
 Here I will list some foundational books on mathematical statistics from a highly personal perspective. I will expand the list over time.
 
+Shortlist:
+
+0. [Peter Bartlett's Lecture Notes on Theoretical Statistics](https://github.com/semihcayci/semihcayci.github.io/blob/master/statistics.md#0-peter-bartletts-lecture-notes-on-theoretical-statistics)
+
 
 ## 0. Peter Bartlett's Lecture Notes on Theoretical Statistics
 
