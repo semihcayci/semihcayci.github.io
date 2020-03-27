@@ -1,6 +1,13 @@
-## Foundational Books on Statistics
+# Foundational Books on Mathematical Statistics
 
 Here I will list some foundational books on mathematical statistics from a highly personal perspective. The list is no way exhaustive in its current form, and I plan to update it continuously.
+
+## 1. High-Dimensional Statistics - Martin J. Wainwright, 2019
+[Link](semihcayci.github.io/hds-wainwright.pdf)
+```markdown
+This book is on the non-asymptotic theory of high-dimensional statistics. It starts with an elegant treatment of tail and concentration bounds, and covers modern statistical subjects: non-parametric regression, random matrix theory, graphical models, sparse linear models, uniform laws, etc.
+```
+
 
 ### Markdown
 
