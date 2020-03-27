@@ -16,12 +16,18 @@ This book is on the non-asymptotic theory of high-dimensional statistics. It sta
 
 For _concentration bounds_ and _kernel methods_, this book is my favorite.
 
-## 2. Topics in Non-Parametric Statistics - A. Nemirovski
+## 2A. Topics in Non-Parametric Statistics - A. Nemirovski
 [Link](https://www2.isye.gatech.edu/~nemirovs/Lect_SaintFlour.pdf)
 
 How can you perform statistical inference on infinite-dimensional parameters (e.g., functions, time-dependent signals) from noisy observations? This book provides concise answers to this question by focusing on estimating non-parametric regression to functions and functionals. It is a bit difficult to read because of the notation, but it seems to be highly insightful and self-contained.
 
-## 4. Introduction to Non-Parametric Estimation - A. Tsybakov
+## 2B. Statistical Inference via Convex Optimization - A. Juditsky and A. Nemirovski
+
+[Link](https://www2.isye.gatech.edu/~nemirovs/StatOptNoSolutions.pdf)
+
+It is a brand new book due April 2020 on statistical inference. The subjects include (2A) and extend to signal recovery, (sequential) hypothesis testing and sparse recovery.
+
+## 3. Introduction to Non-Parametric Estimation - A. Tsybakov
 A rigorous book on the construction and analysis of non-parametric estimators. It is widely referenced for convergence rate and optimality analysis, and also for adaptive estimation.
 
 
