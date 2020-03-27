@@ -34,6 +34,8 @@ A rigorous book on the construction and analysis of non-parametric estimators. I
 
 ## 3. High-Dimensional Probability - R. Vershynin
 
+[Link](https://www.math.uci.edu/~rvershyn/papers/HDP-book/HDP-book.pdf)
+
 An accessible book on modern probability and statistics. It takes a non-asymptotic approach, and investigates robust PCA, random graph theory, extreme value theory for random processes and random matrix theory. I studied concentration of dependent random variables from this book, it is very easy to follow and insightful. 
 
 
