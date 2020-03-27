@@ -21,20 +21,24 @@ How can you perform statistical inference on infinite-dimensional parameters (e.
 
 It is a brand new book due April 2020 on statistical inference. The subjects include (2A) and extend to signal recovery, (sequential) hypothesis testing and sparse recovery.
 
-## [3. Introduction to Non-Parametric Estimation - A. Tsybakov](https://link.springer.com/book/10.1007/b13794)
+## [3. Asymptotic Statistics - A. van der Vaart](https://www.cambridge.org/core/books/asymptotic-statistics/A3C7DAD3F7E66A1FA60E9C8FE132EE1D)
+
+Classical book on large sample properties and approximations of statistical tests, estimators and procedures.
+
+## [4. Introduction to Non-Parametric Estimation - A. Tsybakov](https://link.springer.com/book/10.1007/b13794)
 
 A rigorous book on the construction and analysis of non-parametric estimators. It is widely referenced for convergence rate and optimality analysis, and also for adaptive estimation.
 
 
-## [4. High-Dimensional Probability - R. Vershynin](https://www.math.uci.edu/~rvershyn/papers/HDP-book/HDP-book.pdf)
+## [5. High-Dimensional Probability - R. Vershynin](https://www.math.uci.edu/~rvershyn/papers/HDP-book/HDP-book.pdf)
 
 An accessible book on modern probability and statistics. It takes a non-asymptotic approach, and investigates robust PCA, random graph theory, extreme value theory for random processes and random matrix theory. I studied concentration of dependent random variables from this book, it is very easy to follow and insightful. 
 
 
-## [5. Random Graph Dynamics - R. Durrett](https://services.math.duke.edu/~rtd/RGD/RGD.pdf)
+## [6. Random Graph Dynamics - R. Durrett](https://services.math.duke.edu/~rtd/RGD/RGD.pdf)
 
 There are many books in this subject, but Durrett's intuitive and example-based style is the most effective introduction to the subject in my opinion.
 
-## [6. Gaussian Estimation - I. M. Johstone](http://statweb.stanford.edu/~imj/GE_08_09_17.pdf)
+## [7. Gaussian Estimation - I. M. Johstone](http://statweb.stanford.edu/~imj/GE_08_09_17.pdf)
 Non-parametric estimation and regression in the most basic model: Gaussian models. It covers both minimax and Bayesian approach to risk minimization and function estimation in the Gaussian setting. From the simplest model to the more complicated compression and wavelet shrinkage problems, it presents a coherent treatment of statistical estimation problems from a design and analysis perspective.
 
