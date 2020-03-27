@@ -5,7 +5,9 @@ Here I will list some foundational books on mathematical statistics from a highl
 ## 1. High-Dimensional Statistics - Martin J. Wainwright, 2019
 [Link](semihcayci.github.io/hds-wainwright.pdf)
 
-This book is on the non-asymptotic theory of high-dimensional statistics. It starts with an elegant treatment of tail and concentration bounds, and covers modern statistical subjects: non-parametric regression, RKHS (reproducible kernel Hilbert spaces), random matrix theory, graphical models, sparse linear models, uniform laws, etc.
+This book is on the non-asymptotic theory of high-dimensional statistics. It starts with an elegant treatment of tail and concentration bounds, and covers modern statistical subjects: non-parametric regression, RKHS (reproducible kernel Hilbert spaces), random matrix theory, graphical models, sparse linear models, uniform laws, etc. 
+
+For _concentration bounds_, _non-parametric regression_, _RKHS methods_, this is the my favorite.
 
 
 ### Markdown
