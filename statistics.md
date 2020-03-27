@@ -16,7 +16,7 @@ This book is on the non-asymptotic theory of high-dimensional statistics. It sta
 
 For _concentration bounds_ and _kernel methods_, this book is my favorite.
 
-## 2
+## 2 Nemirovski's Books on Theoretical Statistics
 ### A. Topics in Non-Parametric Statistics - A. Nemirovski
 [Link](https://www2.isye.gatech.edu/~nemirovs/Lect_SaintFlour.pdf)
 
