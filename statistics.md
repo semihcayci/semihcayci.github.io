@@ -1,8 +1,6 @@
-## Welcome to GitHub Pages
+## Foundational Books on Statistics
 
-You can use the [editor on GitHub](https://github.com/semihcayci/semih-cayci.github.io/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
-
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+Here I will list some foundational books on mathematical statistics from a highly personal perspective. The list is no way exhaustive in its current form, and I plan to update it continuously.
 
 ### Markdown
 
