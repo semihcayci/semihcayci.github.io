@@ -27,7 +27,7 @@ Classical book on large sample properties and approximations of statistical test
 
 ## [4. Introduction to Non-Parametric Estimation - A. Tsybakov](https://link.springer.com/book/10.1007/b13794)
 
-A rigorous book on the construction and analysis of non-parametric estimators. It is widely referenced for convergence rate and optimality analysis, and also for adaptive estimation.
+A rigorous book on the construction and analysis of non-parametric estimators. It is widely cited for convergence rate and optimality analysis, and also for adaptive estimation.
 
 
 ## [5. High-Dimensional Probability - R. Vershynin](https://www.math.uci.edu/~rvershyn/papers/HDP-book/HDP-book.pdf)
@@ -39,6 +39,6 @@ An accessible book on modern probability and statistics. It takes a non-asymptot
 
 There are many books in this subject, but Durrett's intuitive and example-based style is the most effective introduction to the subject in my opinion.
 
-## [7. Gaussian Estimation - I. M. Johstone](http://statweb.stanford.edu/~imj/GE_08_09_17.pdf)
+## [7. Gaussian Estimation - I. M. Johnstone](http://statweb.stanford.edu/~imj/GE_08_09_17.pdf)
 Non-parametric estimation and regression in the most basic model: Gaussian models. It covers both minimax and Bayesian approach to risk minimization and function estimation in the Gaussian setting. From the simplest model to the more complicated compression and wavelet shrinkage problems, it presents a coherent treatment of statistical estimation problems from a design and analysis perspective.
 
