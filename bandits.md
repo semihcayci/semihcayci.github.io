@@ -1,6 +1,6 @@
 # My Favorite Papers in Modern Bandit Theory
 
-Exploration-exploitation tradeoff has been one of the focal points of statistical research since 1930's. In the beginning, the problem was considered to be extremely difficult: _d efforts tosolve it so sapped the energies and minds of Allied analysts that the suggestion was made that the problem be dropped overGermany, as the ultimate instrument of intellectual sabotage_.
+Exploration-exploitation tradeoff has been one of the focal points of statistical research since World War II. In the beginning, the problem was considered to be extremely difficult: "..._efforts to solve it so sapped the energies and minds of Allied analysts that the suggestion was made that the problem be dropped over Germany, as the ultimate instrument of intellectual sabotage_" (Whittle, 1979)
 
 ## [0. Peter Bartlett's Lecture Notes on Theoretical Statistics](https://www.stat.berkeley.edu/~bartlett/courses/2013spring-stat210b/)
 
