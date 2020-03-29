@@ -1,44 +1,11 @@
 # My Favorite Papers in Modern Bandit Theory
 
-Exploration-exploitation tradeoff has been one of the focal points of statistical research since World War II. In the beginning, the problem was considered to be extremely difficult: "..._efforts to solve it so sapped the energies and minds of Allied analysts that the suggestion was made that the problem be dropped over Germany, as the ultimate instrument of intellectual sabotage_" (Whittle, 1979)
+[Multi-armed bandit problem](https://en.wikipedia.org/wiki/Multi-armed_bandit) has been one of the focal points of statistical research since World War II. In the beginning, the problem was considered to be extremely difficult. Peter Whittle states this difficulty as follows: "_...efforts to solve it so sapped the energies and minds of Allied analysts that the suggestion was made that the problem be dropped over Germany, as the ultimate instrument of intellectual sabotage_". The classical (stochastic) version bandit problem was eventually solved by some of the greatest mathematicians of the 20th century (i.e., Gittins, Lai and Robbins). However, these answers did not resolve the questions regarding the exploration-exploitation tradeoff. On the contrary, the initial success in explaining the dynamics of exploration-exploitation tradeoff raised a plethora of new questions. Here, I will list my favorite papers in bandit theory.   
 
-## [0. Peter Bartlett's Lecture Notes on Theoretical Statistics](https://www.stat.berkeley.edu/~bartlett/courses/2013spring-stat210b/)
+## [Finite-Time Analysis of the Multi-Armed Bandit Problem -- Auer et al.](https://link.springer.com/article/10.1023/A:1013689704352)
 
-This is the best resource to make an introduction to theoretical statistics. It starts with classical parametric estimation, covers the Gauss-Fisher-Le Cam theory, then makes a concise introduction to the modern non-parametric estimation at the end. It is No. 0 as it provides a ground to the rest of this list. 
+In their seminal paper, Lai and Robbins proposed the UCB (Upper Confidence Bound) Algorithm, and showed that the pseudo-regret grows at a rate O(log(N)) where N is the time-horizon. By using the famous information geometric lower bound, they showed that this growth order is optimal. The results in Lai and Robbins's paper are asymptotic in N, i.e., the order-optimality is achieved as the time-horizon goes to infinity. In this paper, the authors develop the now-standard finite-time analysis technique to show that the regret is logarithmic with a small constant additive term for all N. Thanks to the analysis techniques developed in this paper, UCB-type algorithms became the standard in bandit theory.
 
-## [1. High-Dimensional Statistics - Martin J. Wainwright](semihcayci.github.io/hds-wainwright.pdf)
+## [Gaussian Process Optimization in the Bandit Setting: No Regret and Experimental Design - Srinivas et al.](https://arxiv.org/abs/0912.3995)
 
-This book is on the non-asymptotic theory of high-dimensional statistics. It starts with an elegant treatment of tail and concentration bounds, and covers modern statistical subjects: non-parametric regression, RKHS (reproducible kernel Hilbert spaces), random matrix theory, graphical models, sparse linear models, uniform laws, etc. 
-
-For _concentration bounds_ and _kernel methods_, this book is my favorite.
-
-## 2 Nemirovski's Books on Theoretical Statistics
-### [A. Topics in Non-Parametric Statistics - A. Nemirovski](https://www2.isye.gatech.edu/~nemirovs/Lect_SaintFlour.pdf)
-
-How can you perform statistical inference on infinite-dimensional parameters (e.g., functions, time-dependent signals) from noisy observations? This book provides concise answers to this question by focusing on estimating non-parametric regression to functions and functionals. It is a bit difficult to read because of the notation, but it seems to be highly insightful and self-contained.
-
-### [B. Statistical Inference via Convex Optimization - A. Juditsky and A. Nemirovski](https://www2.isye.gatech.edu/~nemirovs/StatOptNoSolutions.pdf)
-
-It is a brand new book due April 2020 on statistical inference. The subjects include (2A) and extend to signal recovery, (sequential) hypothesis testing and sparse recovery.
-
-## [3. Asymptotic Statistics - A. van der Vaart](https://www.cambridge.org/core/books/asymptotic-statistics/A3C7DAD3F7E66A1FA60E9C8FE132EE1D)
-
-Classical book on large sample properties and approximations of statistical tests, estimators and procedures.
-
-## [4. Introduction to Non-Parametric Estimation - A. Tsybakov](https://link.springer.com/book/10.1007/b13794)
-
-A rigorous book on the construction and analysis of non-parametric estimators. It is widely cited for convergence rate and optimality analysis, and also for adaptive estimation.
-
-
-## [5. High-Dimensional Probability - R. Vershynin](https://www.math.uci.edu/~rvershyn/papers/HDP-book/HDP-book.pdf)
-
-An accessible book on modern probability and statistics. It takes a non-asymptotic approach, and investigates robust PCA, random graph theory, extreme value theory for random processes and random matrix theory. I studied concentration of dependent random variables from this book, it is very easy to follow and insightful. 
-
-
-## [6. Random Graph Dynamics - R. Durrett](https://services.math.duke.edu/~rtd/RGD/RGD.pdf)
-
-There are many books in this subject, but Durrett's intuitive and example-based style is the most effective introduction to the subject in my opinion.
-
-## [7. Gaussian Estimation - I. M. Johnstone](http://statweb.stanford.edu/~imj/GE_08_09_17.pdf)
-Non-parametric estimation and regression in the most basic model: Gaussian models. It covers both minimax and Bayesian approach to risk minimization and function estimation in the Gaussian setting. From the simplest model to the more complicated compression and wavelet shrinkage problems, it presents a coherent treatment of statistical estimation problems from a design and analysis perspective.
-
+The classical bandit theory is interested in finitely many arms. When the action space is continuous, things become complicated as a result of the decreased separability between the optimal arm and its suboptimal neighbors. At this point, the notion of **information structure** comes to our help. If the function to be learned satisfies certain smoothness properties, sublinear regret can be possible. One way to impose these smoothness properties is Lipschitz continuity, which is considered in a variety of papers. This paper by Srinivas takes a different (Bayesian) approach, and models the unknown function to be learned as an instance of a Gaussian process. By following this approach, the smoothness of the unknown function is encoded via a kernel_ function, and the posterior update is performed via simple operations. I personally like the notion of _information gain_ introduced in this paper: in decision-making, the information content of an action is considered besides its immediate reward.
