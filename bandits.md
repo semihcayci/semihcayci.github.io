@@ -1,7 +1,7 @@
 # Interesting Material in Bandit Theory
 
 ## [Decision-Making Side of Machine Learning - Michael I. Jordan](https://iclr.cc/virtual_2020/speaker_8.html)
-This is the plenary talk of Michael I. Jordan at ICLR 2020. He describes the state of the art and potential challenges in the decision-making side of machine learning, particularly in bandits and reinforcement learning. He touts decision-making as the new primary frontier in machine learning. 
+This is the plenary talk of Michael I. Jordan at ICLR 2020. He describes the state of the art and potential challenges in the decision-making side of machine learning, particularly in bandits and reinforcement learning. He touts decision-making as the new primary frontier in machine learning in the next few years.
 
 ## [Gaussian Process Optimization in the Bandit Setting: No Regret and Experimental Design - Srinivas et al.](https://arxiv.org/abs/0912.3995)
 
