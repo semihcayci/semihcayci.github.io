@@ -19,10 +19,11 @@ Remedies: Note #1 above.
 ## [2. Neural Temporal-Difference and Q-Learning Provably Converge to Global Optima](https://arxiv.org/abs/1905.10027)
 
 <b>High-level comments:</b> Complicated problem that consists of integrated components exploration & generalization
+
 <b>Weakness:</b> Despite the coupling, exploration dynamics is circumvented. How to choose the control given a state? They assume sampling iid from the stationary distribution.
 
 Independence is OK because of the experience replay in DQN models. But stationary distribution assumption is too unrealistic. They claim to prove a non-asymptotic convergence result, but they are starting from the stationary distribution with iid sampling. This is like restless bandits comparing the performance w.r.t. stationary performance. <b>Goal is transient, but they use steady-state.</b>
 
-Why is Stationarity required? Projected Bellman operator: Contraction only with weighted L2 norm with "weights = stationary distribution". Thus, starting from the stationary distribution is very simplifying.
+<b>Why is stationarity required?</b> Projected Bellman operator: Contraction only with weighted L2 norm with "weights = stationary distribution". Thus, starting from the stationary distribution is very simplifying.
 
 Without these dynamics, the problem turns into a fitted Q-iteration (Munos & Szepesvari, 2008) instead of Q-learning.
