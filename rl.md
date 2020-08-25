@@ -1,10 +1,14 @@
 # Weekly Notes in Reinforcement Learning
 
-## [1. A Shortnote on the Similarities between SSP and BwK](https://semihcayci.github.io/ShortNoteSSP.pdf) <b>Date: August 25, 2020</b>
+## [1. A Shortnote on the Similarities between SSP and BwK](https://semihcayci.github.io/ShortNoteSSP.pdf) 
+
+<b>Date: August 25, 2020</b>
 
 In this note, I show that BwK is an SSP-RL problem with finite action space (and infinite state space) and unknown state transition probabilities. Tight bounds (i.e., Reg(B) ~ log B) is proved for iid costs. This parallelism can be useful in continuous action space and Markovian cost structure. Interestingly, any discounted-cost MDP can be translated into SSP (see Section 2.3 in (Bertsekas, Tsitsiklis; 1996)). Thus, the BwK approach can be used for discounted-cost problems as well.
 
-## [2. Notes on Online Exploration for Q-Learning](https://semihcayci.github.io/Q-Learning-Exploration.pdf) <b>Date: August 25, 2020</b>
+## [2. Notes on Online Exploration for Q-Learning](https://semihcayci.github.io/Q-Learning-Exploration.pdf) 
+
+<b>Date: August 25, 2020</b>
 
 Model-free RL algorithms are known to suffer from high sample complexity under current exploration strategies (e.g., epsilon-greedy, greedy). The problem of efficient online exploration for non-generative models (i.e., without simulators) was open for even finite action-state spaces until recently. It is still open for large/continuous state-action spaces. In this note, I briefly describe a simple algorithm for Q-Learning with online exploration based on the following paper, and plan an attack on how to solve it for large state-action spaces.    
 
