@@ -22,7 +22,7 @@ Remedies: Note #1 above.
 
 <b>Weakness:</b> Despite the coupling, exploration dynamics is circumvented. How to choose the control given a state? They assume sampling iid from the stationary distribution.
 
-Independence is OK because of the experience replay in DQN models. But stationary distribution assumption is too unrealistic. They claim to prove a non-asymptotic convergence result, but they are starting from the stationary distribution with iid sampling. This is like restless bandits comparing the performance w.r.t. stationary performance. <b>Goal is transient, but they use steady-state.</b>
+Independence is OK because of the experience replay in DQN models. But stationary distribution assumption is too unrealistic. They claim to prove a non-asymptotic convergence result, but they are starting from the stationary distribution with iid sampling. This is like restless bandits comparing the performance w.r.t. stationary performance. <b>Goal is transient, but benchmark & knowledge is steady-state.</b> 
 
 <b>Why is stationarity required?</b> Projected Bellman operator: Contraction only with weighted L2 norm with "weights = stationary distribution". Thus, starting from the stationary distribution is very simplifying.
 
