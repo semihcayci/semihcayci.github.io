@@ -1,6 +1,6 @@
 # Weekly Notes in Reinforcement Learning
 
-## [A Shortnote on the Similarities between SSP and BwK](https://github.com/semihcayci/ReinforcementLearning/blob/master/ShortNoteSSP.pdf)
+## [A Shortnote on the Similarities between SSP and BwK](https://github.com/semihcayci/semihcayci.github.io/ShortNoteSSP.pdf)
 
 
 Here I will list papers in reinforcement learning.
