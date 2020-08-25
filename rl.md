@@ -1,6 +1,6 @@
 # Weekly Notes in Reinforcement Learning
 
-## [A Shortnote on the Similarities between SSP and BwK](https://github.com/semihcayci/ShortNoteSSP.pdf)
+## [A Shortnote on the Similarities between SSP and BwK](https://semihcayci.github.io/ShortNoteSSP.pdf)
 August 25, 2020: In this note, I show that BwK is an SSP-RL problem with finite action space (and infinite state space) and unknown state transition probabilities. The state consists of (controlled random walk, number of choices(a) for all a) and the process stops when the random walk exceeds a given threshold. If the costs for each action are iid, then we have already solved this SSP-RL with O(log B) regret for a time-horizon B. This parallelism can be useful in continuous action space and Markovian cost structure.
 
 
