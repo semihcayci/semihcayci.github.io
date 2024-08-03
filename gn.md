@@ -1,12 +1,12 @@
 # GF versus GN-GF
 
-Let's consider minimization of g(x) = x'x/2 via GF and GNGF with Levenberg-Marquardt.
+Let's consider minimization of g(x) = x'x/2 via GF and GNGF with Levenberg-Marquardt in 2-dimensional case.
 
 ## Case 1: beta = 0.01 (Numerically stable)
-[<a href="[https://drive.google.com/file/d/1VzkB4pYf-Tad29E1VaVytTicBtN9PeGS](https://drive.google.com/file/d/1VzkB4pYf-Tad29E1VaVytTicBtN9PeGS)]
+Trajectory and optimality gap: https://drive.google.com/file/d/1VzkB4pYf-Tad29E1VaVytTicBtN9PeGS
 
 
 ## Case 2: beta = 0.0001 (Numerical instability)
-Animated gif: https://drive.google.com/file/d/1cDiML8IRevp7MUvA7WbNGm4Gdtnh3E0Z
+Trajectory and optimality gap: https://drive.google.com/file/d/1cDiML8IRevp7MUvA7WbNGm4Gdtnh3E0Z
 
 
