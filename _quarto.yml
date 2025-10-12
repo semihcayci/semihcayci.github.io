@@ -2,7 +2,10 @@ project:
   type: website
   output-dir: _site
 bibliography: references.bib
-  resource-path: ["."]
+resource-path: ["."]
+execute:
+  freeze: auto
+
 website:
   title: "Semih Cayci"
   site-url: https://semihcayci.github.io/
