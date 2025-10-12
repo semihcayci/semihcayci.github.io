@@ -5,10 +5,10 @@
       xmlns:dc="http://purl.org/dc/elements/1.1/" 
       version="2.0">
 <channel>
-<title>Semih Cayci</title>
+<title>Semih Cayci — Blog</title>
 <link>https://semihcayci.github.io/</link>
 <atom:link href="https://semihcayci.github.io/index.xml" rel="self" type="application/rss+xml"/>
-<description>Math-friendly blog powered by Quarto</description>
+<description></description>
 <generator>quarto-1.8.25</generator>
 <lastBuildDate>Sun, 12 Oct 2025 00:00:00 GMT</lastBuildDate>
 <item>
@@ -93,7 +93,7 @@ Knuth, Donald E. 1990. <em>The <span>TeX</span>book</em>. Addison-Wesley.
 </thead>
 <tbody class="list">
 
-<tr data-index="0" data-categories="bWV0YQ==" data-listing-date-sort="1760227200000" data-listing-file-modified-sort="1760286219289" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="20" data-listing-title-sort="Hello Quarto + GitHub Pages" data-listing-filename-sort="2025-10-12-hello-quarto.qmd">
+<tr data-index="0" data-categories="bWV0YQ==" data-listing-date-sort="1760227200000" data-listing-file-modified-sort="1760286890265" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="20" data-listing-title-sort="Hello Quarto + GitHub Pages" data-listing-filename-sort="2025-10-12-hello-quarto.qmd">
 <td>
 <span class="listing-date">Oct 12, 2025</span>
 </td>
@@ -111,7 +111,7 @@ Knuth, Donald E. 1990. <em>The <span>TeX</span>book</em>. Addison-Wesley.
 <div class="listing-no-matching d-none">No matching items</div>
 </div> ]]></description>
   <guid>https://semihcayci.github.io/posts/</guid>
-  <pubDate>Sun, 12 Oct 2025 16:23:58 GMT</pubDate>
+  <pubDate>Sun, 12 Oct 2025 16:35:06 GMT</pubDate>
 </item>
 </channel>
 </rss>
