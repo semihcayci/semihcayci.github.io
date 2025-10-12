@@ -1,8 +1,0 @@
----
-title: "All Posts"
-listing:
-  contents: .
-  sort: "date desc"
-  type: table
----
-

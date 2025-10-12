@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss  xmlns:atom="http://www.w3.org/2005/Atom" 
+      xmlns:media="http://search.yahoo.com/mrss/" 
+      xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+      xmlns:dc="http://purl.org/dc/elements/1.1/" 
+      version="2.0">
+<channel>
+<title>Semih Cayci</title>
+<link>https://semihcayci.github.io/</link>
+<atom:link href="https://semihcayci.github.io/index.xml" rel="self" type="application/rss+xml"/>
+<description>Math-friendly blog powered by Quarto</description>
+<generator>quarto-1.8.25</generator>
+<lastBuildDate>Sun, 12 Oct 2025 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>Hello Quarto + GitHub Pages</title>
+  <link>https://semihcayci.github.io/posts/2025-10-12-hello-quarto.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<p>Quarto renders LaTeX math out of the box:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cnabla_%5Ctheta%20%5Cmathcal%7BJ%7D(%5Ctheta)%20=%20%5Cmathbb%7BE%7D%5B%5C,%20%5Chat%7BA%7D_%5Ctheta(s,a)%20%5Cnabla_%5Ctheta%20%5Clog%20%5Cpi_%5Ctheta(a%5Cmid%20s)%20%5C,%5D.%0A"></p>
+<p>A citation example <span class="citation" data-cites="knuth1990">(Knuth 1990)</span>.</p>
+
+
+
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0">
+<div id="ref-knuth1990" class="csl-entry">
+Knuth, Donald E. 1990. <em>The <span>TeX</span>book</em>. Addison-Wesley.
+</div>
+</div></section></div> ]]></description>
+  <category>meta</category>
+  <guid>https://semihcayci.github.io/posts/2025-10-12-hello-quarto.html</guid>
+  <pubDate>Sun, 12 Oct 2025 00:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>All Posts</title>
+  <link>https://semihcayci.github.io/posts/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+
+
+
+<div class="quarto-listing quarto-listing-container-table" id="listing-listing">
+<div class="listing-actions-group">
+   <div class="input-group input-group-sm quarto-listing-sort">
+    <span class="input-group-text"><i class="bi bi-sort-down"></i></span>
+    <select id="listing-listing-sort" class="form-select" aria-label="Order By" onchange="window['quarto-listings']['listing-listing'].sort(this.options[this.selectedIndex].value, { order: this.options[this.selectedIndex].getAttribute('data-direction')})">
+      <option value="" disabled="" selected="" hidden="">Order By</option>
+      <option value="index" data-direction="asc">Default</option>
+      <option value="listing-date-sort" data-direction="asc">
+        Date - Oldest
+      </option>
+      <option value="listing-date-sort" data-direction="desc">
+        Date - Newest
+      </option>
+      <option value="listing-title-sort" data-direction="asc">
+        Title
+      </option>
+      <option value="listing-author" data-direction="asc">
+        Author
+      </option>
+    </select>
+  </div>
+    <div class="input-group input-group-sm quarto-listing-filter">
+      <span class="input-group-text"><i class="bi bi-search"></i></span>
+      <input type="text" class="search form-control" placeholder="Filter">
+    </div>
+</div>
+<table class="quarto-listing-table table">
+<thead>
+<tr>
+
+<th>
+<a class="sort" data-sort="listing-date-sort" onclick="if (this.classList.contains('sort-asc')) { this.classList.add('sort-desc'); this.classList.remove('sort-asc') } else { this.classList.add('sort-asc'); this.classList.remove('sort-desc')} return false;">Date</a>
+</th>
+
+<th>
+<a class="sort" data-sort="listing-title-sort" onclick="if (this.classList.contains('sort-asc')) { this.classList.add('sort-desc'); this.classList.remove('sort-asc') } else { this.classList.add('sort-asc'); this.classList.remove('sort-desc')} return false;">Title</a>
+</th>
+
+<th>
+<a class="sort" data-sort="listing-author" onclick="if (this.classList.contains('sort-asc')) { this.classList.add('sort-desc'); this.classList.remove('sort-asc') } else { this.classList.add('sort-asc'); this.classList.remove('sort-desc')} return false;">Author</a>
+</th>
+
+</tr>
+</thead>
+<tbody class="list">
+
+<tr data-index="0" data-categories="bWV0YQ==" data-listing-date-sort="1760227200000" data-listing-file-modified-sort="1760286219289" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="20" data-listing-title-sort="Hello Quarto + GitHub Pages" data-listing-filename-sort="2025-10-12-hello-quarto.qmd">
+<td>
+<span class="listing-date">Oct 12, 2025</span>
+</td>
+<td>
+<a href="../posts/2025-10-12-hello-quarto.html" class="title listing-title">Hello Quarto + GitHub Pages</a>
+</td>
+<td>
+<span class="listing-author">&nbsp;</span>
+</td>
+
+</tr>
+
+</tbody>
+</table>
+<div class="listing-no-matching d-none">No matching items</div>
+</div> ]]></description>
+  <guid>https://semihcayci.github.io/posts/</guid>
+  <pubDate>Sun, 12 Oct 2025 16:23:58 GMT</pubDate>
+</item>
+</channel>
+</rss>

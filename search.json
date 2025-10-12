@@ -1,0 +1,30 @@
+[
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "Hi! I’m YOUR_NAME. This site is built with Quarto."
+  },
+  {
+    "objectID": "posts/index.html",
+    "href": "posts/index.html",
+    "title": "All Posts",
+    "section": "",
+    "text": "Order By\n      Default\n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Title\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nDate\n\n\n\nTitle\n\n\n\nAuthor\n\n\n\n\n\n\n\n\nOct 12, 2025\n\n\nHello Quarto + GitHub Pages\n\n\n \n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Home",
+    "section": "",
+    "text": "Welcome! This is your Quarto site on GitHub Pages.\n\nWrite math with $e^{i\\pi}+1=0$ or display blocks:\n\n\\[\n\\int_0^1 x^2\\,dx = \\frac{1}{3}.\n\\]\n\nAdd citations by including a references.bib file and putting bibliography: references.bib in the post front matter.\n\n👉 New posts go in the posts/ folder as .qmd files.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAll Posts\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHello Quarto + GitHub Pages\n\n\n\n\n\n\n\n\nOct 12, 2025\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/2025-10-12-hello-quarto.html",
+    "href": "posts/2025-10-12-hello-quarto.html",
+    "title": "Hello Quarto + GitHub Pages",
+    "section": "",
+    "text": "Quarto renders LaTeX math out of the box:\n\\[\n\\nabla_\\theta \\mathcal{J}(\\theta) = \\mathbb{E}[\\, \\hat{A}_\\theta(s,a) \\nabla_\\theta \\log \\pi_\\theta(a\\mid s) \\,].\n\\]\nA citation example (Knuth 1990).\n\n\n\n\nReferences\n\nKnuth, Donald E. 1990. The TeXbook. Addison-Wesley."
+  }
+]
