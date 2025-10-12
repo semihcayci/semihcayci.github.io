@@ -11,20 +11,76 @@
     "href": "posts/index.html",
     "title": "All Posts",
     "section": "",
-    "text": "Order By\n      Default\n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Title\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nDate\n\n\n\nTitle\n\n\n\nAuthor\n\n\n\n\n\n\n\n\nOct 12, 2025\n\n\nHello Quarto + GitHub Pages\n\n\n \n\n\n\n\n\n\nNo matching items"
+    "text": "Order By\n      Default\n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Title\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nDate\n\n\n\nTitle\n\n\n\nAuthor\n\n\n\n\n\n\n\n\nOct 12, 2025\n\n\nFinite-Time NAC in POMDPs — A Mathy, Friendly Summary\n\n\n \n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Home",
     "section": "",
-    "text": "Welcome! This is your Quarto site on GitHub Pages.\n\nWrite math with $e^{i\\pi}+1=0$ or display blocks:\n\n\\[\n\\int_0^1 x^2\\,dx = \\frac{1}{3}.\n\\]\n\nAdd citations by including a references.bib file and putting bibliography: references.bib in the post front matter.\n\n👉 New posts go in the posts/ folder as .qmd files.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAll Posts\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHello Quarto + GitHub Pages\n\n\n\n\n\n\n\n\nOct 12, 2025\n\n\n\n\n\nNo matching items"
+    "text": "Welcome! This is your Quarto site on GitHub Pages.\n\nWrite math with $e^{i\\pi}+1=0$ or display blocks:\n\n\\[\n\\int_0^1 x^2\\,dx = \\frac{1}{3}.\n\\]\n\nAdd citations by including a references.bib file and putting bibliography: references.bib in the post front matter.\n\n👉 New posts go in the posts/ folder as .qmd files.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAll Posts\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFinite-Time NAC in POMDPs — A Mathy, Friendly Summary\n\n\nA semi-formal walkthrough of finite-time guarantees for natural actor–critic in partially observable environments.\n\n\n\n\n\nOct 12, 2025\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/2025-10-12-hello-quarto.html",
     "href": "posts/2025-10-12-hello-quarto.html",
-    "title": "Hello Quarto + GitHub Pages",
+    "title": "Finite-Time NAC in POMDPs — A Mathy, Friendly Summary",
     "section": "",
-    "text": "Quarto renders LaTeX math out of the box:\n\\[\n\\nabla_\\theta \\mathcal{J}(\\theta) = \\mathbb{E}[\\, \\hat{A}_\\theta(s,a) \\nabla_\\theta \\log \\pi_\\theta(a\\mid s) \\,].\n\\]\nA citation example (Knuth 1990).\n\n\n\n\nReferences\n\nKnuth, Donald E. 1990. The TeXbook. Addison-Wesley."
+    "text": "TL;DR. The paper (Cayci, He, and Srikant 2024) proves finite-time guarantees for a natural actor–critic (NAC) method in POMDPs. It learns finite-memory policies (finite-state controllers), evaluates them with an m-step TD(0) critic to reduce perceptual aliasing, and gives an overall performance bound that separates optimization/approximation, evaluation, and inference (partial observability) errors. For sliding-window controllers, the inference error decays geometrically with the window size."
+  },
+  {
+    "objectID": "posts/2025-10-12-hello-quarto.html#setting-and-goal",
+    "href": "posts/2025-10-12-hello-quarto.html#setting-and-goal",
+    "title": "Finite-Time NAC in POMDPs — A Mathy, Friendly Summary",
+    "section": "1 1) Setting and Goal",
+    "text": "1 1) Setting and Goal\nWe work with a discounted POMDP but restrict policies to finite-state controllers (FSCs) that keep internal memory (Z_k) and act from the pair ((Y_k, Z_k)).\n\nThe learning objective is the best policy within a fixed FSC class ({Z,}): [ ^{_{Z,}} ; V^(), ] where (V^()) is the ()-discounted value under prior ().\nA useful subclass is the sliding-window controller (SWC) with window (n): [ Z_k = (Y_{k-n:k-1},, U_{k-n:k-1}) Y^n U^n, ] which summarizes the last (n) observations/actions.\n\nQuoting the policy class used in the paper, the actor is a linear-softmax FSC: [ _(u y,z) = , ] with features ((u,y,z)R^d)."
+  },
+  {
+    "objectID": "posts/2025-10-12-hello-quarto.html#sampling-measure-for-analysis",
+    "href": "posts/2025-10-12-hello-quarto.html#sampling-measure-for-analysis",
+    "title": "Finite-Time NAC in POMDPs — A Mathy, Friendly Summary",
+    "section": "2 2) Sampling measure (for analysis)",
+    "text": "2 2) Sampling measure (for analysis)\nLet the discounted visitation over information states be [ d^(y,z) ;=; (1-),E{}!. ] The analysis assumes access to samples from (d^_) (a standard NAC device to match the Fisher metric)."
+  },
+  {
+    "objectID": "posts/2025-10-12-hello-quarto.html#algorithm-sketch-fs-nac",
+    "href": "posts/2025-10-12-hello-quarto.html#algorithm-sketch-fs-nac",
+    "title": "Finite-Time NAC in POMDPs — A Mathy, Friendly Summary",
+    "section": "3 3) Algorithm Sketch (FS-NAC)",
+    "text": "3 3) Algorithm Sketch (FS-NAC)\n\nCritic — run (m)-step TD(0) with linear function approximation to estimate (^{_t}(y,z,u)).\n\nActor — take a natural gradient step using the critic’s advantage estimate (projected stochastic gradient on the softmax parameters).\n\n\n\n\n\n\n\nTip\n\n\n\nWhy (m)-step TD? In POMDPs, single-step bootstrapping suffers from perceptual aliasing (same observation, different hidden states). Looking (m) steps ahead stabilizes the target and reduces this bias."
+  },
+  {
+    "objectID": "posts/2025-10-12-hello-quarto.html#critic-guarantee-policy-evaluation",
+    "href": "posts/2025-10-12-hello-quarto.html#critic-guarantee-policy-evaluation",
+    "title": "Finite-Time NAC in POMDPs — A Mathy, Friendly Summary",
+    "section": "4 4) Critic Guarantee (Policy Evaluation)",
+    "text": "4 4) Critic Guarantee (Policy Evaluation)\nFor step size (=K^{-1/2}) and parameter radius (R), after (K) critic updates: [ E!;; {} ;+; {} ;+; {}, ] where ({}(R)) is the best linear-approximation error within radius (R), and the aliasing term contracts geometrically: [ _{}(,m,R);=;O!({m/2},(R,(1-){-1})). ]\nSample–accuracy trade-off. Each update uses (m) samples, so total evaluation samples are ((mK)). Larger (m) → less aliasing ((^{m/2})) but higher sample cost."
+  },
+  {
+    "objectID": "posts/2025-10-12-hello-quarto.html#full-actorcritic-performance-finite-time",
+    "href": "posts/2025-10-12-hello-quarto.html#full-actorcritic-performance-finite-time",
+    "title": "Finite-Time NAC in POMDPs — A Mathy, Friendly Summary",
+    "section": "5 5) Full Actor–Critic Performance (Finite-Time)",
+    "text": "5 5) Full Actor–Critic Performance (Finite-Time)\nAfter (T) outer iterations (with tuned step sizes), the sub-optimality obeys [ (1-),{t&lt;T}E!;; {} ;+; {} ;+; {} ;+; _{}. ]\nThe inference error is the price of partial observability: [ _{}() = E!, I_k=(Y_k,Z_k), ] i.e., the TV gap between the full-history belief and the belief computed from limited information ((Y,Z))."
+  },
+  {
+    "objectID": "posts/2025-10-12-hello-quarto.html#sliding-window-controllers-memory-vs.-accuracy",
+    "href": "posts/2025-10-12-hello-quarto.html#sliding-window-controllers-memory-vs.-accuracy",
+    "title": "Finite-Time NAC in POMDPs — A Mathy, Friendly Summary",
+    "section": "6 6) Sliding-Window Controllers (Memory vs. Accuracy)",
+    "text": "6 6) Sliding-Window Controllers (Memory vs. Accuracy)\nUnder two standard conditions (stochastic exploration and filter stability / minorization), the inference error decays geometrically with the window length (n): [ _{}() ;; ;; O!(^{n/m_0}), ] for constants ((0,1)), (m_0) determined by mixing. Hence, to reach tolerance (), it suffices to take [ n = O!(m_0(1/)). ]\nTakeaway. Increase the window (n) to shrink the inference error, and increase the TD horizon (m) to shrink the aliasing error—both with explicit geometric rates."
+  },
+  {
+    "objectID": "posts/2025-10-12-hello-quarto.html#practical-tuning-cheatsheet",
+    "href": "posts/2025-10-12-hello-quarto.html#practical-tuning-cheatsheet",
+    "title": "Finite-Time NAC in POMDPs — A Mathy, Friendly Summary",
+    "section": "7 7) Practical Tuning Cheatsheet",
+    "text": "7 7) Practical Tuning Cheatsheet\n\nTD horizon (m): pick (m=(_{1/}(1/))) to make aliasing ().\n\nCritic steps (K) and actor inner steps (N): ((^{-4})) to control statistical error terms.\n\nFeatures: both actor and critic incur a compatible function-approximation term; richer features reduce it.\n\nWindow (n) (SWC): grows like (O((1/))) under filter stability."
+  },
+  {
+    "objectID": "posts/2025-10-12-hello-quarto.html#perspective",
+    "href": "posts/2025-10-12-hello-quarto.html#perspective",
+    "title": "Finite-Time NAC in POMDPs — A Mathy, Friendly Summary",
+    "section": "8 8) Perspective",
+    "text": "8 8) Perspective\nThis work bridges practical FSC policies and rigorous non-asymptotic analysis in POMDPs. The decomposition into optimization, evaluation, and inference errors makes the trade-offs transparent: more horizon (m) cures aliasing; more memory (n) cures partial observability."
   }
 ]
