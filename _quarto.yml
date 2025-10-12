@@ -1,13 +1,13 @@
 project:
   type: website
   output-dir: _site
-
+bibliography: references.bib
+  resource-path: ["."]
 website:
   title: "Semih Cayci"
   site-url: https://semihcayci.github.io/
   description: "Math-friendly blog powered by Quarto"
-  bibliography: references.bib
-  resource-path: ["."]
+  
   navbar:
     right:
       - text: Posts
