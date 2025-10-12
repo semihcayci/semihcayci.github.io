@@ -6,6 +6,8 @@ website:
   title: "Semih Cayci"
   site-url: https://semihcayci.github.io/
   description: "Math-friendly blog powered by Quarto"
+  bibliography: references.bib
+  resource-path: ["."]
   navbar:
     right:
       - text: Posts
