@@ -1,0 +1,32 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "YOUR_NAME — Blog"
+  site-url: https://YOUR_USERNAME.github.io/
+  description: "Math-friendly blog powered by Quarto"
+  navbar:
+    right:
+      - text: Posts
+        href: posts/index.qmd
+      - text: About
+        href: about.qmd
+  page-footer:
+    left: "© 2025 YOUR_NAME"
+    right: "Built with Quarto"
+  repo-url: https://github.com/YOUR_USERNAME/YOUR_USERNAME.github.io
+  repo-actions: [issue]
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    number-sections: true
+    code-copy: true
+    smooth-scroll: true
+    html-math-method: mathjax
+
+execute:
+  freeze: auto
+  echo: false
