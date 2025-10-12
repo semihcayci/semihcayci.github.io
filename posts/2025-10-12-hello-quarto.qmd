@@ -1,120 +1,123 @@
 ---
-title: "Finite-Time NAC in POMDPs — A Mathy, Friendly Summary"
+title: "Towards Provably Effective Policy Optimization for Large POMDPs"
 date: 2025-10-12
-description: "A semi-formal walkthrough of finite-time guarantees for natural actor–critic in partially observable environments."
+description: "Natural actor–critic for POMDPs."
 categories: [reinforcement-learning, POMDP, actor-critic, theory]
 toc: true
 draft: false
 ---
 
-> **TL;DR.** The paper [@cayci2024nac] proves **finite-time** guarantees for a **natural actor–critic (NAC)** method in **POMDPs**. It learns finite-memory policies (finite-state controllers), evaluates them with an **m-step TD(0)** critic to reduce **perceptual aliasing**, and gives an overall performance bound that separates **optimization/approximation**, **evaluation**, and **inference (partial observability)** errors. For **sliding-window controllers**, the inference error **decays geometrically** with the window size.
+> **TL;DR.** The paper [@cayci2024nac] proves finite-time guarantees for a natural actor–critic (NAC) method in POMDPs. It learns finite-memory policies, evaluates them with an $m$-step TD critic to reduce perceptual aliasing, and gives a performance bound that separates optimization/approximation, evaluation, and inference (partial observability) errors. For sliding-window controllers, the inference error decays geometrically with the window size.
 
-## 1) Setting and Goal
+## Setting and Goal
 
-We work with a discounted POMDP but restrict policies to **finite-state controllers (FSCs)** that keep internal memory \(Z_k\) and act from the pair \((Y_k, Z_k)\).
+We work with a discounted POMDP but restrict policies to **finite-state controllers (FSCs)** that keep internal memory $Z_k$ and act from $(Y_k, Z_k)$.
 
-- The learning objective is the best policy within a fixed FSC class \(\Pi_{Z,\varphi}\):
-\[
-\pi^\star \in \arg\max_{\pi \in \Pi_{Z,\varphi}} \; \mathcal V^\pi(\xi),
-\]
-where \(\mathcal V^\pi(\xi)\) is the \(\gamma\)-discounted value under prior \(\xi\).
+- Goal: learn the best policy within a fixed FSC class $\Pi_{Z,\varphi}$:
+  
+  $$
+  \pi^\star \in \arg\max_{\pi \in \Pi_{Z,\varphi}} \; \mathcal V^\pi(\xi),
+  $$
+  
+  where $\mathcal V^\pi(\xi)$ is the $\gamma$-discounted value under prior $\xi$.
 
-- A useful subclass is the **sliding-window controller (SWC)** with window \(n\):
-\[
-Z_k = (Y_{k-n:k-1},\, U_{k-n:k-1}) \in \mathcal Y^n \times \mathcal U^n,
-\]
-which summarizes the last \(n\) observations/actions.
+- A useful subclass is the **sliding-window controller (SWC)** with window $n$:
+  
+  $$
+  Z_k = (Y_{k-n:k-1},\; U_{k-n:k-1}) \in \mathcal Y^n \times \mathcal U^n,
+  $$
+  
+  which summarizes the last $n$ observations/actions.
 
-Quoting the policy class used in the paper, the actor is a **linear-softmax FSC**:
-\[
-\pi_\theta(u \mid y,z) = \frac{\exp\{\theta^\top \psi(u,y,z)\}}{\sum_{u'} \exp\{\theta^\top \psi(u',y,z)\}},
-\]
-with features \(\psi(u,y,z)\in\mathbb R^d\).
+The actor uses a **linear-softmax FSC**:
+$$
+\pi_\theta(u \mid y,z) = 
+\frac{\exp\{\theta^\top \psi(u,y,z)\}}
+{\sum_{u'} \exp\{\theta^\top \psi(u',y,z)\}},
+$$
+with features $\psi(u,y,z)\in\mathbb R^d$.
 
-## 2) Sampling measure (for analysis)
+## Sampling Measure (for Analysis)
 
 Let the **discounted visitation** over information states be
-\[
-d^\pi_\xi(y,z) \;=\; (1-\gamma)\,\mathbb E_{\xi}\!\left[\sum_{k\ge0}\gamma^k\,\mathbf 1\{(Y_k,Z_k)=(y,z)\}\right].
-\]
-The analysis assumes access to samples from \(d^\pi_\xi\) (a standard NAC device to match the Fisher metric).
+$$
+d^\pi_\xi(y,z)=(1-\gamma)\sum_{k\ge0}\gamma^k\,
+\Pr^\pi\!\big[(Y_k,Z_k)=(y,z)\,\big|\,H_0\sim\xi\big].
+$$
+The analysis assumes access to samples from $d^\pi_\xi$ (standard in NAC to match the Fisher metric).
 
-## 3) Algorithm Sketch (FS-NAC)
+## Algorithm Sketch (FS-NAC)
 
-1. **Critic** — run **\(m\)-step TD(0)** with linear function approximation to estimate \(\widehat{\mathcal Q}^{\pi_t}(y,z,u)\).  
-2. **Actor** — take a **natural gradient** step using the critic’s advantage estimate (projected stochastic gradient on the softmax parameters).
+1. **Critic** — run **$m$-step TD(0)** with linear function approximation to estimate $\widehat{\mathcal Q}^{\pi_t}(y,z,u)$.
+2. **Actor** — take a **natural-gradient** step using the critic’s advantage estimate.
 
 ::: callout-tip
-**Why \(m\)-step TD?** In POMDPs, single-step bootstrapping suffers from **perceptual aliasing** (same observation, different hidden states). Looking \(m\) steps ahead stabilizes the target and reduces this bias.
+**Why $m$-step TD?** In POMDPs, one-step bootstrapping suffers from **perceptual aliasing** (same observation, different hidden states). Looking $m$ steps ahead stabilizes the target and reduces this bias.
 :::
 
-## 4) Critic Guarantee (Policy Evaluation)
+## Critic Guarantee (Policy Evaluation)
 
-For step size \(\alpha=K^{-1/2}\) and parameter radius \(R\), after \(K\) critic updates:
-\[
-\mathbb E\!\left[\big\|\mathcal Q^\pi - \widehat{\mathcal Q}^\pi_K\big\|_{2,\,d^\pi_\xi\otimes \pi}\right]
+With stepsize $\alpha=K^{-1/2}$ and parameter radius $R$, after $K$ critic updates:
+$$
+\mathbb E\!\left[\big\|\mathcal Q^\pi-\widehat{\mathcal Q}^\pi_K\big\|_{2,\,d^\pi_\xi\otimes\pi}\right]
 \;\lesssim\;
-\underbrace{K^{-1/4}/(1-\gamma)}_{\text{statistical}}
-\;+\;
-\underbrace{\frac{\varepsilon_{\text{app}}(R)}{1-\gamma^m}}_{\text{approximation}}
-\;+\;
-\underbrace{\varepsilon_{\text{pa}}(\gamma,m,R)}_{\text{aliasing}},
-\]
-where \(\varepsilon_{\text{app}}(R)\) is the best linear-approximation error within radius \(R\), and the **aliasing term** contracts **geometrically**:
-\[
-\varepsilon_{\text{pa}}(\gamma,m,R)\;=\;\mathcal O\!\big(\gamma^{m/2}\,\mathrm{poly}(R,(1-\gamma)^{-1})\big).
-\]
+\underbrace{\tfrac{K^{-1/4}}{1-\gamma}}_{\text{statistical}}
++\underbrace{\tfrac{\varepsilon_{\text{app}}(R)}{1-\gamma^m}}_{\text{approximation}}
++\underbrace{\varepsilon_{\text{pa}}(\gamma,m,R)}_{\text{aliasing}},
+$$
+where $\varepsilon_{\text{app}}(R)$ is the best linear-approximation error within radius $R$, and the aliasing term contracts geometrically:
+$$
+\varepsilon_{\text{pa}}(\gamma,m,R)=\mathcal O\!\big(\gamma^{m/2}\,\mathrm{poly}(R,(1-\gamma)^{-1})\big).
+$$
 
-**Sample–accuracy trade-off.** Each update uses \(m\) samples, so total evaluation samples are \(\Theta(mK)\). Larger \(m\) → less aliasing (\(\sim \gamma^{m/2}\)) but higher sample cost.
+**Sample–accuracy trade-off.** Each update uses $m$ samples, so total evaluation samples are $\Theta(mK)$.
 
-## 5) Full Actor–Critic Performance (Finite-Time)
+## Full Actor–Critic Performance (Finite-Time)
 
-After \(T\) outer iterations (with tuned step sizes), the sub-optimality obeys
-\[
+After $T$ outer iterations (with tuned stepsizes),
+$$
 (1-\gamma)\,\min_{t<T}\mathbb E\!\big[\mathcal V^{\pi^\star}(\xi)-\mathcal V^{\pi_t}(\xi)\big]
 \;\lesssim\;
 \underbrace{T^{-1/2}}_{\text{actor optimization}}
-\;+\;
-\underbrace{\varepsilon_{\text{critic}}(K,m,R)}_{\text{TD evaluation}}
-\;+\;
-\underbrace{\varepsilon_{\text{actor}}(N,R)}_{\text{compatible approx.}}
-\;+\;
-\underbrace{\varepsilon_{\text{inf}}(\xi)}_{\text{inference (POMDP) penalty}}.
-\]
++\underbrace{\varepsilon_{\text{critic}}(K,m,R)}_{\text{TD evaluation}}
++\underbrace{\varepsilon_{\text{actor}}(N,R)}_{\text{compatible approx.}}
++\underbrace{\varepsilon_{\text{inf}}(\xi)}_{\text{inference penalty}}.
+$$
 
 The **inference error** is the price of partial observability:
-\[
+$$
 \varepsilon_{\text{inf}}(\xi)
 = \mathbb E\!\left[\sum_{k\ge0}\gamma^k
-\big\|\,b_k(\cdot)-b_0(\cdot,I_k)\,\big\|_{\mathrm{TV}}
-\right],
-\quad I_k=(Y_k,Z_k),
-\]
-i.e., the TV gap between the full-history belief and the belief computed from limited information \((Y,Z)\).
+\left\|\,b_k(\cdot)-b_0(\cdot,I_k)\,\right\|_{\mathrm{TV}}
+\right],\qquad I_k=(Y_k,Z_k).
+$$
 
-## 6) Sliding-Window Controllers (Memory vs. Accuracy)
+## Sliding-Window Controllers (Memory vs. Accuracy)
 
-Under two standard conditions (stochastic exploration **and** filter stability / minorization), the inference error **decays geometrically** with the window length \(n\):
-\[
-\varepsilon_{\text{inf}}(\xi) \;\le\; \frac{1}{1-\gamma}\;\cdot\;
+Under stochastic exploration and filter stability/minorization, the inference error **decays geometrically** with window length $n$:
+$$
+\varepsilon_{\text{inf}}(\xi)\;\le\;\frac{1}{1-\gamma}\cdot
 \mathcal O\!\Big(\rho^{\lfloor n/m_0\rfloor}\Big),
-\]
-for constants \(\rho\in(0,1)\), \(m_0\ge1\) determined by mixing. Hence, to reach tolerance \(\epsilon\), it suffices to take
-\[
-n = \mathcal O\!\big(m_0\log(1/\epsilon)\big).
-\]
+$$
+for constants $\rho\in(0,1)$ and $m_0\ge1$. To reach tolerance $\epsilon$:
+$$
+n=\mathcal O\!\big(m_0\log(1/\epsilon)\big).
+$$
 
-**Takeaway.** Increase the window \(n\) to shrink the **inference** error, and increase the TD horizon \(m\) to shrink the **aliasing** error—both with explicit geometric rates.
+## Practical Tuning
 
-## 7) Practical Tuning Cheatsheet
-
-- **TD horizon \(m\):** pick \(m=\Theta(\log_{1/\gamma}(1/\epsilon))\) to make aliasing \(\lesssim \epsilon\).  
-- **Critic steps \(K\) and actor inner steps \(N\):** \(\Theta(\epsilon^{-4})\) to control statistical error terms.  
-- **Features:** both actor and critic incur a **compatible function-approximation** term; richer features reduce it.  
-- **Window \(n\) (SWC):** grows like \(\mathcal O(\log(1/\epsilon))\) under filter stability.
-
-## 8) Perspective
-
-This work **bridges** practical FSC policies and rigorous non-asymptotic analysis in POMDPs. The decomposition into **optimization**, **evaluation**, and **inference** errors makes the trade-offs transparent: more horizon \(m\) cures aliasing; more memory \(n\) cures partial observability.
+- **TD horizon $m$:** choose $m=\Theta(\log_{1/\gamma}(1/\epsilon))$ to make aliasing $\lesssim\epsilon$.
+- **Critic steps $K$ and actor inner steps $N$:** about $\Theta(\epsilon^{-4})$.
+- **Features:** richer features shrink the compatible approximation term.
+- **Window $n$:** grows like $\mathcal O(\log(1/\epsilon))$ under filter stability.
 
 ---
+
+### Reference (already in your `references.bib`)
+```bibtex
+@article{cayci2024nac,
+  title   = {Finite-Time Analysis of Natural Actor-Critic for POMDPs},
+  author  = {Cayci, Semih and He, Niao and Srikant, R.},
+  journal = {SIAM Journal on Mathematics of Data Science},
+  year    = {2024}
+}
