@@ -3,8 +3,8 @@ project:
   output-dir: _site
 
 website:
-  title: "YOUR_NAME — Blog"
-  site-url: https://YOUR_USERNAME.github.io/
+  title: "Semih Cayci"
+  site-url: https://semihcayci.github.io/
   description: "Math-friendly blog powered by Quarto"
   navbar:
     right:
@@ -13,9 +13,9 @@ website:
       - text: About
         href: about.qmd
   page-footer:
-    left: "© 2025 YOUR_NAME"
+    left: "© 2025 Semih Cayci"
     right: "Built with Quarto"
-  repo-url: https://github.com/YOUR_USERNAME/YOUR_USERNAME.github.io
+  repo-url: https://github.com/semihcayci/semihcayci.github.io
   repo-actions: [issue]
 
 format:
