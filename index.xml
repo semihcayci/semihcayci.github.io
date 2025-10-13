@@ -12,98 +12,6 @@
 <generator>quarto-1.8.25</generator>
 <lastBuildDate>Sun, 12 Oct 2025 00:00:00 GMT</lastBuildDate>
 <item>
-  <title>Towards Provably Effective Policy Optimization for Large POMDPs</title>
-  <link>https://semihcayci.github.io/posts/2025-10-12-hello-quarto.html</link>
-  <description><![CDATA[ 
-
-
-
-
-<blockquote class="blockquote">
-<p><strong>TL;DR.</strong> The paper <span class="citation" data-cites="cayci2024nac">(Cayci, He, and Srikant 2024)</span> proves finite-time guarantees for a natural actor–critic (NAC) method in POMDPs. It learns finite-memory policies, evaluates them with an <img src="https://latex.codecogs.com/png.latex?m">-step TD critic to reduce perceptual aliasing, and gives a performance bound that separates optimization/approximation, evaluation, and inference (partial observability) errors. For sliding-window controllers, the inference error decays geometrically with the window size.</p>
-</blockquote>
-<section id="setting-and-goal" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="setting-and-goal"><span class="header-section-number">1</span> Setting and Goal</h2>
-<p>We work with a discounted POMDP but restrict policies to <strong>finite-state controllers (FSCs)</strong> that keep internal memory <img src="https://latex.codecogs.com/png.latex?Z_k"> and act from <img src="https://latex.codecogs.com/png.latex?(Y_k,%20Z_k)">.</p>
-<ul>
-<li><p>Goal: learn the best policy within a fixed FSC class <img src="https://latex.codecogs.com/png.latex?%5CPi_%7BZ,%5Cvarphi%7D">:</p>
-<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cpi%5E%5Cstar%20%5Cin%20%5Carg%5Cmax_%7B%5Cpi%20%5Cin%20%5CPi_%7BZ,%5Cvarphi%7D%7D%20%5C;%20%5Cmathcal%20V%5E%5Cpi(%5Cxi),%0A"></p>
-<p>where <img src="https://latex.codecogs.com/png.latex?%5Cmathcal%20V%5E%5Cpi(%5Cxi)"> is the <img src="https://latex.codecogs.com/png.latex?%5Cgamma">-discounted value under prior <img src="https://latex.codecogs.com/png.latex?%5Cxi">.</p></li>
-<li><p>A useful subclass is the <strong>sliding-window controller (SWC)</strong> with window <img src="https://latex.codecogs.com/png.latex?n">:</p>
-<p><img src="https://latex.codecogs.com/png.latex?%0AZ_k%20=%20(Y_%7Bk-n:k-1%7D,%5C;%20U_%7Bk-n:k-1%7D)%20%5Cin%20%5Cmathcal%20Y%5En%20%5Ctimes%20%5Cmathcal%20U%5En,%0A"></p>
-<p>which summarizes the last <img src="https://latex.codecogs.com/png.latex?n"> observations/actions.</p></li>
-</ul>
-<p>The actor uses a <strong>linear-softmax FSC</strong>: <img src="https://latex.codecogs.com/png.latex?%0A%5Cpi_%5Ctheta(u%20%5Cmid%20y,z)%20=%0A%5Cfrac%7B%5Cexp%5C%7B%5Ctheta%5E%5Ctop%20%5Cpsi(u,y,z)%5C%7D%7D%0A%7B%5Csum_%7Bu'%7D%20%5Cexp%5C%7B%5Ctheta%5E%5Ctop%20%5Cpsi(u',y,z)%5C%7D%7D,%0A"> with features <img src="https://latex.codecogs.com/png.latex?%5Cpsi(u,y,z)%5Cin%5Cmathbb%20R%5Ed">.</p>
-</section>
-<section id="sampling-measure-for-analysis" class="level2" data-number="2">
-<h2 data-number="2" class="anchored" data-anchor-id="sampling-measure-for-analysis"><span class="header-section-number">2</span> Sampling Measure (for Analysis)</h2>
-<p>Let the <strong>discounted visitation</strong> over information states be <img src="https://latex.codecogs.com/png.latex?%0Ad%5E%5Cpi_%5Cxi(y,z)=(1-%5Cgamma)%5Csum_%7Bk%5Cge0%7D%5Cgamma%5Ek%5C,%0A%5CPr%5E%5Cpi%5C!%5Cbig%5B(Y_k,Z_k)=(y,z)%5C,%5Cbig%7C%5C,H_0%5Csim%5Cxi%5Cbig%5D.%0A"> The analysis assumes access to samples from <img src="https://latex.codecogs.com/png.latex?d%5E%5Cpi_%5Cxi"> (standard in NAC to match the Fisher metric).</p>
-</section>
-<section id="algorithm-sketch-fs-nac" class="level2" data-number="3">
-<h2 data-number="3" class="anchored" data-anchor-id="algorithm-sketch-fs-nac"><span class="header-section-number">3</span> Algorithm Sketch (FS-NAC)</h2>
-<ol type="1">
-<li><strong>Critic</strong> — run <strong><img src="https://latex.codecogs.com/png.latex?m">-step TD(0)</strong> with linear function approximation to estimate <img src="https://latex.codecogs.com/png.latex?%5Cwidehat%7B%5Cmathcal%20Q%7D%5E%7B%5Cpi_t%7D(y,z,u)">.</li>
-<li><strong>Actor</strong> — take a <strong>natural-gradient</strong> step using the critic’s advantage estimate.</li>
-</ol>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Tip
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>Why <img src="https://latex.codecogs.com/png.latex?m">-step TD?</strong> In POMDPs, one-step bootstrapping suffers from <strong>perceptual aliasing</strong> (same observation, different hidden states). Looking <img src="https://latex.codecogs.com/png.latex?m"> steps ahead stabilizes the target and reduces this bias.</p>
-</div>
-</div>
-</section>
-<section id="critic-guarantee-policy-evaluation" class="level2" data-number="4">
-<h2 data-number="4" class="anchored" data-anchor-id="critic-guarantee-policy-evaluation"><span class="header-section-number">4</span> Critic Guarantee (Policy Evaluation)</h2>
-<p>With stepsize <img src="https://latex.codecogs.com/png.latex?%5Calpha=K%5E%7B-1/2%7D"> and parameter radius <img src="https://latex.codecogs.com/png.latex?R">, after <img src="https://latex.codecogs.com/png.latex?K"> critic updates: <img src="https://latex.codecogs.com/png.latex?%0A%5Cmathbb%20E%5C!%5Cleft%5B%5Cbig%5C%7C%5Cmathcal%20Q%5E%5Cpi-%5Cwidehat%7B%5Cmathcal%20Q%7D%5E%5Cpi_K%5Cbig%5C%7C_%7B2,%5C,d%5E%5Cpi_%5Cxi%5Cotimes%5Cpi%7D%5Cright%5D%0A%5C;%5Clesssim%5C;%0A%5Cunderbrace%7B%5Ctfrac%7BK%5E%7B-1/4%7D%7D%7B1-%5Cgamma%7D%7D_%7B%5Ctext%7Bstatistical%7D%7D%0A+%5Cunderbrace%7B%5Ctfrac%7B%5Cvarepsilon_%7B%5Ctext%7Bapp%7D%7D(R)%7D%7B1-%5Cgamma%5Em%7D%7D_%7B%5Ctext%7Bapproximation%7D%7D%0A+%5Cunderbrace%7B%5Cvarepsilon_%7B%5Ctext%7Bpa%7D%7D(%5Cgamma,m,R)%7D_%7B%5Ctext%7Baliasing%7D%7D,%0A"> where <img src="https://latex.codecogs.com/png.latex?%5Cvarepsilon_%7B%5Ctext%7Bapp%7D%7D(R)"> is the best linear-approximation error within radius <img src="https://latex.codecogs.com/png.latex?R">, and the aliasing term contracts geometrically: <img src="https://latex.codecogs.com/png.latex?%0A%5Cvarepsilon_%7B%5Ctext%7Bpa%7D%7D(%5Cgamma,m,R)=%5Cmathcal%20O%5C!%5Cbig(%5Cgamma%5E%7Bm/2%7D%5C,%5Cmathrm%7Bpoly%7D(R,(1-%5Cgamma)%5E%7B-1%7D)%5Cbig).%0A"></p>
-<p><strong>Sample–accuracy trade-off.</strong> Each update uses <img src="https://latex.codecogs.com/png.latex?m"> samples, so total evaluation samples are <img src="https://latex.codecogs.com/png.latex?%5CTheta(mK)">.</p>
-</section>
-<section id="full-actorcritic-performance-finite-time" class="level2" data-number="5">
-<h2 data-number="5" class="anchored" data-anchor-id="full-actorcritic-performance-finite-time"><span class="header-section-number">5</span> Full Actor–Critic Performance (Finite-Time)</h2>
-<p>After <img src="https://latex.codecogs.com/png.latex?T"> outer iterations (with tuned stepsizes), <img src="https://latex.codecogs.com/png.latex?%0A(1-%5Cgamma)%5C,%5Cmin_%7Bt%3CT%7D%5Cmathbb%20E%5C!%5Cbig%5B%5Cmathcal%20V%5E%7B%5Cpi%5E%5Cstar%7D(%5Cxi)-%5Cmathcal%20V%5E%7B%5Cpi_t%7D(%5Cxi)%5Cbig%5D%0A%5C;%5Clesssim%5C;%0A%5Cunderbrace%7BT%5E%7B-1/2%7D%7D_%7B%5Ctext%7Bactor%20optimization%7D%7D%0A+%5Cunderbrace%7B%5Cvarepsilon_%7B%5Ctext%7Bcritic%7D%7D(K,m,R)%7D_%7B%5Ctext%7BTD%20evaluation%7D%7D%0A+%5Cunderbrace%7B%5Cvarepsilon_%7B%5Ctext%7Bactor%7D%7D(N,R)%7D_%7B%5Ctext%7Bcompatible%20approx.%7D%7D%0A+%5Cunderbrace%7B%5Cvarepsilon_%7B%5Ctext%7Binf%7D%7D(%5Cxi)%7D_%7B%5Ctext%7Binference%20penalty%7D%7D.%0A"></p>
-<p>The <strong>inference error</strong> is the price of partial observability: <img src="https://latex.codecogs.com/png.latex?%0A%5Cvarepsilon_%7B%5Ctext%7Binf%7D%7D(%5Cxi)%0A=%20%5Cmathbb%20E%5C!%5Cleft%5B%5Csum_%7Bk%5Cge0%7D%5Cgamma%5Ek%0A%5Cleft%5C%7C%5C,b_k(%5Ccdot)-b_0(%5Ccdot,I_k)%5C,%5Cright%5C%7C_%7B%5Cmathrm%7BTV%7D%7D%0A%5Cright%5D,%5Cqquad%20I_k=(Y_k,Z_k).%0A"></p>
-</section>
-<section id="sliding-window-controllers-memory-vs.-accuracy" class="level2" data-number="6">
-<h2 data-number="6" class="anchored" data-anchor-id="sliding-window-controllers-memory-vs.-accuracy"><span class="header-section-number">6</span> Sliding-Window Controllers (Memory vs.&nbsp;Accuracy)</h2>
-<p>Under stochastic exploration and filter stability/minorization, the inference error <strong>decays geometrically</strong> with window length <img src="https://latex.codecogs.com/png.latex?n">: <img src="https://latex.codecogs.com/png.latex?%0A%5Cvarepsilon_%7B%5Ctext%7Binf%7D%7D(%5Cxi)%5C;%5Cle%5C;%5Cfrac%7B1%7D%7B1-%5Cgamma%7D%5Ccdot%0A%5Cmathcal%20O%5C!%5CBig(%5Crho%5E%7B%5Clfloor%20n/m_0%5Crfloor%7D%5CBig),%0A"> for constants <img src="https://latex.codecogs.com/png.latex?%5Crho%5Cin(0,1)"> and <img src="https://latex.codecogs.com/png.latex?m_0%5Cge1">. To reach tolerance <img src="https://latex.codecogs.com/png.latex?%5Cepsilon">: <img src="https://latex.codecogs.com/png.latex?%0An=%5Cmathcal%20O%5C!%5Cbig(m_0%5Clog(1/%5Cepsilon)%5Cbig).%0A"></p>
-</section>
-<section id="practical-tuning" class="level2" data-number="7">
-<h2 data-number="7" class="anchored" data-anchor-id="practical-tuning"><span class="header-section-number">7</span> Practical Tuning</h2>
-<ul>
-<li><strong>TD horizon <img src="https://latex.codecogs.com/png.latex?m">:</strong> choose <img src="https://latex.codecogs.com/png.latex?m=%5CTheta(%5Clog_%7B1/%5Cgamma%7D(1/%5Cepsilon))"> to make aliasing <img src="https://latex.codecogs.com/png.latex?%5Clesssim%5Cepsilon">.</li>
-<li><strong>Critic steps <img src="https://latex.codecogs.com/png.latex?K"> and actor inner steps <img src="https://latex.codecogs.com/png.latex?N">:</strong> about <img src="https://latex.codecogs.com/png.latex?%5CTheta(%5Cepsilon%5E%7B-4%7D)">.</li>
-<li><strong>Features:</strong> richer features shrink the compatible approximation term.</li>
-<li><strong>Window <img src="https://latex.codecogs.com/png.latex?n">:</strong> grows like <img src="https://latex.codecogs.com/png.latex?%5Cmathcal%20O(%5Clog(1/%5Cepsilon))"> under filter stability.</li>
-</ul>
-<hr>
-<section id="reference-already-in-your-references.bib" class="level3" data-number="7.1">
-<h3 data-number="7.1" class="anchored" data-anchor-id="reference-already-in-your-references.bib"><span class="header-section-number">7.1</span> Reference (already in your <code>references.bib</code>)</h3>
-<p>```bibtex <span class="citation" data-cites="article">(<strong>article?</strong>)</span>{cayci2024nac, title = {Finite-Time Analysis of Natural Actor-Critic for POMDPs}, author = {Cayci, Semih and He, Niao and Srikant, R.}, journal = {SIAM Journal on Mathematics of Data Science}, year = {2024} }</p>
-
-
-
-</section>
-</section>
-
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0">
-<div id="ref-cayci2024nac" class="csl-entry">
-Cayci, Semih, Niao He, and R. Srikant. 2024. <span>“Finite-Time Analysis of Natural Actor-Critic for POMDPs.”</span> <em>SIAM Journal on Mathematics of Data Science</em>.
-</div>
-</div></section></div> ]]></description>
-  <category>reinforcement-learning</category>
-  <category>POMDP</category>
-  <category>actor-critic</category>
-  <category>theory</category>
-  <guid>https://semihcayci.github.io/posts/2025-10-12-hello-quarto.html</guid>
-  <pubDate>Sun, 12 Oct 2025 00:00:00 GMT</pubDate>
-</item>
-<item>
   <title>Natural Policy Gradient for POMDPs – Part I: Finite-State Controllers</title>
   <link>https://semihcayci.github.io/posts/nac-for-pomdps.html</link>
   <description><![CDATA[ 
@@ -264,20 +172,7 @@ Murphy, Kevin P. 2000. <span>“A Survey of POMDP Solution Techniques.”</span>
 </thead>
 <tbody class="list">
 
-<tr data-index="0" data-categories="cmVpbmZvcmNlbWVudC1sZWFybmluZyUyQ1BPTURQJTJDYWN0b3ItY3JpdGljJTJDdGhlb3J5" data-listing-date-sort="1760227200000" data-listing-file-modified-sort="1760332612753" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="437" data-listing-title-sort="Towards Provably Effective Policy Optimization for Large POMDPs" data-listing-filename-sort="2025-10-12-hello-quarto.qmd">
-<td>
-<span class="listing-date">Oct 12, 2025</span>
-</td>
-<td>
-<a href="../posts/2025-10-12-hello-quarto.html" class="title listing-title">Towards Provably Effective Policy Optimization for Large POMDPs</a>
-</td>
-<td>
-<span class="listing-author">&nbsp;</span>
-</td>
-
-</tr>
-
-<tr data-index="1" data-categories="cmVpbmZvcmNlbWVudC1sZWFybmluZyUyQ1BPTURQJTJDYWN0b3ItY3JpdGljJTJDdGhlb3J5" data-listing-date-sort="1760227200000" data-listing-file-modified-sort="1760332612753" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="661" data-listing-title-sort="Natural Policy Gradient for POMDPs – Part I: Finite-State Controllers" data-listing-filename-sort="nac-for-pomdps.qmd">
+<tr data-index="0" data-categories="cmVpbmZvcmNlbWVudC1sZWFybmluZyUyQ1BPTURQJTJDYWN0b3ItY3JpdGljJTJDdGhlb3J5" data-listing-date-sort="1760227200000" data-listing-file-modified-sort="1760332652293" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="661" data-listing-title-sort="Natural Policy Gradient for POMDPs – Part I: Finite-State Controllers" data-listing-filename-sort="nac-for-pomdps.qmd">
 <td>
 <span class="listing-date">Oct 12, 2025</span>
 </td>
@@ -295,7 +190,7 @@ Murphy, Kevin P. 2000. <span>“A Survey of POMDP Solution Techniques.”</span>
 <div class="listing-no-matching d-none">No matching items</div>
 </div> ]]></description>
   <guid>https://semihcayci.github.io/posts/</guid>
-  <pubDate>Mon, 13 Oct 2025 05:17:11 GMT</pubDate>
+  <pubDate>Mon, 13 Oct 2025 05:17:54 GMT</pubDate>
 </item>
 </channel>
 </rss>

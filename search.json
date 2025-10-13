@@ -7,74 +7,18 @@
     "text": "Hi! I’m YOUR_NAME. This site is built with Quarto."
   },
   {
-    "objectID": "posts/2025-10-12-hello-quarto.html",
-    "href": "posts/2025-10-12-hello-quarto.html",
-    "title": "Towards Provably Effective Policy Optimization for Large POMDPs",
+    "objectID": "posts/index.html",
+    "href": "posts/index.html",
+    "title": "All Posts",
     "section": "",
-    "text": "TL;DR. The paper (Cayci, He, and Srikant 2024) proves finite-time guarantees for a natural actor–critic (NAC) method in POMDPs. It learns finite-memory policies, evaluates them with an \\(m\\)-step TD critic to reduce perceptual aliasing, and gives a performance bound that separates optimization/approximation, evaluation, and inference (partial observability) errors. For sliding-window controllers, the inference error decays geometrically with the window size."
-  },
-  {
-    "objectID": "posts/2025-10-12-hello-quarto.html#setting-and-goal",
-    "href": "posts/2025-10-12-hello-quarto.html#setting-and-goal",
-    "title": "Towards Provably Effective Policy Optimization for Large POMDPs",
-    "section": "1 Setting and Goal",
-    "text": "1 Setting and Goal\nWe work with a discounted POMDP but restrict policies to finite-state controllers (FSCs) that keep internal memory \\(Z_k\\) and act from \\((Y_k, Z_k)\\).\n\nGoal: learn the best policy within a fixed FSC class \\(\\Pi_{Z,\\varphi}\\):\n\\[\n\\pi^\\star \\in \\arg\\max_{\\pi \\in \\Pi_{Z,\\varphi}} \\; \\mathcal V^\\pi(\\xi),\n\\]\nwhere \\(\\mathcal V^\\pi(\\xi)\\) is the \\(\\gamma\\)-discounted value under prior \\(\\xi\\).\nA useful subclass is the sliding-window controller (SWC) with window \\(n\\):\n\\[\nZ_k = (Y_{k-n:k-1},\\; U_{k-n:k-1}) \\in \\mathcal Y^n \\times \\mathcal U^n,\n\\]\nwhich summarizes the last \\(n\\) observations/actions.\n\nThe actor uses a linear-softmax FSC: \\[\n\\pi_\\theta(u \\mid y,z) =\n\\frac{\\exp\\{\\theta^\\top \\psi(u,y,z)\\}}\n{\\sum_{u'} \\exp\\{\\theta^\\top \\psi(u',y,z)\\}},\n\\] with features \\(\\psi(u,y,z)\\in\\mathbb R^d\\)."
-  },
-  {
-    "objectID": "posts/2025-10-12-hello-quarto.html#sampling-measure-for-analysis",
-    "href": "posts/2025-10-12-hello-quarto.html#sampling-measure-for-analysis",
-    "title": "Towards Provably Effective Policy Optimization for Large POMDPs",
-    "section": "2 Sampling Measure (for Analysis)",
-    "text": "2 Sampling Measure (for Analysis)\nLet the discounted visitation over information states be \\[\nd^\\pi_\\xi(y,z)=(1-\\gamma)\\sum_{k\\ge0}\\gamma^k\\,\n\\Pr^\\pi\\!\\big[(Y_k,Z_k)=(y,z)\\,\\big|\\,H_0\\sim\\xi\\big].\n\\] The analysis assumes access to samples from \\(d^\\pi_\\xi\\) (standard in NAC to match the Fisher metric)."
-  },
-  {
-    "objectID": "posts/2025-10-12-hello-quarto.html#algorithm-sketch-fs-nac",
-    "href": "posts/2025-10-12-hello-quarto.html#algorithm-sketch-fs-nac",
-    "title": "Towards Provably Effective Policy Optimization for Large POMDPs",
-    "section": "3 Algorithm Sketch (FS-NAC)",
-    "text": "3 Algorithm Sketch (FS-NAC)\n\nCritic — run \\(m\\)-step TD(0) with linear function approximation to estimate \\(\\widehat{\\mathcal Q}^{\\pi_t}(y,z,u)\\).\nActor — take a natural-gradient step using the critic’s advantage estimate.\n\n\n\n\n\n\n\nTip\n\n\n\nWhy \\(m\\)-step TD? In POMDPs, one-step bootstrapping suffers from perceptual aliasing (same observation, different hidden states). Looking \\(m\\) steps ahead stabilizes the target and reduces this bias."
-  },
-  {
-    "objectID": "posts/2025-10-12-hello-quarto.html#critic-guarantee-policy-evaluation",
-    "href": "posts/2025-10-12-hello-quarto.html#critic-guarantee-policy-evaluation",
-    "title": "Towards Provably Effective Policy Optimization for Large POMDPs",
-    "section": "4 Critic Guarantee (Policy Evaluation)",
-    "text": "4 Critic Guarantee (Policy Evaluation)\nWith stepsize \\(\\alpha=K^{-1/2}\\) and parameter radius \\(R\\), after \\(K\\) critic updates: \\[\n\\mathbb E\\!\\left[\\big\\|\\mathcal Q^\\pi-\\widehat{\\mathcal Q}^\\pi_K\\big\\|_{2,\\,d^\\pi_\\xi\\otimes\\pi}\\right]\n\\;\\lesssim\\;\n\\underbrace{\\tfrac{K^{-1/4}}{1-\\gamma}}_{\\text{statistical}}\n+\\underbrace{\\tfrac{\\varepsilon_{\\text{app}}(R)}{1-\\gamma^m}}_{\\text{approximation}}\n+\\underbrace{\\varepsilon_{\\text{pa}}(\\gamma,m,R)}_{\\text{aliasing}},\n\\] where \\(\\varepsilon_{\\text{app}}(R)\\) is the best linear-approximation error within radius \\(R\\), and the aliasing term contracts geometrically: \\[\n\\varepsilon_{\\text{pa}}(\\gamma,m,R)=\\mathcal O\\!\\big(\\gamma^{m/2}\\,\\mathrm{poly}(R,(1-\\gamma)^{-1})\\big).\n\\]\nSample–accuracy trade-off. Each update uses \\(m\\) samples, so total evaluation samples are \\(\\Theta(mK)\\)."
-  },
-  {
-    "objectID": "posts/2025-10-12-hello-quarto.html#full-actorcritic-performance-finite-time",
-    "href": "posts/2025-10-12-hello-quarto.html#full-actorcritic-performance-finite-time",
-    "title": "Towards Provably Effective Policy Optimization for Large POMDPs",
-    "section": "5 Full Actor–Critic Performance (Finite-Time)",
-    "text": "5 Full Actor–Critic Performance (Finite-Time)\nAfter \\(T\\) outer iterations (with tuned stepsizes), \\[\n(1-\\gamma)\\,\\min_{t&lt;T}\\mathbb E\\!\\big[\\mathcal V^{\\pi^\\star}(\\xi)-\\mathcal V^{\\pi_t}(\\xi)\\big]\n\\;\\lesssim\\;\n\\underbrace{T^{-1/2}}_{\\text{actor optimization}}\n+\\underbrace{\\varepsilon_{\\text{critic}}(K,m,R)}_{\\text{TD evaluation}}\n+\\underbrace{\\varepsilon_{\\text{actor}}(N,R)}_{\\text{compatible approx.}}\n+\\underbrace{\\varepsilon_{\\text{inf}}(\\xi)}_{\\text{inference penalty}}.\n\\]\nThe inference error is the price of partial observability: \\[\n\\varepsilon_{\\text{inf}}(\\xi)\n= \\mathbb E\\!\\left[\\sum_{k\\ge0}\\gamma^k\n\\left\\|\\,b_k(\\cdot)-b_0(\\cdot,I_k)\\,\\right\\|_{\\mathrm{TV}}\n\\right],\\qquad I_k=(Y_k,Z_k).\n\\]"
-  },
-  {
-    "objectID": "posts/2025-10-12-hello-quarto.html#sliding-window-controllers-memory-vs.-accuracy",
-    "href": "posts/2025-10-12-hello-quarto.html#sliding-window-controllers-memory-vs.-accuracy",
-    "title": "Towards Provably Effective Policy Optimization for Large POMDPs",
-    "section": "6 Sliding-Window Controllers (Memory vs. Accuracy)",
-    "text": "6 Sliding-Window Controllers (Memory vs. Accuracy)\nUnder stochastic exploration and filter stability/minorization, the inference error decays geometrically with window length \\(n\\): \\[\n\\varepsilon_{\\text{inf}}(\\xi)\\;\\le\\;\\frac{1}{1-\\gamma}\\cdot\n\\mathcal O\\!\\Big(\\rho^{\\lfloor n/m_0\\rfloor}\\Big),\n\\] for constants \\(\\rho\\in(0,1)\\) and \\(m_0\\ge1\\). To reach tolerance \\(\\epsilon\\): \\[\nn=\\mathcal O\\!\\big(m_0\\log(1/\\epsilon)\\big).\n\\]"
-  },
-  {
-    "objectID": "posts/2025-10-12-hello-quarto.html#practical-tuning",
-    "href": "posts/2025-10-12-hello-quarto.html#practical-tuning",
-    "title": "Towards Provably Effective Policy Optimization for Large POMDPs",
-    "section": "7 Practical Tuning",
-    "text": "7 Practical Tuning\n\nTD horizon \\(m\\): choose \\(m=\\Theta(\\log_{1/\\gamma}(1/\\epsilon))\\) to make aliasing \\(\\lesssim\\epsilon\\).\nCritic steps \\(K\\) and actor inner steps \\(N\\): about \\(\\Theta(\\epsilon^{-4})\\).\nFeatures: richer features shrink the compatible approximation term.\nWindow \\(n\\): grows like \\(\\mathcal O(\\log(1/\\epsilon))\\) under filter stability.\n\n\n\n7.1 Reference (already in your references.bib)\n```bibtex (article?){cayci2024nac, title = {Finite-Time Analysis of Natural Actor-Critic for POMDPs}, author = {Cayci, Semih and He, Niao and Srikant, R.}, journal = {SIAM Journal on Mathematics of Data Science}, year = {2024} }"
+    "text": "Order By\n      Default\n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Title\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nDate\n\n\n\nTitle\n\n\n\nAuthor\n\n\n\n\n\n\n\n\nOct 12, 2025\n\n\nNatural Policy Gradient for POMDPs – Part I: Finite-State Controllers\n\n\n \n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Home",
     "section": "",
-    "text": "On this page, I will share some of my recent research interests in an informal way. For any questions, you can contact me by email.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAll Posts\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTowards Provably Effective Policy Optimization for Large POMDPs\n\n\nNatural actor–critic for POMDPs.\n\n\n\n\n\nOct 12, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nNatural Policy Gradient for POMDPs – Part I: Finite-State Controllers\n\n\nNatural actor–critic with finite-state controllers for POMDPs.\n\n\n\n\n\nOct 12, 2025\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "posts/index.html",
-    "href": "posts/index.html",
-    "title": "All Posts",
-    "section": "",
-    "text": "Order By\n      Default\n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Title\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nDate\n\n\n\nTitle\n\n\n\nAuthor\n\n\n\n\n\n\n\n\nOct 12, 2025\n\n\nTowards Provably Effective Policy Optimization for Large POMDPs\n\n\n \n\n\n\n\n\n\nOct 12, 2025\n\n\nNatural Policy Gradient for POMDPs – Part I: Finite-State Controllers\n\n\n \n\n\n\n\n\n\nNo matching items"
+    "text": "On this page, I will share some of my recent research interests in an informal way. For any questions, you can contact me by email.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAll Posts\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNatural Policy Gradient for POMDPs – Part I: Finite-State Controllers\n\n\nNatural actor–critic with finite-state controllers for POMDPs.\n\n\n\n\n\nOct 12, 2025\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/nac-for-pomdps.html",

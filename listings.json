@@ -1,16 +1,14 @@
 [
   {
-    "listing": "/index.html",
+    "listing": "/posts/index.html",
     "items": [
-      "/posts/index.html",
-      "/posts/2025-10-12-hello-quarto.html",
       "/posts/nac-for-pomdps.html"
     ]
   },
   {
-    "listing": "/posts/index.html",
+    "listing": "/index.html",
     "items": [
-      "/posts/2025-10-12-hello-quarto.html",
+      "/posts/index.html",
       "/posts/nac-for-pomdps.html"
     ]
   }
