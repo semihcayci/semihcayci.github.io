@@ -232,7 +232,7 @@ R_k=r(S_k,A_k),
 \mathcal V^\pi(\xi)=\mathbb E_\xi^\pi\!\left[\sum_{k\ge0}\gamma^k\,r(S_k,A_k)\right].
 \]</span></p>
 <p><strong>Why challenging?</strong><br>
-Partial observability implies that the optimal policy <span class="math inline">\(\pi^\star=(\pi_0^\star,\pi_1^\star,\ldots)\)</span> is non-stationary, therefore <span class="math inline">\(\pi_k^\star\)</span> depends on the complete trajectory <span class="math inline">\((Y_{0:k},A_{0:k-1})\)</span> for each <span class="math inline">\(k\in\mathbb N\)</span> via the Bayes belief <span class="math inline">\(b_k(s)=\Pr(S_k=s\mid H_k)\)</span>. A classical result attributed to [astrom1965] shows that a POMDP can be formulated as an MDP with a distribution-valued state <span class="math inline">\(b_k\)</span>. However, since the state-space for this induced MDP is huge (remember that it is a probability simplex over <span class="math inline">\(\mathcal S\)</span>), the conventional RL tools is highly impractical to solve POMDPs via this belief-MDP formulation. An alternative and more elegant idea is to incorporate memory into the policies [murphy2000survey]. Suppose that we have an internal state <span class="math inline">\(Z_k\)</span>, which summarizes/compresses <span class="math inline">\((Y_{0:k-1},A_{0:k-1})\)</span> for each <span class="math inline">\(k\)</span>. The idea is to use a parametric policy <span class="math inline">\(\pi_k(\cdot\mid Y_k, Z_k)\)</span> based on the internal state <span class="math inline">\(Z_k\)</span>.</p>
+Partial observability implies that the optimal policy <span class="math inline">\(\pi^\star=(\pi_0^\star,\pi_1^\star,\ldots)\)</span> is non-stationary, therefore <span class="math inline">\(\pi_k^\star\)</span> depends on the complete trajectory <span class="math inline">\((Y_{0:k},A_{0:k-1})\)</span> for each <span class="math inline">\(k\in\mathbb N\)</span> via the Bayes belief <span class="math inline">\(b_k(s)=\Pr(S_k=s\mid H_k)\)</span>. A classical result attributed to <span class="citation" data-cites="astrom1965">(<a href="#ref-astrom1965" role="doc-biblioref">Åström 1965</a>)</span> shows that a POMDP can be formulated as an MDP with a distribution-valued state <span class="math inline">\(b_k\)</span>. However, since the state-space for this induced MDP is huge (remember that it is a probability simplex over <span class="math inline">\(\mathcal S\)</span>), the conventional RL tools is highly impractical to solve POMDPs via this belief-MDP formulation. An alternative and more elegant idea is to incorporate memory into the policies <span class="citation" data-cites="murphy2000survey">(<a href="#ref-murphy2000survey" role="doc-biblioref">Murphy 2000</a>)</span>. Suppose that we have an internal state <span class="math inline">\(Z_k\)</span>, which summarizes/compresses <span class="math inline">\((Y_{0:k-1},A_{0:k-1})\)</span> for each <span class="math inline">\(k\)</span>. The idea is to use a parametric policy <span class="math inline">\(\pi_k(\cdot\mid Y_k, Z_k)\)</span> based on the internal state <span class="math inline">\(Z_k\)</span>.</p>
 </section>
 <section id="setting-and-goal" class="level2" data-number="2">
 <h2 data-number="2" class="anchored" data-anchor-id="setting-and-goal"><span class="header-section-number">2</span> Setting and Goal</h2>
@@ -246,7 +246,7 @@ Partial observability implies that the optimal policy <span class="math inline">
 <p><span class="math display">\[
 Z_k = (Y_{k-n:k-1},\; A_{k-n:k-1}) \in \mathcal Y^n \times \mathcal A^n,
 \]</span></p>
-<p>which summarizes the last <span class="math inline">\(n\)</span> observations/actions.</p></li>
+<p>which summarizes the last <span class="math inline">\(n\)</span> observations/actions, where <span class="math inline">\(n\)</span> is a design parameter that governs the tradeoff between memory complexity and optimality in solving POMDPs.</p></li>
 </ul>
 <p>The actor uses a <strong>linear-softmax FSC</strong>: <span class="math display">\[
 \pi_\theta(a \mid y,z) =
@@ -260,8 +260,8 @@ Z_{k+1}=\varphi(Z_k, Y_{k+1}, A_k).
 <h2 data-number="3" class="anchored" data-anchor-id="sampling-measure"><span class="header-section-number">3</span> Sampling Measure</h2>
 <p>Let the <strong>discounted visitation distribution</strong> over information states be <span class="math display">\[
 d^\pi_\xi(y,z)=(1-\gamma)\sum_{k\ge0}\gamma^k\,
-\Pr^\pi\!\big[(Y_k,Z_k)=(y,z)\,\big|\,H_0\sim\xi\big].
-\]</span> The analysis assumes access to samples from <span class="math inline">\(d^\pi_\xi\)</span> (standard in NAC to match the Fisher metric).</p>
+P^\pi\!\big[(Y_k,Z_k)=(y,z)\,\big|\,H_0\sim\xi\big].
+\]</span></p>
 </section>
 <section id="algorithm-sketch-fs-nac" class="level2" data-number="4">
 <h2 data-number="4" class="anchored" data-anchor-id="algorithm-sketch-fs-nac"><span class="header-section-number">4</span> Algorithm Sketch (FS-NAC)</h2>
@@ -286,7 +286,7 @@ Tip
 <section id="critic-guarantee-policy-evaluation" class="level2" data-number="5">
 <h2 data-number="5" class="anchored" data-anchor-id="critic-guarantee-policy-evaluation"><span class="header-section-number">5</span> Critic Guarantee (Policy Evaluation)</h2>
 <p>With stepsize <span class="math inline">\(\alpha=K^{-1/2}\)</span> and parameter radius <span class="math inline">\(R\)</span>, after <span class="math inline">\(K\)</span> critic updates: <span class="math display">\[
-\mathbb E\!\left[\big\|\mathcal Q^\pi-\widehat{\mathcal Q}^\pi_K\big\|_{2,\,d^\pi_\xi\otimes\pi}\right]
+\sqrt{\mathbb E\!\left[\big\|\mathcal Q^\pi-\widehat{\mathcal Q}^\pi_K\big\|^2_{\,d^\pi_\xi\otimes\pi}\right]}
 \;\lesssim\;
 \underbrace{\tfrac{K^{-1/4}}{1-\gamma}}_{\text{statistical}}
 +\underbrace{\tfrac{\varepsilon_{\text{app}}(R)}{1-\gamma^m}}_{\text{approximation}}
@@ -341,8 +341,14 @@ n=\mathcal O\!\big(m_0\log(1/\epsilon)\big).
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-astrom1965" class="csl-entry" role="listitem">
+Åström, Karl J. 1965. <span>“Optimal Control of Markov Processes with Incomplete State Information i.”</span> <em>Journal of Mathematical Analysis and Applications</em> 10 (1): 174–205. <a href="https://doi.org/10.1016/0022-247X(65)90154-X">https://doi.org/10.1016/0022-247X(65)90154-X</a>.
+</div>
 <div id="ref-cayci2024nac" class="csl-entry" role="listitem">
 Cayci, Semih, Niao He, and R. Srikant. 2024. <span>“Finite-Time Analysis of Natural Actor-Critic for POMDPs.”</span> <em>SIAM Journal on Mathematics of Data Science</em>.
+</div>
+<div id="ref-murphy2000survey" class="csl-entry" role="listitem">
+Murphy, Kevin P. 2000. <span>“A Survey of POMDP Solution Techniques.”</span> <em>Environment</em> 2 (10).
 </div>
 </div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
