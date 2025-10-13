@@ -7,11 +7,11 @@ toc: true
 draft: false
 ---
 
-> **TL;DR.** In [@cayci2024nac], we studied a natural actor–critic (NAC) method in POMDPs. It learns finite-memory policies, evaluates them with an $m$-step TD critic to reduce perceptual aliasing, and gives a performance bound that separates optimization/approximation, evaluation, and inference (partial observability) errors. For sliding-window controllers, the inference error decays geometrically with the window size under certain ergodicity conditions.
+> **TL;DR.** In [@cayci2024nac], we studied a natural actor–critic (NAC) method in POMDPs. Critic uses $m$-step TD learning to mitigate perceptual aliasing and the actor uses an internal state to incorporate memory. We establish non-asymptotic bounds for optimization/approximation, evaluation, and inference (partial observability) errors. For sliding-window controllers, the inference error decays geometrically with the window size under certain ergodicity conditions.
 
 ## Formal POMDP model
 
-We consider a discounted POMDP
+Let us consider a discounted POMDP
 $$
 \mathcal{M}=\big(\mathcal S,\mathcal A,\mathcal Y,\; P,\; O,\; r,\; \gamma\big),
 $$
@@ -23,7 +23,7 @@ with:
 - observation kernel $\Phi(y \mid s')$ (can depend on $a$ in general),
 - reward $r(s,a)\in[0,1]$ (w.l.o.g.),
 - discount factor $\gamma\in(0,1)$.
-For the sake of simplicity, let us consider finite $\mathcal S, \mathcal Y, \mathcal A$. The generative process is
+To avoid measure-theoretic concerns, let us consider finite $\mathcal S, \mathcal Y, \mathcal A$. These simplifications can later be relaxed, but the problem itself is quite challenging; thus we need to avoid clutter as much as possible. The generative process is
 $$
 S_{k+1}\sim P(\cdot\mid S_k,A_k),\qquad
 Y_{k}\sim \Phi(\cdot\mid S_k),\qquad
@@ -35,11 +35,11 @@ $$
 $$
 
 **Why challenging?**  
-Partial observability implies that the optimal policy $\pi^\star=(\pi_0^\star,\pi_1^\star,\ldots)$ is non-stationary, therefore $\pi_k^\star$ depends on the complete trajectory $(Y_{0:k},A_{0:k-1})$ for each $k\in\mathbb N$ via the Bayes belief $b_k(s)=\Pr(S_k=s\mid H_k)$. A classical result attributed to [@astrom1965] shows that a POMDP can be formulated as an MDP with a distribution-valued state $b_k$. However, since the state-space for this induced MDP is huge (remember that it is a probability simplex over $\mathcal S$), the conventional RL tools is highly impractical to solve POMDPs via this belief-MDP formulation. An alternative and more elegant idea is to incorporate memory into the policies [@murphy2000survey]. Suppose that we have an internal state $Z_k$, which summarizes/compresses $(Y_{0:k-1},A_{0:k-1})$ for each $k$. The idea is to use a parametric policy $\pi_k(\cdot\mid Y_k, Z_k)$ based on the internal state $Z_k$.
+Partial observability implies that the optimal policy $\pi^\star=(\pi_0^\star,\pi_1^\star,\ldots)$ is non-stationary, therefore $\pi_k^\star$ depends on the complete trajectory $(Y_{0:k},A_{0:k-1})$ for each $k\in\mathbb N$ via the Bayes belief $b_k(s)=\Pr(S_k=s\mid H_k)$. A classical result attributed to [@astrom1965] (see [@yuksel2025another] for further information) shows that a POMDP can be formulated as an MDP with a distribution-valued state $b_k$. However, since the state-space for this induced MDP is huge (remember that it is a probability simplex over $\mathcal S$), the conventional RL tools is highly impractical to solve POMDPs via this belief-MDP formulation. An alternative and more elegant idea is to incorporate memory into the policies [@murphy2000survey] and design/adapt RL algorithms enriched with this memory structure. Suppose that we have an internal state $Z_k$, which summarizes/compresses $(Y_{0:k-1},A_{0:k-1})$ for each $k$. The idea is to use a parametric policy $\pi_k(\cdot\mid Y_k, Z_k)$ based on the internal state $Z_k$.
 
 ## Setting and Goal
 
-At first, we restrict policies to **finite-state controllers (FSCs)** that keep internal memory $Z_k$ and act from $(Y_k, Z_k)$.
+At first, we restrict policies to **finite-state controllers (FSCs)** that keep internal memory $Z_k$ and act from $(Y_k, Z_k)$. The internal memory is updated in a Markovian way: $Z_{k+1}~\varphi(\cdot\mid z_k, y_k, a_k)$ given $Z_k=z_k,Y_k=y_k,A_k=a_k$.
 
 - Learn the best policy within a fixed FSC class $\Pi_{Z,\varphi}$:
   
