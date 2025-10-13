@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2025-10-12">
+<meta name="description" content="Finite-time guarantees for natural actor–critic with m-step TD and sliding-window controllers.">
 
-<title>Home – Semih Cayci — Blog</title>
+<title>Finite-Time NAC in POMDPs — A Mathy, Friendly Summary – Semih Cayci — Blog</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,29 +22,47 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-355c415dd6b9922ddaf04a2341011fe1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-355c415dd6b9922ddaf04a2341011fe1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -70,35 +90,6 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -130,7 +121,7 @@ window.Quarto = {
 };
 </script>
 
-<link rel="alternate" type="application/rss+xml" title="Semih Cayci — Blog" href="index.xml" data-external="1"></head>
+</head>
 
 <body class="nav-fixed quarto-light">
 
@@ -139,9 +130,9 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
     </a>
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Semih Cayci — Blog</span>
     </a>
   </div>
@@ -152,11 +143,11 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./posts/index.html"> 
+    <a class="nav-link" href="../posts/index.html"> 
 <span class="menu-text">Posts</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
 </ul>
@@ -170,22 +161,53 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#formal-pomdp-model-and-why-its-hard" id="toc-formal-pomdp-model-and-why-its-hard" class="nav-link active" data-scroll-target="#formal-pomdp-model-and-why-its-hard"><span class="header-section-number">1</span> Formal POMDP model (and why it’s hard)</a></li>
+  <li><a href="#setting-and-goal" id="toc-setting-and-goal" class="nav-link" data-scroll-target="#setting-and-goal"><span class="header-section-number">2</span> Setting and Goal</a></li>
+  <li><a href="#sampling-measure-for-analysis" id="toc-sampling-measure-for-analysis" class="nav-link" data-scroll-target="#sampling-measure-for-analysis"><span class="header-section-number">3</span> Sampling Measure (for Analysis)</a></li>
+  <li><a href="#algorithm-sketch-fs-nac" id="toc-algorithm-sketch-fs-nac" class="nav-link" data-scroll-target="#algorithm-sketch-fs-nac"><span class="header-section-number">4</span> Algorithm Sketch (FS-NAC)</a></li>
+  <li><a href="#critic-guarantee-policy-evaluation" id="toc-critic-guarantee-policy-evaluation" class="nav-link" data-scroll-target="#critic-guarantee-policy-evaluation"><span class="header-section-number">5</span> Critic Guarantee (Policy Evaluation)</a></li>
+  <li><a href="#full-actorcritic-performance-finite-time" id="toc-full-actorcritic-performance-finite-time" class="nav-link" data-scroll-target="#full-actorcritic-performance-finite-time"><span class="header-section-number">6</span> Full Actor–Critic Performance (Finite-Time)</a></li>
+  <li><a href="#sliding-window-controllers-memory-vs.-accuracy" id="toc-sliding-window-controllers-memory-vs.-accuracy" class="nav-link" data-scroll-target="#sliding-window-controllers-memory-vs.-accuracy"><span class="header-section-number">7</span> Sliding-Window Controllers (Memory vs.&nbsp;Accuracy)</a></li>
+  <li><a href="#practical-tuning" id="toc-practical-tuning" class="nav-link" data-scroll-target="#practical-tuning"><span class="header-section-number">8</span> Practical Tuning</a></li>
+  <li><a href="#whats-next-rnn-based-nac-for-pomdps" id="toc-whats-next-rnn-based-nac-for-pomdps" class="nav-link" data-scroll-target="#whats-next-rnn-based-nac-for-pomdps"><span class="header-section-number">9</span> What’s next: RNN-based NAC for POMDPs</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Home</h1>
-</div>
+<h1 class="title">Finite-Time NAC in POMDPs — A Mathy, Friendly Summary</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">reinforcement-learning</div>
+    <div class="quarto-category">POMDP</div>
+    <div class="quarto-category">actor-critic</div>
+    <div class="quarto-category">theory</div>
+  </div>
+  </div>
 
+<div>
+  <div class="description">
+    Finite-time guarantees for natural actor–critic with m-step TD and sliding-window controllers.
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
 
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 12, 2025</p>
+    </div>
+  </div>
   
     
   </div>
@@ -195,108 +217,135 @@ window.Quarto = {
 </header>
 
 
-<p>Welcome! This is your Quarto site on GitHub Pages.</p>
-<ul>
-<li>Write math with <code>$e^{i\pi}+1=0$</code> or display blocks:</li>
-</ul>
-<p><span class="math display">\[
-\int_0^1 x^2\,dx = \frac{1}{3}.
+<blockquote class="blockquote">
+<p><strong>TL;DR.</strong> The paper <span class="citation" data-cites="cayci2024nac">(<a href="#ref-cayci2024nac" role="doc-biblioref">Cayci, He, and Srikant 2024</a>)</span> proves finite-time guarantees for a natural actor–critic (NAC) method in POMDPs. It learns finite-memory policies, evaluates them with an <span class="math inline">\(m\)</span>-step TD critic to reduce perceptual aliasing, and gives a performance bound that separates optimization/approximation, evaluation, and inference (partial observability) errors. For sliding-window controllers, the inference error decays geometrically with the window size.</p>
+</blockquote>
+<section id="formal-pomdp-model-and-why-its-hard" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="formal-pomdp-model-and-why-its-hard"><span class="header-section-number">1</span> Formal POMDP model (and why it’s hard)</h2>
+<p>We consider a discounted POMDP <span class="math display">\[
+\mathcal{M}=\big(\mathcal S,\mathcal A,\mathcal Y,\; P,\; O,\; r,\; \gamma,\; \xi\big),
+\]</span> with: - latent state <span class="math inline">\(S_k\in\mathcal S\)</span>, - action <span class="math inline">\(A_k\in\mathcal A\)</span>, - observation <span class="math inline">\(Y_k\in\mathcal Y\)</span>, - transition kernel <span class="math inline">\(P(\mathrm d s' \mid s,a)\)</span>, - observation kernel <span class="math inline">\(O(\mathrm d y \mid s')\)</span> (can depend on <span class="math inline">\(a\)</span> in general), - reward <span class="math inline">\(r(s,a)\in[0,1]\)</span> (w.l.o.g.), - discount <span class="math inline">\(\gamma\in(0,1)\)</span> and prior <span class="math inline">\(\xi\)</span> over <span class="math inline">\(S_0\)</span>.</p>
+<p>The generative process is <span class="math display">\[
+S_{k+1}\sim P(\cdot\mid S_k,A_k),\qquad
+Y_{k}\sim O(\cdot\mid S_k),\qquad
+R_k=r(S_k,A_k),
+\]</span> and the goal is to maximize <span class="math display">\[
+\mathcal V^\pi(\xi)=\mathbb E_\xi^\pi\!\left[\sum_{k\ge0}\gamma^k\,r(S_k,A_k)\right].
 \]</span></p>
+<p><strong>Why challenging?</strong><br>
+Partial observability means the optimal <span class="math inline">\(A_k\)</span> depends on the <strong>entire history</strong> <span class="math inline">\(H_k=(Y_{0:k},A_{0:k-1})\)</span> via the Bayes belief <span class="math inline">\(b_k(s)=\Pr(S_k=s\mid H_k)\)</span>. Working exactly in belief space yields a continuous, often high-dimensional MDP; with function approximation, <strong>perceptual aliasing</strong> (same <span class="math inline">\(Y_k\)</span>, different <span class="math inline">\(S_k\)</span>) biases TD targets. The paper sidesteps this by learning <strong>finite-memory controllers</strong> and using <strong><span class="math inline">\(m\)</span>-step TD</strong> to reduce aliasing.</p>
+</section>
+<section id="setting-and-goal" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="setting-and-goal"><span class="header-section-number">2</span> Setting and Goal</h2>
+<p>We restrict policies to <strong>finite-state controllers (FSCs)</strong> that keep internal memory <span class="math inline">\(Z_k\)</span> and act from <span class="math inline">\((Y_k, Z_k)\)</span>.</p>
 <ul>
-<li>Add citations by including a <code>references.bib</code> file and putting <code>bibliography: references.bib</code> in the post front matter.</li>
+<li><p>Learn the best policy within a fixed FSC class <span class="math inline">\(\Pi_{Z,\varphi}\)</span>:</p>
+<p><span class="math display">\[
+\pi^\star \in \arg\max_{\pi \in \Pi_{Z,\varphi}} \; \mathcal V^\pi(\xi).
+\]</span></p></li>
+<li><p>A useful subclass is the <strong>sliding-window controller (SWC)</strong> with window <span class="math inline">\(n\)</span>:</p>
+<p><span class="math display">\[
+Z_k = (Y_{k-n:k-1},\; A_{k-n:k-1}) \in \mathcal Y^n \times \mathcal A^n,
+\]</span></p>
+<p>which summarizes the last <span class="math inline">\(n\)</span> observations/actions.</p></li>
 </ul>
-<p>👉 New posts go in the <code>posts/</code> folder as <code>.qmd</code> files.</p>
+<p>The actor uses a <strong>linear-softmax FSC</strong>: <span class="math display">\[
+\pi_\theta(a \mid y,z) =
+\frac{\exp\{\theta^\top \psi(a,y,z)\}}
+{\sum_{a'} \exp\{\theta^\top \psi(a',y,z)\}},
+\]</span> with features <span class="math inline">\(\psi(a,y,z)\in\mathbb R^d\)</span>. The controller memory updates via some <span class="math inline">\(\varphi\)</span>: <span class="math display">\[
+Z_{k+1}=\varphi(Z_k, Y_{k+1}, A_k).
+\]</span></p>
+</section>
+<section id="sampling-measure-for-analysis" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="sampling-measure-for-analysis"><span class="header-section-number">3</span> Sampling Measure (for Analysis)</h2>
+<p>Let the <strong>discounted visitation</strong> over information states be <span class="math display">\[
+d^\pi_\xi(y,z)=(1-\gamma)\sum_{k\ge0}\gamma^k\,
+\Pr^\pi\!\big[(Y_k,Z_k)=(y,z)\,\big|\,H_0\sim\xi\big].
+\]</span> The analysis assumes access to samples from <span class="math inline">\(d^\pi_\xi\)</span> (standard in NAC to match the Fisher metric).</p>
+</section>
+<section id="algorithm-sketch-fs-nac" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="algorithm-sketch-fs-nac"><span class="header-section-number">4</span> Algorithm Sketch (FS-NAC)</h2>
+<ol type="1">
+<li><strong>Critic</strong> — run <strong><span class="math inline">\(m\)</span>-step TD(0)</strong> with linear function approximation to estimate <span class="math inline">\(\widehat{\mathcal Q}^{\pi_t}(y,z,a)\)</span>.</li>
+<li><strong>Actor</strong> — take a <strong>natural-gradient</strong> step using the critic’s advantage estimate.</li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Why <span class="math inline">\(m\)</span>-step TD?</strong> In POMDPs, one-step bootstrapping suffers from <strong>perceptual aliasing</strong> (same observation <span class="math inline">\(Y_k\)</span>, different latent state <span class="math inline">\(S_k\)</span>). Looking <span class="math inline">\(m\)</span> steps ahead stabilizes the target and reduces this bias.</p>
+</div>
+</div>
+</section>
+<section id="critic-guarantee-policy-evaluation" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="critic-guarantee-policy-evaluation"><span class="header-section-number">5</span> Critic Guarantee (Policy Evaluation)</h2>
+<p>With stepsize <span class="math inline">\(\alpha=K^{-1/2}\)</span> and parameter radius <span class="math inline">\(R\)</span>, after <span class="math inline">\(K\)</span> critic updates: <span class="math display">\[
+\mathbb E\!\left[\big\|\mathcal Q^\pi-\widehat{\mathcal Q}^\pi_K\big\|_{2,\,d^\pi_\xi\otimes\pi}\right]
+\;\lesssim\;
+\underbrace{\tfrac{K^{-1/4}}{1-\gamma}}_{\text{statistical}}
++\underbrace{\tfrac{\varepsilon_{\text{app}}(R)}{1-\gamma^m}}_{\text{approximation}}
++\underbrace{\varepsilon_{\text{pa}}(\gamma,m,R)}_{\text{aliasing}},
+\]</span> where <span class="math inline">\(\varepsilon_{\text{app}}(R)\)</span> is the best linear-approximation error within radius <span class="math inline">\(R\)</span>, and the aliasing term contracts geometrically: <span class="math display">\[
+\varepsilon_{\text{pa}}(\gamma,m,R)=\mathcal O\!\big(\gamma^{m/2}\,\mathrm{poly}(R,(1-\gamma)^{-1})\big).
+\]</span></p>
+<p><strong>Sample–accuracy trade-off.</strong> Each update uses <span class="math inline">\(m\)</span> samples, so total evaluation samples are <span class="math inline">\(\Theta(mK)\)</span>.</p>
+</section>
+<section id="full-actorcritic-performance-finite-time" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="full-actorcritic-performance-finite-time"><span class="header-section-number">6</span> Full Actor–Critic Performance (Finite-Time)</h2>
+<p>After <span class="math inline">\(T\)</span> outer iterations (with tuned stepsizes), <span class="math display">\[
+(1-\gamma)\,\min_{t&lt;T}\mathbb E\!\big[\mathcal V^{\pi^\star}(\xi)-\mathcal V^{\pi_t}(\xi)\big]
+\;\lesssim\;
+\underbrace{T^{-1/2}}_{\text{actor optimization}}
++\underbrace{\varepsilon_{\text{critic}}(K,m,R)}_{\text{TD evaluation}}
++\underbrace{\varepsilon_{\text{actor}}(N,R)}_{\text{compatible approx.}}
++\underbrace{\varepsilon_{\text{inf}}(\xi)}_{\text{inference penalty}}.
+\]</span></p>
+<p>The <strong>inference error</strong> is the price of partial observability: <span class="math display">\[
+\varepsilon_{\text{inf}}(\xi)
+= \mathbb E\!\left[\sum_{k\ge0}\gamma^k
+\left\|\,b_k(\cdot)-b_0(\cdot,I_k)\,\right\|_{\mathrm{TV}}
+\right],\qquad I_k=(Y_k,Z_k).
+\]</span></p>
+</section>
+<section id="sliding-window-controllers-memory-vs.-accuracy" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="sliding-window-controllers-memory-vs.-accuracy"><span class="header-section-number">7</span> Sliding-Window Controllers (Memory vs.&nbsp;Accuracy)</h2>
+<p>Under stochastic exploration and filter stability/minorization, the inference error <strong>decays geometrically</strong> with window length <span class="math inline">\(n\)</span>: <span class="math display">\[
+\varepsilon_{\text{inf}}(\xi)\;\le\;\frac{1}{1-\gamma}\cdot
+\mathcal O\!\Big(\rho^{\lfloor n/m_0\rfloor}\Big),
+\]</span> for constants <span class="math inline">\(\rho\in(0,1)\)</span> and <span class="math inline">\(m_0\ge1\)</span>. To reach tolerance <span class="math inline">\(\epsilon\)</span>: <span class="math display">\[
+n=\mathcal O\!\big(m_0\log(1/\epsilon)\big).
+\]</span></p>
+</section>
+<section id="practical-tuning" class="level2" data-number="8">
+<h2 data-number="8" class="anchored" data-anchor-id="practical-tuning"><span class="header-section-number">8</span> Practical Tuning</h2>
+<ul>
+<li><strong>TD horizon <span class="math inline">\(m\)</span>:</strong> choose <span class="math inline">\(m=\Theta(\log_{1/\gamma}(1/\epsilon))\)</span> to make aliasing <span class="math inline">\(\lesssim\epsilon\)</span>.</li>
+<li><strong>Critic steps <span class="math inline">\(K\)</span> and actor inner steps <span class="math inline">\(N\)</span>:</strong> about <span class="math inline">\(\Theta(\epsilon^{-4})\)</span>.</li>
+<li><strong>Features:</strong> richer features shrink the compatible approximation term.</li>
+<li><strong>Window <span class="math inline">\(n\)</span>:</strong> grows like <span class="math inline">\(\mathcal O(\log(1/\epsilon))\)</span> under filter stability.</li>
+</ul>
+</section>
+<section id="whats-next-rnn-based-nac-for-pomdps" class="level2" data-number="9">
+<h2 data-number="9" class="anchored" data-anchor-id="whats-next-rnn-based-nac-for-pomdps"><span class="header-section-number">9</span> What’s next: RNN-based NAC for POMDPs</h2>
+<p>A natural extension replaces the hand-engineered memory <span class="math inline">\(Z_k\)</span> with a <strong>recurrent hidden state</strong> <span class="math inline">\(H_k\)</span> learned end-to-end (RNN-based NAC). The policy becomes <span class="math inline">\(\pi_\theta(a\mid Y_k, H_k)\)</span> with <span class="math inline">\(H_{k+1}=f_\theta(H_k,Y_{k+1},A_k)\)</span>, and the natural-gradient machinery is adapted to the recurrent parameterization. I’ll cover how this compares to FSCs (sample complexity vs.&nbsp;representation power, and how partial-observability error shows up) in a follow-up post about our <strong>RNN-based natural actor–critic</strong> paper.</p>
+<hr>
 
 
 
+</section>
 
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-listing-file-modified-sort="1760330237353" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
-<div class="thumbnail"><a href="./posts/index.html" class="no-external">
-
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/index.html" class="no-external">All Posts</a>
-</h3>
-<div class="delink listing-description"><a href="./posts/index.html" class="no-external">
-
-<div class="listing-actions-group">
-   <div class="input-group input-group-sm quarto-listing-sort">
-    <span class="input-group-text"><i class="bi bi-sort-down"></i></span>
-    <select id="listing-listing-sort" class="form-select" aria-label="Order By" onchange="window['quarto-listings']['listing-listing'].sort(this.options[this.selectedIndex].value, { order: this.options[this.selectedIndex].getAttribute('data-direction')})">
-      <option value="" disabled="" selected="" hidden="">Order By</option>
-      <option value="index" data-direction="asc">Default</option>
-      <option value="listing-date-sort" data-direction="asc">
-        Date - Oldest
-      </option>
-      <option value="listing-date-sort" data-direction="desc">
-        Date - Newest
-      </option>
-      <option value="listing-title-sort" data-direction="asc">
-        Title
-      </option>
-      <option value="listing-author" data-direction="asc">
-        Author
-      </option>
-…</select></div><div class="input-group input-group-sm quarto-listing-filter"><span class="input-group-text"><i class="bi bi-search"></i></span><input type="text" class="search form-control" placeholder="Filter"></div></div><table class="quarto-listing-table table"><thead><tr><th></th><th></th><th></th></tr></thead><tbody class="list"><tr data-index="0" data-categories="cmVpbmZvcmNlbWVudC1sZWFybmluZyUyQ1BPTURQJTJDYWN0b3ItY3JpdGljJTJDdGhlb3J5" data-listing-date-sort="1760227200000" data-listing-file-modified-sort="1760330237353" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="437" data-listing-title-sort="Towards Provably Effective Policy Optimization for Large POMDPs" data-listing-filename-sort="2025-10-12-hello-quarto.qmd"><td><span class="listing-date"></span></td><td></td><td><span class="listing-author"></span></td></tr><tr data-index="1" data-categories="cmVpbmZvcmNlbWVudC1sZWFybmluZyUyQ1BPTURQJTJDYWN0b3ItY3JpdGljJTJDdGhlb3J5" data-listing-date-sort="1760227200000" data-listing-file-modified-sort="1760330237353" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="578" data-listing-title-sort="Finite-Time NAC in POMDPs — A Mathy, Friendly Summary" data-listing-filename-sort="nac-for-pomdps.qmd"><td><span class="listing-date"></span></td><td></td><td><span class="listing-author"></span></td></tr></tbody></table><div class="listing-no-matching d-none"></div>
-</a></div>
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-cayci2024nac" class="csl-entry" role="listitem">
+Cayci, Semih, Niao He, and R. Srikant. 2024. <span>“Finite-Time Analysis of Natural Actor-Critic for POMDPs.”</span> <em>SIAM Journal on Mathematics of Data Science</em>.
 </div>
-<div class="metadata">
-<a href="./posts/index.html" class="no-external">
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="cmVpbmZvcmNlbWVudC1sZWFybmluZyUyQ1BPTURQJTJDYWN0b3ItY3JpdGljJTJDdGhlb3J5" data-listing-date-sort="1760227200000" data-listing-file-modified-sort="1760330237353" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="437">
-<div class="thumbnail"><a href="./posts/2025-10-12-hello-quarto.html" class="no-external">
-
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/2025-10-12-hello-quarto.html" class="no-external">Towards Provably Effective Policy Optimization for Large POMDPs</a>
-</h3>
-<div class="delink listing-description"><a href="./posts/2025-10-12-hello-quarto.html" class="no-external">
-<p>Natural actor–critic for POMDPs.</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/2025-10-12-hello-quarto.html" class="no-external">
-<div class="listing-date">
-Oct 12, 2025
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="cmVpbmZvcmNlbWVudC1sZWFybmluZyUyQ1BPTURQJTJDYWN0b3ItY3JpdGljJTJDdGhlb3J5" data-listing-date-sort="1760227200000" data-listing-file-modified-sort="1760330237353" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="578">
-<div class="thumbnail"><a href="./posts/nac-for-pomdps.html" class="no-external">
-
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/nac-for-pomdps.html" class="no-external">Finite-Time NAC in POMDPs — A Mathy, Friendly Summary</a>
-</h3>
-<div class="delink listing-description"><a href="./posts/nac-for-pomdps.html" class="no-external">
-<p>Finite-time guarantees for natural actor–critic with m-step TD and sliding-window controllers.</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/nac-for-pomdps.html" class="no-external">
-<div class="listing-date">
-Oct 12, 2025
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">No matching items</div>
-</div></main> <!-- /main -->
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
