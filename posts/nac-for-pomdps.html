@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="dcterms.date" content="2025-10-12">
-<meta name="description" content="Finite-time guarantees for natural actor–critic with m-step TD and sliding-window controllers.">
+<meta name="description" content="Natural actor–critic with finite-state controllers for POMDPs.">
 
-<title>Finite-Time NAC in POMDPs — A Mathy, Friendly Summary – Semih Cayci — Blog</title>
+<title>Natural Policy Gradient for POMDPs – Part I: Finite-State Controllers – Semih Cayci — Blog</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -166,7 +166,7 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#formal-pomdp-model-and-why-its-hard" id="toc-formal-pomdp-model-and-why-its-hard" class="nav-link active" data-scroll-target="#formal-pomdp-model-and-why-its-hard"><span class="header-section-number">1</span> Formal POMDP model (and why it’s hard)</a></li>
+  <li><a href="#formal-pomdp-model" id="toc-formal-pomdp-model" class="nav-link active" data-scroll-target="#formal-pomdp-model"><span class="header-section-number">1</span> Formal POMDP model</a></li>
   <li><a href="#setting-and-goal" id="toc-setting-and-goal" class="nav-link" data-scroll-target="#setting-and-goal"><span class="header-section-number">2</span> Setting and Goal</a></li>
   <li><a href="#sampling-measure-for-analysis" id="toc-sampling-measure-for-analysis" class="nav-link" data-scroll-target="#sampling-measure-for-analysis"><span class="header-section-number">3</span> Sampling Measure (for Analysis)</a></li>
   <li><a href="#algorithm-sketch-fs-nac" id="toc-algorithm-sketch-fs-nac" class="nav-link" data-scroll-target="#algorithm-sketch-fs-nac"><span class="header-section-number">4</span> Algorithm Sketch (FS-NAC)</a></li>
@@ -183,7 +183,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Finite-Time NAC in POMDPs — A Mathy, Friendly Summary</h1>
+<h1 class="title">Natural Policy Gradient for POMDPs – Part I: Finite-State Controllers</h1>
   <div class="quarto-categories">
     <div class="quarto-category">reinforcement-learning</div>
     <div class="quarto-category">POMDP</div>
@@ -194,7 +194,7 @@ window.Quarto = {
 
 <div>
   <div class="description">
-    Finite-time guarantees for natural actor–critic with m-step TD and sliding-window controllers.
+    Natural actor–critic with finite-state controllers for POMDPs.
   </div>
 </div>
 
@@ -218,22 +218,21 @@ window.Quarto = {
 
 
 <blockquote class="blockquote">
-<p><strong>TL;DR.</strong> The paper <span class="citation" data-cites="cayci2024nac">(<a href="#ref-cayci2024nac" role="doc-biblioref">Cayci, He, and Srikant 2024</a>)</span> proves finite-time guarantees for a natural actor–critic (NAC) method in POMDPs. It learns finite-memory policies, evaluates them with an <span class="math inline">\(m\)</span>-step TD critic to reduce perceptual aliasing, and gives a performance bound that separates optimization/approximation, evaluation, and inference (partial observability) errors. For sliding-window controllers, the inference error decays geometrically with the window size.</p>
+<p><strong>TL;DR.</strong> In <span class="citation" data-cites="cayci2024nac">(<a href="#ref-cayci2024nac" role="doc-biblioref">Cayci, He, and Srikant 2024</a>)</span>, we studied a natural actor–critic (NAC) method in POMDPs. It learns finite-memory policies, evaluates them with an <span class="math inline">\(m\)</span>-step TD critic to reduce perceptual aliasing, and gives a performance bound that separates optimization/approximation, evaluation, and inference (partial observability) errors. For sliding-window controllers, the inference error decays geometrically with the window size under certain ergodicity conditions.</p>
 </blockquote>
-<section id="formal-pomdp-model-and-why-its-hard" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="formal-pomdp-model-and-why-its-hard"><span class="header-section-number">1</span> Formal POMDP model (and why it’s hard)</h2>
+<section id="formal-pomdp-model" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="formal-pomdp-model"><span class="header-section-number">1</span> Formal POMDP model</h2>
 <p>We consider a discounted POMDP <span class="math display">\[
 \mathcal{M}=\big(\mathcal S,\mathcal A,\mathcal Y,\; P,\; O,\; r,\; \gamma,\; \xi\big),
-\]</span> with: - latent state <span class="math inline">\(S_k\in\mathcal S\)</span>, - action <span class="math inline">\(A_k\in\mathcal A\)</span>, - observation <span class="math inline">\(Y_k\in\mathcal Y\)</span>, - transition kernel <span class="math inline">\(P(\mathrm d s' \mid s,a)\)</span>, - observation kernel <span class="math inline">\(O(\mathrm d y \mid s')\)</span> (can depend on <span class="math inline">\(a\)</span> in general), - reward <span class="math inline">\(r(s,a)\in[0,1]\)</span> (w.l.o.g.), - discount <span class="math inline">\(\gamma\in(0,1)\)</span> and prior <span class="math inline">\(\xi\)</span> over <span class="math inline">\(S_0\)</span>.</p>
-<p>The generative process is <span class="math display">\[
+\]</span> with: - latent state <span class="math inline">\(S_k\in\mathcal S\)</span>, - action <span class="math inline">\(A_k\in\mathcal A\)</span>, - observation <span class="math inline">\(Y_k\in\mathcal Y\)</span>, - transition kernel <span class="math inline">\(P(s' \mid s,a)\)</span>, - observation kernel <span class="math inline">\(\Phi(y \mid s')\)</span> (can depend on <span class="math inline">\(a\)</span> in general), - reward <span class="math inline">\(r(s,a)\in[0,1]\)</span> (w.l.o.g.), - discount <span class="math inline">\(\gamma\in(0,1)\)</span> and prior <span class="math inline">\(\xi\)</span> over <span class="math inline">\(S_0\)</span>. For the sake of simplicity, let us consider finite <span class="math inline">\(\mathcal S, \mathcal Y, \mathcal A\)</span>. The generative process is <span class="math display">\[
 S_{k+1}\sim P(\cdot\mid S_k,A_k),\qquad
-Y_{k}\sim O(\cdot\mid S_k),\qquad
+Y_{k}\sim \Phi(\cdot\mid S_k),\qquad
 R_k=r(S_k,A_k),
 \]</span> and the goal is to maximize <span class="math display">\[
 \mathcal V^\pi(\xi)=\mathbb E_\xi^\pi\!\left[\sum_{k\ge0}\gamma^k\,r(S_k,A_k)\right].
 \]</span></p>
 <p><strong>Why challenging?</strong><br>
-Partial observability means the optimal <span class="math inline">\(A_k\)</span> depends on the <strong>entire history</strong> <span class="math inline">\(H_k=(Y_{0:k},A_{0:k-1})\)</span> via the Bayes belief <span class="math inline">\(b_k(s)=\Pr(S_k=s\mid H_k)\)</span>. Working exactly in belief space yields a continuous, often high-dimensional MDP; with function approximation, <strong>perceptual aliasing</strong> (same <span class="math inline">\(Y_k\)</span>, different <span class="math inline">\(S_k\)</span>) biases TD targets. The paper sidesteps this by learning <strong>finite-memory controllers</strong> and using <strong><span class="math inline">\(m\)</span>-step TD</strong> to reduce aliasing.</p>
+Partial observability implies that the optimal policy <span class="math inline">\(\pi^\star=(\pi_0^\star,\pi_1^\star,\ldots)\)</span> is non-stationary, therefore <span class="math inline">\(\pi_k^\star\)</span> depends on the complete trajectory <span class="math inline">\((Y_{0:k},A_{0:k-1})\)</span> for each <span class="math inline">\(k\in\mathbb N\)</span> via the Bayes belief <span class="math inline">\(b_k(s)=\Pr(S_k=s\mid H_k)\)</span>. A classical result that is attributed to [astrom1965] shows that a POMDP can be formulated as an MDP with a distribution-valued state <span class="math inline">\(b_k\)</span>. The paper sidesteps this by learning <strong>finite-memory controllers</strong> and using <strong><span class="math inline">\(m\)</span>-step TD</strong> to reduce aliasing.</p>
 </section>
 <section id="setting-and-goal" class="level2" data-number="2">
 <h2 data-number="2" class="anchored" data-anchor-id="setting-and-goal"><span class="header-section-number">2</span> Setting and Goal</h2>
