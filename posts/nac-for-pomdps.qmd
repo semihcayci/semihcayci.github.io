@@ -35,7 +35,7 @@ $$
 $$
 
 **Why challenging?**  
-Partial observability implies that the optimal policy $\pi^\star=(\pi_0^\star,\pi_1^\star,\ldots)$ is non-stationary, therefore $\pi_k^\star$ depends on the complete trajectory $(Y_{0:k},A_{0:k-1})$ for each $k\in\mathbb N$ via the Bayes belief $b_k(s)=\Pr(S_k=s\mid H_k)$. A classical result attributed to [astrom1965] shows that a POMDP can be formulated as an MDP with a distribution-valued state $b_k$. However, since the state-space for this induced MDP is huge (remember that it is a probability simplex over $\mathcal S$), the conventional RL tools is highly impractical to solve POMDPs via this belief-MDP formulation. An alternative and more elegant idea is to incorporate memory into the policies [murphy2000survey]. Suppose that we have an internal state $Z_k$, which summarizes/compresses $(Y_{0:k-1},A_{0:k-1})$ for each $k$. The idea is to use a parametric policy $\pi_k(\cdot\mid Y_k, Z_k)$ based on the internal state $Z_k$.
+Partial observability implies that the optimal policy $\pi^\star=(\pi_0^\star,\pi_1^\star,\ldots)$ is non-stationary, therefore $\pi_k^\star$ depends on the complete trajectory $(Y_{0:k},A_{0:k-1})$ for each $k\in\mathbb N$ via the Bayes belief $b_k(s)=\Pr(S_k=s\mid H_k)$. A classical result attributed to [@astrom1965] shows that a POMDP can be formulated as an MDP with a distribution-valued state $b_k$. However, since the state-space for this induced MDP is huge (remember that it is a probability simplex over $\mathcal S$), the conventional RL tools is highly impractical to solve POMDPs via this belief-MDP formulation. An alternative and more elegant idea is to incorporate memory into the policies [@murphy2000survey]. Suppose that we have an internal state $Z_k$, which summarizes/compresses $(Y_{0:k-1},A_{0:k-1})$ for each $k$. The idea is to use a parametric policy $\pi_k(\cdot\mid Y_k, Z_k)$ based on the internal state $Z_k$.
 
 ## Setting and Goal
 
@@ -53,7 +53,7 @@ At first, we restrict policies to **finite-state controllers (FSCs)** that keep 
   Z_k = (Y_{k-n:k-1},\; A_{k-n:k-1}) \in \mathcal Y^n \times \mathcal A^n,
   $$
   
-  which summarizes the last $n$ observations/actions.
+  which summarizes the last $n$ observations/actions, where $n$ is a design parameter that governs the tradeoff between memory complexity and optimality in solving POMDPs.
 
 The actor uses a **linear-softmax FSC**:
 $$
@@ -71,9 +71,8 @@ $$
 Let the **discounted visitation distribution** over information states be
 $$
 d^\pi_\xi(y,z)=(1-\gamma)\sum_{k\ge0}\gamma^k\,
-\Pr^\pi\!\big[(Y_k,Z_k)=(y,z)\,\big|\,H_0\sim\xi\big].
+P^\pi\!\big[(Y_k,Z_k)=(y,z)\,\big|\,H_0\sim\xi\big].
 $$
-The analysis assumes access to samples from $d^\pi_\xi$ (standard in NAC to match the Fisher metric).
 
 ## Algorithm Sketch (FS-NAC)
 
@@ -88,7 +87,7 @@ The analysis assumes access to samples from $d^\pi_\xi$ (standard in NAC to matc
 
 With stepsize $\alpha=K^{-1/2}$ and parameter radius $R$, after $K$ critic updates:
 $$
-\mathbb E\!\left[\big\|\mathcal Q^\pi-\widehat{\mathcal Q}^\pi_K\big\|_{2,\,d^\pi_\xi\otimes\pi}\right]
+\sqrt{\mathbb E\!\left[\big\|\mathcal Q^\pi-\widehat{\mathcal Q}^\pi_K\big\|^2_{\,d^\pi_\xi\otimes\pi}\right]}
 \;\lesssim\;
 \underbrace{\tfrac{K^{-1/4}}{1-\gamma}}_{\text{statistical}}
 +\underbrace{\tfrac{\varepsilon_{\text{app}}(R)}{1-\gamma^m}}_{\text{approximation}}
