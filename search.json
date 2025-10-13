@@ -67,7 +67,7 @@
     "href": "index.html",
     "title": "Home",
     "section": "",
-    "text": "Welcome! This is your Quarto site on GitHub Pages.\n\nWrite math with $e^{i\\pi}+1=0$ or display blocks:\n\n\\[\n\\int_0^1 x^2\\,dx = \\frac{1}{3}.\n\\]\n\nAdd citations by including a references.bib file and putting bibliography: references.bib in the post front matter.\n\n👉 New posts go in the posts/ folder as .qmd files.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAll Posts\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTowards Provably Effective Policy Optimization for Large POMDPs\n\n\nNatural actor–critic for POMDPs.\n\n\n\n\n\nOct 12, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nNatural Policy Gradient for POMDPs – Part I: Finite-State Controllers\n\n\nNatural actor–critic with finite-state controllers for POMDPs.\n\n\n\n\n\nOct 12, 2025\n\n\n\n\n\nNo matching items"
+    "text": "On this page, I will share some of my recent research interests in an informal way. For any questions, you can contact me by email.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAll Posts\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTowards Provably Effective Policy Optimization for Large POMDPs\n\n\nNatural actor–critic for POMDPs.\n\n\n\n\n\nOct 12, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nNatural Policy Gradient for POMDPs – Part I: Finite-State Controllers\n\n\nNatural actor–critic with finite-state controllers for POMDPs.\n\n\n\n\n\nOct 12, 2025\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/index.html",
