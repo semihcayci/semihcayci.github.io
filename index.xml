@@ -50,6 +50,9 @@ Partial observability implies that the optimal policy <img src="https://latex.co
 <li><strong>Critic</strong> — run <strong><img src="https://latex.codecogs.com/png.latex?m">-step TD(0)</strong> with linear function approximation to estimate <img src="https://latex.codecogs.com/png.latex?%5Cwidehat%7B%5Cmathcal%20Q%7D%5E%7B%5Cpi_t%7D(y,z,a)">.</li>
 <li><strong>Actor</strong> — take a <strong>natural-gradient</strong> step using the critic’s advantage estimate.</li>
 </ol>
+</section>
+<section id="critic-m-step-td-learning-with-memory" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="critic-m-step-td-learning-with-memory"><span class="header-section-number">5</span> Critic: <img src="https://latex.codecogs.com/png.latex?m">-step TD Learning with Memory</h2>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -63,9 +66,7 @@ Tip
 <p><strong>Why <img src="https://latex.codecogs.com/png.latex?m">-step TD?</strong> In POMDPs, one-step bootstrapping suffers from <strong>perceptual aliasing</strong> (same observation <img src="https://latex.codecogs.com/png.latex?Y_k">, different latent state <img src="https://latex.codecogs.com/png.latex?S_k">). Looking <img src="https://latex.codecogs.com/png.latex?m"> steps ahead stabilizes the target and reduces this bias.</p>
 </div>
 </div>
-</section>
-<section id="critic-guarantee-policy-evaluation" class="level2" data-number="5">
-<h2 data-number="5" class="anchored" data-anchor-id="critic-guarantee-policy-evaluation"><span class="header-section-number">5</span> Critic Guarantee (Policy Evaluation)</h2>
+<p>It is very easy to construct an example which shows that (memoryless) TD learning cannot learn the value functions <span class="citation" data-cites="singh1994learning">(Singh, Jaakkola, and Jordan 1994)</span>. <strong>Example</strong> Consider a (hidden) Markov reward process with <img src="https://latex.codecogs.com/png.latex?%5Cmathcal%20S%20=%20%5C%7B0,1%5C%7D">, <img src="https://latex.codecogs.com/png.latex?r(s)%20=%20s"> and <img src="https://latex.codecogs.com/png.latex?%5CPhi(1%7Cs)%20=%201"> for all <img src="https://latex.codecogs.com/png.latex?s%5Cin%5Cmathcal%7BS%7D">. Let <img src="https://latex.codecogs.com/png.latex?P(0%7C1)%20=%20p"> and <img src="https://latex.codecogs.com/png.latex?P(1%7C0)%20=%20q"> for some <img src="https://latex.codecogs.com/png.latex?p,%20q%20%5Cin%20(0,1)">, and <img src="https://latex.codecogs.com/png.latex?%5Cgamma%20%5Cin%20(0,%201)"> be the discount factor. Then, TD(0) converges to <img src="https://latex.codecogs.com/png.latex?v%5E%5Cstar%20=%20%5Cfrac%7B1%7D%7B1-%5Cgamma%7D%5Ccdot%20%5Cfrac%7Bq%7D%7Bq+p%7D">.</p>
 <p>With stepsize <img src="https://latex.codecogs.com/png.latex?%5Calpha=K%5E%7B-1/2%7D"> and parameter radius <img src="https://latex.codecogs.com/png.latex?R">, after <img src="https://latex.codecogs.com/png.latex?K"> critic updates: <img src="https://latex.codecogs.com/png.latex?%0A%5Csqrt%7B%5Cmathbb%20E%5C!%5Cleft%5B%5Cbig%5C%7C%5Cmathcal%20Q%5E%5Cpi-%5Cwidehat%7B%5Cmathcal%20Q%7D%5E%5Cpi_K%5Cbig%5C%7C%5E2_%7B%5C,d%5E%5Cpi_%5Cxi%5Cotimes%5Cpi%7D%5Cright%5D%7D%0A%5C;%5Clesssim%5C;%0A%5Cunderbrace%7B%5Ctfrac%7BK%5E%7B-1/4%7D%7D%7B1-%5Cgamma%7D%7D_%7B%5Ctext%7Bstatistical%7D%7D%0A+%5Cunderbrace%7B%5Ctfrac%7B%5Cvarepsilon_%7B%5Ctext%7Bapp%7D%7D(R)%7D%7B1-%5Cgamma%5Em%7D%7D_%7B%5Ctext%7Bapproximation%7D%7D%0A+%5Cunderbrace%7B%5Cvarepsilon_%7B%5Ctext%7Bpa%7D%7D(%5Cgamma,m,R)%7D_%7B%5Ctext%7Baliasing%7D%7D,%0A"> where <img src="https://latex.codecogs.com/png.latex?%5Cvarepsilon_%7B%5Ctext%7Bapp%7D%7D(R)"> is the best linear-approximation error within radius <img src="https://latex.codecogs.com/png.latex?R">, and the aliasing term contracts geometrically: <img src="https://latex.codecogs.com/png.latex?%0A%5Cvarepsilon_%7B%5Ctext%7Bpa%7D%7D(%5Cgamma,m,R)=%5Cmathcal%20O%5C!%5Cbig(%5Cgamma%5E%7Bm/2%7D%5C,%5Cmathrm%7Bpoly%7D(R,(1-%5Cgamma)%5E%7B-1%7D)%5Cbig).%0A"></p>
 <p><strong>Sample–accuracy trade-off.</strong> Each update uses <img src="https://latex.codecogs.com/png.latex?m"> samples, so total evaluation samples are <img src="https://latex.codecogs.com/png.latex?%5CTheta(mK)">.</p>
 </section>
@@ -105,6 +106,9 @@ Cayci, Semih, Niao He, and R. Srikant. 2024. <span>“Finite-Time Analysis of Na
 </div>
 <div id="ref-murphy2000survey" class="csl-entry">
 Murphy, Kevin P. 2000. <span>“A Survey of POMDP Solution Techniques.”</span> <em>Environment</em> 2 (10).
+</div>
+<div id="ref-singh1994learning" class="csl-entry">
+Singh, Satinder P, Tommi Jaakkola, and Michael I Jordan. 1994. <span>“Learning Without State-Estimation in Partially Observable Markovian Decision Processes.”</span> In <em>Machine Learning Proceedings 1994</em>, 284–92. Elsevier.
 </div>
 <div id="ref-yuksel2025another" class="csl-entry">
 Yüksel, Serdar. 2025. <span>“Another Look at Partially Observed Optimal Stochastic Control: Existence, Ergodicity, and Approximations Without Belief-Reduction.”</span> <em>Applied Mathematics &amp; Optimization</em> 91 (1): 16.
@@ -175,7 +179,7 @@ Yüksel, Serdar. 2025. <span>“Another Look at Partially Observed Optimal Stoch
 </thead>
 <tbody class="list">
 
-<tr data-index="0" data-categories="cmVpbmZvcmNlbWVudC1sZWFybmluZyUyQ1BPTURQJTJDYWN0b3ItY3JpdGljJTJDdGhlb3J5" data-listing-date-sort="1760227200000" data-listing-file-modified-sort="1760414905095" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="715" data-listing-title-sort="Natural Policy Gradient for POMDPs – Part I: Finite-State Controllers" data-listing-filename-sort="nac-for-pomdps.qmd">
+<tr data-index="0" data-categories="cmVpbmZvcmNlbWVudC1sZWFybmluZyUyQ1BPTURQJTJDYWN0b3ItY3JpdGljJTJDdGhlb3J5" data-listing-date-sort="1760227200000" data-listing-file-modified-sort="1760415137702" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="789" data-listing-title-sort="Natural Policy Gradient for POMDPs – Part I: Finite-State Controllers" data-listing-filename-sort="nac-for-pomdps.qmd">
 <td>
 <span class="listing-date">Oct 12, 2025</span>
 </td>
@@ -193,7 +197,7 @@ Yüksel, Serdar. 2025. <span>“Another Look at Partially Observed Optimal Stoch
 <div class="listing-no-matching d-none">No matching items</div>
 </div> ]]></description>
   <guid>https://semihcayci.github.io/posts/</guid>
-  <pubDate>Tue, 14 Oct 2025 04:08:47 GMT</pubDate>
+  <pubDate>Tue, 14 Oct 2025 04:13:07 GMT</pubDate>
 </item>
 </channel>
 </rss>

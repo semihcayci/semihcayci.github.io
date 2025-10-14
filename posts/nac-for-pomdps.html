@@ -170,7 +170,7 @@ window.Quarto = {
   <li><a href="#setting-and-goal" id="toc-setting-and-goal" class="nav-link" data-scroll-target="#setting-and-goal"><span class="header-section-number">2</span> Setting and Goal</a></li>
   <li><a href="#sampling-measure" id="toc-sampling-measure" class="nav-link" data-scroll-target="#sampling-measure"><span class="header-section-number">3</span> Sampling Measure</a></li>
   <li><a href="#algorithm-sketch-fs-nac" id="toc-algorithm-sketch-fs-nac" class="nav-link" data-scroll-target="#algorithm-sketch-fs-nac"><span class="header-section-number">4</span> Algorithm Sketch (FS-NAC)</a></li>
-  <li><a href="#critic-guarantee-policy-evaluation" id="toc-critic-guarantee-policy-evaluation" class="nav-link" data-scroll-target="#critic-guarantee-policy-evaluation"><span class="header-section-number">5</span> Critic Guarantee (Policy Evaluation)</a></li>
+  <li><a href="#critic-m-step-td-learning-with-memory" id="toc-critic-m-step-td-learning-with-memory" class="nav-link" data-scroll-target="#critic-m-step-td-learning-with-memory"><span class="header-section-number">5</span> Critic: <span class="math inline">\(m\)</span>-step TD Learning with Memory</a></li>
   <li><a href="#full-actorcritic-performance-finite-time" id="toc-full-actorcritic-performance-finite-time" class="nav-link" data-scroll-target="#full-actorcritic-performance-finite-time"><span class="header-section-number">6</span> Full Actor–Critic Performance (Finite-Time)</a></li>
   <li><a href="#sliding-window-controllers-memory-vs.-accuracy" id="toc-sliding-window-controllers-memory-vs.-accuracy" class="nav-link" data-scroll-target="#sliding-window-controllers-memory-vs.-accuracy"><span class="header-section-number">7</span> Sliding-Window Controllers (Memory vs.&nbsp;Accuracy)</a></li>
   <li><a href="#practical-tuning" id="toc-practical-tuning" class="nav-link" data-scroll-target="#practical-tuning"><span class="header-section-number">8</span> Practical Tuning</a></li>
@@ -269,6 +269,9 @@ P^\pi\!\big[(Y_k,Z_k)=(y,z)\,\big|\,H_0\sim\xi\big].
 <li><strong>Critic</strong> — run <strong><span class="math inline">\(m\)</span>-step TD(0)</strong> with linear function approximation to estimate <span class="math inline">\(\widehat{\mathcal Q}^{\pi_t}(y,z,a)\)</span>.</li>
 <li><strong>Actor</strong> — take a <strong>natural-gradient</strong> step using the critic’s advantage estimate.</li>
 </ol>
+</section>
+<section id="critic-m-step-td-learning-with-memory" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="critic-m-step-td-learning-with-memory"><span class="header-section-number">5</span> Critic: <span class="math inline">\(m\)</span>-step TD Learning with Memory</h2>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -282,9 +285,7 @@ Tip
 <p><strong>Why <span class="math inline">\(m\)</span>-step TD?</strong> In POMDPs, one-step bootstrapping suffers from <strong>perceptual aliasing</strong> (same observation <span class="math inline">\(Y_k\)</span>, different latent state <span class="math inline">\(S_k\)</span>). Looking <span class="math inline">\(m\)</span> steps ahead stabilizes the target and reduces this bias.</p>
 </div>
 </div>
-</section>
-<section id="critic-guarantee-policy-evaluation" class="level2" data-number="5">
-<h2 data-number="5" class="anchored" data-anchor-id="critic-guarantee-policy-evaluation"><span class="header-section-number">5</span> Critic Guarantee (Policy Evaluation)</h2>
+<p>It is very easy to construct an example which shows that (memoryless) TD learning cannot learn the value functions <span class="citation" data-cites="singh1994learning">(<a href="#ref-singh1994learning" role="doc-biblioref">Singh, Jaakkola, and Jordan 1994</a>)</span>. <strong>Example</strong> Consider a (hidden) Markov reward process with <span class="math inline">\(\mathcal S = \{0,1\}\)</span>, <span class="math inline">\(r(s) = s\)</span> and <span class="math inline">\(\Phi(1|s) = 1\)</span> for all <span class="math inline">\(s\in\mathcal{S}\)</span>. Let <span class="math inline">\(P(0|1) = p\)</span> and <span class="math inline">\(P(1|0) = q\)</span> for some <span class="math inline">\(p, q \in (0,1)\)</span>, and <span class="math inline">\(\gamma \in (0, 1)\)</span> be the discount factor. Then, TD(0) converges to <span class="math inline">\(v^\star = \frac{1}{1-\gamma}\cdot \frac{q}{q+p}\)</span>.</p>
 <p>With stepsize <span class="math inline">\(\alpha=K^{-1/2}\)</span> and parameter radius <span class="math inline">\(R\)</span>, after <span class="math inline">\(K\)</span> critic updates: <span class="math display">\[
 \sqrt{\mathbb E\!\left[\big\|\mathcal Q^\pi-\widehat{\mathcal Q}^\pi_K\big\|^2_{\,d^\pi_\xi\otimes\pi}\right]}
 \;\lesssim\;
@@ -349,6 +350,9 @@ Cayci, Semih, Niao He, and R. Srikant. 2024. <span>“Finite-Time Analysis of Na
 </div>
 <div id="ref-murphy2000survey" class="csl-entry" role="listitem">
 Murphy, Kevin P. 2000. <span>“A Survey of POMDP Solution Techniques.”</span> <em>Environment</em> 2 (10).
+</div>
+<div id="ref-singh1994learning" class="csl-entry" role="listitem">
+Singh, Satinder P, Tommi Jaakkola, and Michael I Jordan. 1994. <span>“Learning Without State-Estimation in Partially Observable Markovian Decision Processes.”</span> In <em>Machine Learning Proceedings 1994</em>, 284–92. Elsevier.
 </div>
 <div id="ref-yuksel2025another" class="csl-entry" role="listitem">
 Yüksel, Serdar. 2025. <span>“Another Look at Partially Observed Optimal Stochastic Control: Existence, Ergodicity, and Approximations Without Belief-Reduction.”</span> <em>Applied Mathematics &amp; Optimization</em> 91 (1): 16.
