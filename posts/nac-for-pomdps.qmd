@@ -79,11 +79,14 @@ $$
 1. **Critic** — run **$m$-step TD(0)** with linear function approximation to estimate $\widehat{\mathcal Q}^{\pi_t}(y,z,a)$.
 2. **Actor** — take a **natural-gradient** step using the critic’s advantage estimate.
 
+
+
+## Critic: $m$-step TD Learning with Memory
 ::: callout-tip
 **Why $m$-step TD?** In POMDPs, one-step bootstrapping suffers from **perceptual aliasing** (same observation $Y_k$, different latent state $S_k$). Looking $m$ steps ahead stabilizes the target and reduces this bias.
 :::
-
-## Critic Guarantee (Policy Evaluation)
+It is very easy to construct an example which shows that (memoryless) TD learning cannot learn the value functions [@singh1994learning].
+**Example** Consider a (hidden) Markov reward process with $\mathcal S = \{0,1\}$, $r(s) = s$ and $\Phi(1|s) = 1$ for all $s\in\mathcal{S}$. Let $P(0|1) = p$ and $P(1|0) = q$ for some $p, q \in (0,1)$, and $\gamma \in (0, 1)$ be the discount factor. Then, TD(0) converges to $v^\star = \frac{1}{1-\gamma}\cdot \frac{q}{q+p}$. 
 
 With stepsize $\alpha=K^{-1/2}$ and parameter radius $R$, after $K$ critic updates:
 $$
