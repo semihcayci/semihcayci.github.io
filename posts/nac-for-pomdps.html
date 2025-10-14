@@ -222,9 +222,19 @@ window.Quarto = {
 </blockquote>
 <section id="formal-pomdp-model" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="formal-pomdp-model"><span class="header-section-number">1</span> Formal POMDP model</h2>
-Let us consider a discounted POMDP <span class="math display">\[
+<p>Let us consider a discounted POMDP <span class="math display">\[
 \mathcal{M}=\big(\mathcal S,\mathcal A,\mathcal Y,\; P,\; O,\; r,\; \gamma\big),
-\]</span> with:
+\]</span></p>
+<p>with:</p>
+<ul>
+<li>latent state <span class="math inline">\(S_k\in\mathcal S\)</span>,</li>
+<li>action <span class="math inline">\(A_k\in\mathcal A\)</span>,</li>
+<li>observation <span class="math inline">\(Y_k\in\mathcal Y\)</span>,</li>
+<li>transition kernel <span class="math inline">\(P(s' \mid s,a)\)</span>,</li>
+<li>observation kernel <span class="math inline">\(\Phi(y \mid s')\)</span>,</li>
+<li>reward <span class="math inline">\(r(s,a)\in[0,1]\)</span> (w.l.o.g.),</li>
+<li>discount factor <span class="math inline">\(\gamma\in(0,1)\)</span>.</li>
+</ul>
 <p>To avoid measure-theoretic concerns, let us consider finite <span class="math inline">\(\mathcal S, \mathcal Y, \mathcal A\)</span>. These simplifications can later be relaxed, but the problem itself is quite challenging; thus we need to avoid clutter as much as possible. The generative process is <span class="math display">\[
 S_{k+1}\sim P(\cdot\mid S_k,A_k),\qquad
 Y_{k}\sim \Phi(\cdot\mid S_k),\qquad

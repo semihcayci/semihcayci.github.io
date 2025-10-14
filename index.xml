@@ -24,7 +24,17 @@
 </blockquote>
 <section id="formal-pomdp-model" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="formal-pomdp-model"><span class="header-section-number">1</span> Formal POMDP model</h2>
-Let us consider a discounted POMDP <img src="https://latex.codecogs.com/png.latex?%0A%5Cmathcal%7BM%7D=%5Cbig(%5Cmathcal%20S,%5Cmathcal%20A,%5Cmathcal%20Y,%5C;%20P,%5C;%20O,%5C;%20r,%5C;%20%5Cgamma%5Cbig),%0A"> with:
+<p>Let us consider a discounted POMDP <img src="https://latex.codecogs.com/png.latex?%0A%5Cmathcal%7BM%7D=%5Cbig(%5Cmathcal%20S,%5Cmathcal%20A,%5Cmathcal%20Y,%5C;%20P,%5C;%20O,%5C;%20r,%5C;%20%5Cgamma%5Cbig),%0A"></p>
+<p>with:</p>
+<ul>
+<li>latent state <img src="https://latex.codecogs.com/png.latex?S_k%5Cin%5Cmathcal%20S">,</li>
+<li>action <img src="https://latex.codecogs.com/png.latex?A_k%5Cin%5Cmathcal%20A">,</li>
+<li>observation <img src="https://latex.codecogs.com/png.latex?Y_k%5Cin%5Cmathcal%20Y">,</li>
+<li>transition kernel <img src="https://latex.codecogs.com/png.latex?P(s'%20%5Cmid%20s,a)">,</li>
+<li>observation kernel <img src="https://latex.codecogs.com/png.latex?%5CPhi(y%20%5Cmid%20s')">,</li>
+<li>reward <img src="https://latex.codecogs.com/png.latex?r(s,a)%5Cin%5B0,1%5D"> (w.l.o.g.),</li>
+<li>discount factor <img src="https://latex.codecogs.com/png.latex?%5Cgamma%5Cin(0,1)">.</li>
+</ul>
 <p>To avoid measure-theoretic concerns, let us consider finite <img src="https://latex.codecogs.com/png.latex?%5Cmathcal%20S,%20%5Cmathcal%20Y,%20%5Cmathcal%20A">. These simplifications can later be relaxed, but the problem itself is quite challenging; thus we need to avoid clutter as much as possible. The generative process is <img src="https://latex.codecogs.com/png.latex?%0AS_%7Bk+1%7D%5Csim%20P(%5Ccdot%5Cmid%20S_k,A_k),%5Cqquad%0AY_%7Bk%7D%5Csim%20%5CPhi(%5Ccdot%5Cmid%20S_k),%5Cqquad%0AR_k=r(S_k,A_k),%0A"> and the goal is to maximize <img src="https://latex.codecogs.com/png.latex?%0A%5Cmathcal%20V%5E%5Cpi(%5Cxi)=%5Cmathbb%20E_%5Cxi%5E%5Cpi%5C!%5Cleft%5B%5Csum_%7Bk%5Cge0%7D%5Cgamma%5Ek%5C,r(S_k,A_k)%5Cright%5D.%0A"></p>
 <p><strong>Why challenging?</strong><br>
 Partial observability implies that the optimal policy <img src="https://latex.codecogs.com/png.latex?%5Cpi%5E%5Cstar=(%5Cpi_0%5E%5Cstar,%5Cpi_1%5E%5Cstar,%5Cldots)"> is non-stationary, therefore <img src="https://latex.codecogs.com/png.latex?%5Cpi_k%5E%5Cstar"> depends on the complete trajectory <img src="https://latex.codecogs.com/png.latex?(Y_%7B0:k%7D,A_%7B0:k-1%7D)"> for each <img src="https://latex.codecogs.com/png.latex?k%5Cin%5Cmathbb%20N"> via the Bayes belief <img src="https://latex.codecogs.com/png.latex?b_k(s)=%5CPr(S_k=s%5Cmid%20H_k)">. A classical result attributed to <span class="citation" data-cites="astrom1965">(Åström 1965)</span> (see <span class="citation" data-cites="yuksel2025another">(Yüksel 2025)</span> for further information) shows that a POMDP can be formulated as an MDP with a distribution-valued state <img src="https://latex.codecogs.com/png.latex?b_k">. However, since the state-space for this induced MDP is huge (remember that it is a probability simplex over <img src="https://latex.codecogs.com/png.latex?%5Cmathcal%20S">), the conventional RL tools is highly impractical to solve POMDPs via this belief-MDP formulation. An alternative and more elegant idea is to incorporate memory into the policies <span class="citation" data-cites="murphy2000survey">(Murphy 2000)</span> and design/adapt RL algorithms enriched with this memory structure. Suppose that we have an internal state <img src="https://latex.codecogs.com/png.latex?Z_k">, which summarizes/compresses <img src="https://latex.codecogs.com/png.latex?(Y_%7B0:k-1%7D,A_%7B0:k-1%7D)"> for each <img src="https://latex.codecogs.com/png.latex?k">. The idea is to use a parametric policy <img src="https://latex.codecogs.com/png.latex?%5Cpi_k(%5Ccdot%5Cmid%20Y_k,%20Z_k)"> based on the internal state <img src="https://latex.codecogs.com/png.latex?Z_k">.</p>
@@ -182,7 +192,7 @@ Yüksel, Serdar. 2025. <span>“Another Look at Partially Observed Optimal Stoch
 </thead>
 <tbody class="list">
 
-<tr data-index="0" data-categories="cmVpbmZvcmNlbWVudC1sZWFybmluZyUyQ1BPTURQJTJDYWN0b3ItY3JpdGljJTJDdGhlb3J5" data-listing-date-sort="1760227200000" data-listing-file-modified-sort="1760423213781" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="978" data-listing-title-sort="Natural Policy Gradient for POMDPs – Part I: Finite-State Controllers" data-listing-filename-sort="nac-for-pomdps.qmd">
+<tr data-index="0" data-categories="cmVpbmZvcmNlbWVudC1sZWFybmluZyUyQ1BPTURQJTJDYWN0b3ItY3JpdGljJTJDdGhlb3J5" data-listing-date-sort="1760227200000" data-listing-file-modified-sort="1760423348005" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="978" data-listing-title-sort="Natural Policy Gradient for POMDPs – Part I: Finite-State Controllers" data-listing-filename-sort="nac-for-pomdps.qmd">
 <td>
 <span class="listing-date">Oct 12, 2025</span>
 </td>
@@ -200,7 +210,7 @@ Yüksel, Serdar. 2025. <span>“Another Look at Partially Observed Optimal Stoch
 <div class="listing-no-matching d-none">No matching items</div>
 </div> ]]></description>
   <guid>https://semihcayci.github.io/posts/</guid>
-  <pubDate>Tue, 14 Oct 2025 06:27:06 GMT</pubDate>
+  <pubDate>Tue, 14 Oct 2025 06:29:31 GMT</pubDate>
 </item>
 </channel>
 </rss>
