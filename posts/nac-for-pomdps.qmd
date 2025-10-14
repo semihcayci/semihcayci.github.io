@@ -18,7 +18,7 @@ $$
 
 with:
 
-- latent state $S_k\in\mathcal S$,
+- state $S_k\in\mathcal S$,
 - action $A_k\in\mathcal A$,
 - observation $Y_k\in\mathcal Y$,
 - transition kernel $P(s' \mid s,a)$,
@@ -38,7 +38,7 @@ $$
 $$
 
 **Why challenging?**  
-Partial observability implies that the optimal policy $\pi^\star=(\pi_0^\star,\pi_1^\star,\ldots)$ is non-stationary, therefore $\pi_k^\star$ depends on the complete trajectory $(Y_{0:k},A_{0:k-1})$ for each $k\in\mathbb N$ via the Bayes belief $b_k(s)=\Pr(S_k=s\mid H_k)$. A classical result attributed to [@astrom1965] (see [@yuksel2025another] for further information) shows that a POMDP can be formulated as an MDP with a distribution-valued state $b_k$. However, since the state-space for this induced MDP is huge (remember that it is a probability simplex over $\mathcal S$), the conventional RL tools is highly impractical to solve POMDPs via this belief-MDP formulation. An alternative and more elegant idea is to incorporate memory into the policies [@murphy2000survey] and design/adapt RL algorithms enriched with this memory structure. Suppose that we have an internal state $Z_k$, which summarizes/compresses $(Y_{0:k-1},A_{0:k-1})$ for each $k$. The idea is to use a parametric policy $\pi_k(\cdot\mid Y_k, Z_k)$ based on the internal state $Z_k$.
+Partial observability implies that the optimal policy $\pi^\star=(\pi_0^\star,\pi_1^\star,\ldots)$ is non-stationary, therefore $\pi_k^\star$ depends on the complete trajectory $(Y_{0:k},A_{0:k-1})$ for each $k\in\mathbb N$ via the Bayes belief $b_k(s)=\Pr(S_k=s\mid Y_{0:k},A_{0:k-1})$. Reactive (i.e., memoryless) methods for MDPs fail miserably if they are used in POMDPs due to the discrepancy between the partial observation and the latent state (see **Example 1** below). A classical result attributed to [@astrom1965] (see [@yuksel2025another] for further information) shows that a POMDP can be formulated as an MDP with a distribution-valued state $b_k$. However, since the state-space for this induced MDP is huge (remember that it is a probability simplex over $\mathcal S$), the conventional RL tools is highly impractical to solve POMDPs via this belief-MDP formulation. An alternative and more elegant idea is to incorporate memory into the policies [@murphy2000survey] and design/adapt RL algorithms enriched with this memory structure. Suppose that we have an internal state $Z_k$, which summarizes/compresses $(Y_{0:k-1},A_{0:k-1})$ for each $k$. The idea is to use a parametric policy $\pi_k(\cdot\mid Y_k, Z_k)$ based on the internal state $Z_k$.
 
 ## Setting and Goal
 
@@ -77,7 +77,7 @@ d^\pi_\xi(y,z)=(1-\gamma)\sum_{k\ge0}\gamma^k\,
 P^\pi\!\big[(Y_k,Z_k)=(y,z)\,\big|\,H_0\sim\xi\big].
 $$
 
-## Algorithm Sketch (FS-NAC)
+## Algorithm (FS-NAC)
 
 1. **Critic** — run **$m$-step TD(0)** with linear function approximation to estimate $\widehat{\mathcal Q}^{\pi_t}(y,z,a)$.
 2. **Actor** — take a **natural-gradient** step using the critic’s advantage estimate.
