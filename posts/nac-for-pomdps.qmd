@@ -85,8 +85,9 @@ $$
 ::: callout-tip
 **Why $m$-step TD?** In POMDPs, one-step bootstrapping suffers from **perceptual aliasing** (same observation $Y_k$, different latent state $S_k$). Looking $m$ steps ahead stabilizes the target and reduces this bias.
 :::
-It is very easy to construct an example which shows that (memoryless) TD learning cannot learn the value functions [@singh1994learning].
-**Example** Consider a (hidden) Markov reward process with $\mathcal S = \{0,1\}$, $r(s) = s$ and $\Phi(1|s) = 1$ for all $s\in\mathcal{S}$. Let $P(0|1) = p$ and $P(1|0) = q$ for some $p, q \in (0,1)$, and $\gamma \in (0, 1)$ be the discount factor. Then, TD(0) converges to $v^\star = \frac{1}{1-\gamma}\cdot \frac{q}{q+p}$. 
+It is very easy to construct an example which shows that (memoryless) TD learning cannot learn the value functions in a process with memory [@singh1994learning]. Here, we want to compute $V(z_0):=\mathbb E[\sum_{k=0}^\infty \gamma^k r(S_k)|Z_0=z_0]$ for an internal state $Z_t$ (e.g., $Z_t = (Y_{t-m+1},\ldots,Y_t)$), where $(S_k, r(S_k), Y_k)$ is a hidden Markov reward process.
+
+**Example** Consider a (hidden) Markov reward process with $\mathcal S = \{0,1\}$, $r(s) = s$ and $\Phi(1|s) = 1$ for all $s\in\mathcal{S}$. Let $P(0|1) = p$ and $P(1|0) = q$ for some $p, q \in (0,1)$, and $\gamma \in (0, 1)$ be the discount factor. Then, TD(0) converges to $v^\star = \frac{1}{1-\gamma}\cdot \frac{p}{q+p}$. On the other hand, the value function for a given initial internal state $Z_0=z_0$ is $V(z_0) = \frac{\gamma p + (1-\gamma)P(S_0=1|Z_0=z_0)}{(1-\gamma)\Big[\gamma(p+q)+1-\gamma\Big]}$. As such, memoryless TD(0) cannot learn $V(z_0)$.
 
 With stepsize $\alpha=K^{-1/2}$ and parameter radius $R$, after $K$ critic updates:
 $$
