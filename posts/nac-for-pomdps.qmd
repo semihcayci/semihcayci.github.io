@@ -34,20 +34,20 @@ R_k=r(S_k,A_k),
 $$
 and the goal is to maximize
 $$
-\mathcal V^\Pi(\xi)=\mathbb E_\xi^\Pi\!\left[\sum_{k\ge0}\gamma^k\,r(S_k,A_k)\right].
+\mathcal V^\pi(\xi)=\mathbb E_\xi^\pi\!\left[\sum_{k\ge0}\gamma^k\,r(S_k,A_k)\right].
 $$
 
 **Why challenging?**  
-Partial observability implies that the optimal policy $\Pi^\star=(\Pi_0^\star,\Pi_1^\star,\ldots)$ is non-stationary, therefore $\Pi_k^\star$ depends on the complete trajectory $(Y_{0:k},A_{0:k-1})$ for each $k\in\mathbb N$ via the Bayes belief $b_k(s)=\Pr(S_k=s\mid Y_{0:k},A_{0:k-1})$. Reactive (i.e., memoryless) methods for MDPs fail miserably if they are used in POMDPs due to the discrepancy between the partial observation and the latent state (see **Example 1** below). A classical result attributed to [@astrom1965] (see [@yuksel2025another] for further information) shows that a POMDP can be formulated as an MDP with a distribution-valued state $b_k$. However, since the state-space for this induced MDP is huge (remember that it is a probability simplex over $\mathcal S$), the conventional RL tools is highly impractical to solve POMDPs via this belief-MDP formulation. An alternative and more elegant idea is to incorporate memory into the policies [@murphy2000survey] and design/adapt RL algorithms enriched with this memory structure. Suppose that we have an internal state $Z_k$, which summarizes/compresses $(Y_{0:k-1},A_{0:k-1})$ for each $k$. The idea is to use a parametric policy $\Pi_k(\cdot\mid Y_k, Z_k)$ based on the internal state $Z_k$.
+Partial observability implies that the optimal policy $\pi^\star=(\pi_0^\star,\pi_1^\star,\ldots)$ is non-stationary, therefore $\pi_k^\star$ depends on the complete trajectory $(Y_{0:k},A_{0:k-1})$ for each $k\in\mathbb N$ via the Bayes belief $b_k(s)=\Pr(S_k=s\mid Y_{0:k},A_{0:k-1})$. Reactive (i.e., memoryless) methods for MDPs fail miserably if they are used in POMDPs due to the discrepancy between the partial observation and the latent state (see **Example 1** below). A classical result attributed to [@astrom1965] (see [@yuksel2025another] for further information) shows that a POMDP can be formulated as an MDP with a distribution-valued state $b_k$. However, since the state-space for this induced MDP is huge (remember that it is a probability simplex over $\mathcal S$), the conventional RL tools is highly impractical to solve POMDPs via this belief-MDP formulation. An alternative and more elegant idea is to incorporate memory into the policies [@murphy2000survey] and design/adapt RL algorithms enriched with this memory structure. Suppose that we have an internal state $Z_k$, which summarizes/compresses $(Y_{0:k-1},A_{0:k-1})$ for each $k$. The idea is to use a parametric policy $\pi_k(\cdot\mid Y_k, Z_k)$ based on the internal state $Z_k$.
 
 ## Setting and Goal
 
 At first, we restrict policies to **finite-state controllers (FSCs)** that keep internal memory $Z_k$ and act from $(Y_k, Z_k)$. The internal memory is updated in a Markovian way: $Z_{k+1}~\varphi(\cdot\mid z_k, y_k, a_k)$ given $Z_k=z_k,Y_k=y_k,A_k=a_k$.
 
-- Learn the best policy within a fixed FSC class $\Pi_{Z,\varphi}$:
+- Learn the best policy within a fixed FSC class $\pi_{Z,\varphi}$:
   
   $$
-  \Pi^\star \in \arg\max_{\Pi \in \Pi_{Z,\varphi}} \; \mathcal V^\Pi(\xi).
+  \pi^\star \in \arg\max_{\pi \in \pi_{Z,\varphi}} \; \mathcal V^\pi(\xi).
   $$
 
 - A useful subclass is the **sliding-window controller (SWC)** with window $n$:
@@ -60,7 +60,7 @@ At first, we restrict policies to **finite-state controllers (FSCs)** that keep 
 
 The actor uses a **linear-softmax FSC**:
 $$
-\Pi_\theta(a \mid y,z) = 
+\pi_\theta(a \mid y,z) = 
 \frac{\exp\{\theta^\top \psi(a,y,z)\}}
 {\sum_{a'} \exp\{\theta^\top \psi(a',y,z)\}},
 $$
@@ -73,13 +73,13 @@ $$
 
 Let the **discounted visitation distribution** over information states be
 $$
-d^\Pi_\xi(y,z)=(1-\gamma)\sum_{k\ge0}\gamma^k\,
-P^\Pi\!\big[(Y_k,Z_k)=(y,z)\,\big|\,H_0\sim\xi\big].
+d^\pi_\xi(y,z)=(1-\gamma)\sum_{k\ge0}\gamma^k\,
+P^\pi\!\big[(Y_k,Z_k)=(y,z)\,\big|\,H_0\sim\xi\big].
 $$
 
 ## Algorithm (FS-NAC)
 
-1. **Critic** — run **$m$-step TD(0)** with linear function approximation to estimate $\widehat{\mathcal Q}^{\Pi_t}(y,z,a)$.
+1. **Critic** — run **$m$-step TD(0)** with linear function approximation to estimate $\widehat{\mathcal Q}^{\pi_t}(y,z,a)$.
 2. **Actor** — take a **natural-gradient** step using the critic’s advantage estimate.
 
 
@@ -94,11 +94,11 @@ It is straightforward to construct an example which shows that (memoryless) TD l
 **Why $m$-step TD?** In POMDPs, one-step bootstrapping suffers from **perceptual aliasing** (same observation $Y_k$, different latent state $S_k$). Looking $m$ steps ahead stabilizes the target and reduces this bias.
 :::
 
-To see how $m$-step TD learning with internal state $Z_t = (Y_{t-m+1},\ldots,Y_t)$ mitigates perceptual aliasing, let us focus on the limit point. To that end, let $$(T_mv)(z) = \bar{r}_m(z) + \gamma^m(K_mv)(z),$$ where $\bar{r}_m(z) := \mathbb E[\sum_{k=0}^{m-1}r(S_k)|Z_0=z]$ and $(K_mv)(z):=\mathbb{E}[v(Z_m)|Z_0=z]$. Then, it is straightforward to show that $T_m$ is a contractive operator with modulus $\gamma^m$, and admits a unique fixed point $$V(z) = \mathbb E[\sum_{k=0}^\infty r(S_k)|Z_0=z] = \sum_{k=0}^\infty (\gamma^mK_m)^k\bar{r}_m(z)$$ for any $m\in\mathbb N$. Let $\xi$ be the invariant distribution of $\{Z_k:k\in\mathbb N\}$: $$\xi(z_t)=\sum_{s_{t-m+1:t}}\prod_{k=0}^{m-1}\Phi(y_{t-k}|s_{t-k})\mu(s_{t-k}),$$ where $\mu$ is the stationary distribution of $\{S_k:k\in\mathbb N\}$. Under a non-degenerate $\mathbb{E}_{Z_t\sim \xi}[\psi(Z_t)\otimes\psi(Z_t)]\succ 0$, $m$-step TD learning with the internal state $Z_t$ converges to the unique fixed point $v_m$ of the equation $$v = \Pi\{\bar{r}_m+\gamma^m K_m v\},$$ where $\Pi$ be the ortogonal projection onto the subspace $\mathcal V := \{z\mapsto \langle \psi(z),w\rangle: w \in \mathbb R^d$ with respect to $L^2(\xi)$. Then, Using this, we can show that $$\|v_m - \Pi V\|_{L^2(\xi)} \leq \frac{\gamma^m}{1+\gamma^m}\|V-\Pi V\|_{L^2(\xi)}.$$ As such, it is possible to learn $V(z_0)$ via $m$-step TD learning with an additional error term $\mathcal{O}(\gamma^m)$.
+To see how $m$-step TD learning with internal state $Z_t = (Y_{t-m+1},\ldots,Y_t)$ mitigates perceptual aliasing, let us focus on the limit point. To that end, let $$(T_mv)(z) = \bar{r}_m(z) + \gamma^m(K_mv)(z),$$ where $\bar{r}_m(z) := \mathbb E[\sum_{k=0}^{m-1}r(S_k)|Z_0=z]$ and $(K_mv)(z):=\mathbb{E}[v(Z_m)|Z_0=z]$. Then, it is straightforward to show that $T_m$ is a contractive operator with modulus $\gamma^m$, and admits a unique fixed point $$V(z) = \mathbb E[\sum_{k=0}^\infty r(S_k)|Z_0=z] = \sum_{k=0}^\infty (\gamma^mK_m)^k\bar{r}_m(z)$$ for any $m\in\mathbb N$. Let $\xi$ be the invariant distribution of $\{Z_k:k\in\mathbb N\}$: $$\xi(z_t)=\sum_{s_{t-m+1:t}}\prod_{k=0}^{m-1}\Phi(y_{t-k}|s_{t-k})\mu(s_{t-k}),$$ where $\mu$ is the stationary distribution of $\{S_k:k\in\mathbb N\}$. Under a non-degenerate $\mathbb{E}_{Z_t\sim \xi}[\psi(Z_t)\otimes\psi(Z_t)]\succ 0$, $m$-step TD learning with the internal state $Z_t$ converges to the unique fixed point $v_m$ of the equation $$v = \pi\{\bar{r}_m+\gamma^m K_m v\},$$ where $\pi$ be the ortogonal projection onto the subspace $\mathcal V := \{z\mapsto \langle \psi(z),w\rangle: w \in \mathbb R^d$ with respect to $L^2(\xi)$. Then, Using this, we can show that $$\|v_m - \pi V\|_{L^2(\xi)} \leq \frac{\gamma^m}{1+\gamma^m}\|V-\pi V\|_{L^2(\xi)}.$$ As such, it is possible to learn $V(z_0)$ via $m$-step TD learning with an additional error term $\mathcal{O}(\gamma^m)$.
 
 With stepsize $\alpha=K^{-1/2}$ and parameter radius $R$, after $K$ critic updates:
 $$
-\sqrt{\mathbb E\!\left[\big\|\mathcal Q^\Pi-\widehat{\mathcal Q}^\Pi_K\big\|^2_{\,d^\Pi_\xi\otimes\Pi}\right]}
+\sqrt{\mathbb E\!\left[\big\|\mathcal Q^\pi-\widehat{\mathcal Q}^\pi_K\big\|^2_{\,d^\pi_\xi\otimes\pi}\right]}
 \;\lesssim\;
 \underbrace{\tfrac{K^{-1/4}}{1-\gamma}}_{\text{statistical}}
 +\underbrace{\tfrac{\varepsilon_{\text{app}}(R)}{1-\gamma^m}}_{\text{approximation}}
@@ -115,7 +115,7 @@ $$
 
 After $T$ outer iterations (with tuned stepsizes),
 $$
-(1-\gamma)\,\min_{t<T}\mathbb E\!\big[\mathcal V^{\Pi^\star}(\xi)-\mathcal V^{\Pi_t}(\xi)\big]
+(1-\gamma)\,\min_{t<T}\mathbb E\!\big[\mathcal V^{\pi^\star}(\xi)-\mathcal V^{\pi_t}(\xi)\big]
 \;\lesssim\;
 \underbrace{T^{-1/2}}_{\text{actor optimization}}
 +\underbrace{\varepsilon_{\text{critic}}(K,m,R)}_{\text{TD evaluation}}
@@ -152,6 +152,6 @@ $$
 
 ## What’s next: RNN-based NAC for POMDPs
 
-A natural extension replaces the hand-engineered memory $Z_k$ with a **recurrent hidden state** $H_k$ learned end-to-end (RNN-based NAC). The policy becomes $\Pi_\theta(a\mid Y_k, H_k)$ with $H_{k+1}=f_\theta(H_k,Y_{k+1},A_k)$, and the natural-gradient machinery is adapted to the recurrent parameterization. I’ll cover how this compares to FSCs (sample complexity vs. representation power, and how partial-observability error shows up) in a follow-up post about our **RNN-based natural actor–critic** paper.
+A natural extension replaces the hand-engineered memory $Z_k$ with a **recurrent hidden state** $H_k$ learned end-to-end (RNN-based NAC). The policy becomes $\pi_\theta(a\mid Y_k, H_k)$ with $H_{k+1}=f_\theta(H_k,Y_{k+1},A_k)$, and the natural-gradient machinery is adapted to the recurrent parameterization. I’ll cover how this compares to FSCs (sample complexity vs. representation power, and how partial-observability error shows up) in a follow-up post about our **RNN-based natural actor–critic** paper.
 
 ---
