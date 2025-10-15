@@ -12,15 +12,15 @@
 <generator>quarto-1.8.25</generator>
 <lastBuildDate>Sun, 12 Oct 2025 00:00:00 GMT</lastBuildDate>
 <item>
-  <title>Natural Policy Gradient for POMDPs – Part I: Finite-State Controllers</title>
-  <link>https://semihcayci.github.io/posts/nac-for-pomdps.html</link>
+  <title>Reinforcement Learning for POMDPs – Part I: TD Learning with Internal States</title>
+  <link>https://semihcayci.github.io/posts/td-learning-for-pomdps.html</link>
   <description><![CDATA[ 
 
 
 
 
 <blockquote class="blockquote">
-<p><strong>TL;DR.</strong> In <span class="citation" data-cites="cayci2024nac">(Cayci, He, and Srikant 2024)</span>, we studied a natural actor–critic (NAC) method in POMDPs. Critic uses <img src="https://latex.codecogs.com/png.latex?m">-step TD learning to mitigate perceptual aliasing and the actor uses an internal state to incorporate memory. We establish non-asymptotic bounds for optimization/approximation, evaluation, and inference (partial observability) errors. For sliding-window controllers, the inference error decays geometrically with the window size under certain ergodicity conditions.</p>
+<p><strong>TL;DR.</strong> A classic result by <span class="citation" data-cites="singh1994learning">(Singh, Jaakkola, and Jordan 1994)</span> shows that memoryless TD learning fails in POMDPs. To address this, we studied a natural actor–critic (NAC) method for POMDPs in <span class="citation" data-cites="cayci2024nac">(Cayci, He, and Srikant 2024)</span>, with a critic that uses <img src="https://latex.codecogs.com/png.latex?m">-step TD learning with an internal state to mitigate perceptual aliasing problem. Below, I review this algorithm and provide some follow-up results.</p>
 </blockquote>
 <section id="formal-pomdp-model" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="formal-pomdp-model"><span class="header-section-number">1</span> Formal POMDP model</h2>
@@ -51,19 +51,8 @@ Partial observability implies that the optimal policy <img src="https://latex.co
 </ul>
 <p>The actor uses a <strong>linear-softmax FSC</strong>: <img src="https://latex.codecogs.com/png.latex?%0A%5Cpi_%5Ctheta(a%20%5Cmid%20y,z)%20=%0A%5Cfrac%7B%5Cexp%5C%7B%5Ctheta%5E%5Ctop%20%5Cpsi(a,y,z)%5C%7D%7D%0A%7B%5Csum_%7Ba'%7D%20%5Cexp%5C%7B%5Ctheta%5E%5Ctop%20%5Cpsi(a',y,z)%5C%7D%7D,%0A"> with features <img src="https://latex.codecogs.com/png.latex?%5Cpsi(a,y,z)%5Cin%5Cmathbb%20R%5Ed">. The controller memory updates via some <img src="https://latex.codecogs.com/png.latex?%5Cvarphi">: <img src="https://latex.codecogs.com/png.latex?%0AZ_%7Bk+1%7D=%5Cvarphi(Z_k,%20Y_%7Bk+1%7D,%20A_k).%0A"></p>
 </section>
-<section id="sampling-measure" class="level2" data-number="3">
-<h2 data-number="3" class="anchored" data-anchor-id="sampling-measure"><span class="header-section-number">3</span> Sampling Measure</h2>
-<p>Let the <strong>discounted visitation distribution</strong> over information states be <img src="https://latex.codecogs.com/png.latex?%0Ad%5E%5Cpi_%5Cxi(y,z)=(1-%5Cgamma)%5Csum_%7Bk%5Cge0%7D%5Cgamma%5Ek%5C,%0AP%5E%5Cpi%5C!%5Cbig%5B(Y_k,Z_k)=(y,z)%5C,%5Cbig%7C%5C,H_0%5Csim%5Cxi%5Cbig%5D.%0A"></p>
-</section>
-<section id="algorithm-fs-nac" class="level2" data-number="4">
-<h2 data-number="4" class="anchored" data-anchor-id="algorithm-fs-nac"><span class="header-section-number">4</span> Algorithm (FS-NAC)</h2>
-<ol type="1">
-<li><strong>Critic</strong> — run <strong><img src="https://latex.codecogs.com/png.latex?m">-step TD(0)</strong> with linear function approximation to estimate <img src="https://latex.codecogs.com/png.latex?%5Cwidehat%7B%5Cmathcal%20Q%7D%5E%7B%5Cpi_t%7D(y,z,a)">.</li>
-<li><strong>Actor</strong> — take a <strong>natural-gradient</strong> step using the critic’s advantage estimate.</li>
-</ol>
-</section>
-<section id="critic-m-step-td-learning-with-an-internal-state" class="level2" data-number="5">
-<h2 data-number="5" class="anchored" data-anchor-id="critic-m-step-td-learning-with-an-internal-state"><span class="header-section-number">5</span> Critic: <img src="https://latex.codecogs.com/png.latex?m">-step TD Learning with an Internal State</h2>
+<section id="critic-m-step-td-learning-with-an-internal-state" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="critic-m-step-td-learning-with-an-internal-state"><span class="header-section-number">3</span> Critic: <img src="https://latex.codecogs.com/png.latex?m">-step TD Learning with an Internal State</h2>
 <p>It is straightforward to construct an example which shows that (memoryless) TD learning cannot learn the value functions in a POMDP, which is known as the perceptual aliasing pathology <span class="citation" data-cites="singh1994learning">(Singh, Jaakkola, and Jordan 1994)</span>. For a concrete demonstration, let us focus on learning the value function in a Hidden Markov Reward Process (HMRP): <img src="https://latex.codecogs.com/png.latex?V(z_0):=%5Cmathbb%20E%5B%5Csum_%7Bk=0%7D%5E%5Cinfty%20%5Cgamma%5Ek%20r(S_k)%7CZ_0=z_0%5D"> for an internal state <img src="https://latex.codecogs.com/png.latex?Z_t"> (e.g., <img src="https://latex.codecogs.com/png.latex?Z_t%20=%20(Y_%7Bt-m+1%7D,%5Cldots,Y_t)">), where <img src="https://latex.codecogs.com/png.latex?(S_k,%20r(S_k),%20Y_k)"> is a HMRP.</p>
 <p><strong>Example 1</strong> Consider an HMRP with <img src="https://latex.codecogs.com/png.latex?%5Cmathcal%20S%20=%20%5C%7B0,1%5C%7D">, <img src="https://latex.codecogs.com/png.latex?r(s)%20=%20s"> and <img src="https://latex.codecogs.com/png.latex?%5CPhi(1%7Cs)%20=%201"> for all <img src="https://latex.codecogs.com/png.latex?s%5Cin%5Cmathcal%7BS%7D">. Let <img src="https://latex.codecogs.com/png.latex?P(0%7C1)%20=%20p"> and <img src="https://latex.codecogs.com/png.latex?P(1%7C0)%20=%20q"> for some <img src="https://latex.codecogs.com/png.latex?p,%20q%20%5Cin%20(0,1)">, and <img src="https://latex.codecogs.com/png.latex?%5Cgamma%20%5Cin%20(0,%201)"> be the discount factor. As TD(0) cannot distinguish different latent states due to the noisy observation and the lack of memory, it converges to <img src="https://latex.codecogs.com/png.latex?v%5E%5Cstar%20=%20%5Cfrac%7B1%7D%7B1-%5Cgamma%7D%5Ccdot%20%5Cfrac%7Bp%7D%7Bq+p%7D">. On the other hand, the value function for a given internal state <img src="https://latex.codecogs.com/png.latex?Z_0=z_0"> is <img src="https://latex.codecogs.com/png.latex?V(z_0)%20=%20%5Cfrac%7B%5Cgamma%20p%20+%20(1-%5Cgamma)P(S_0=1%7CZ_0=z_0)%7D%7B(1-%5Cgamma)%5CBig%5B%5Cgamma(p+q)+1-%5Cgamma%5CBig%5D%7D%5Cneq%20v%5E%5Cstar,"> since <img src="https://latex.codecogs.com/png.latex?V(z_0)%20=%20V_0%5E%5Cstar+(V_1%5E%5Cstar-V_0%5E%5Cstar)P(S_0=1%7CZ_0=z_0)"> where <img src="https://latex.codecogs.com/png.latex?V_s%5E%5Cstar:=%5Cmathbb%20E%5B%5Csum_%7Bk=0%7D%5E%5Cinfty%20r(S_k)%7CS_0=s%5D">. As such, memoryless TD learning cannot learn <img src="https://latex.codecogs.com/png.latex?V(z_0)">.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -85,17 +74,17 @@ Tip
 <p>With stepsize <img src="https://latex.codecogs.com/png.latex?%5Calpha=K%5E%7B-1/2%7D"> and parameter radius <img src="https://latex.codecogs.com/png.latex?R">, after <img src="https://latex.codecogs.com/png.latex?K"> critic updates: <img src="https://latex.codecogs.com/png.latex?%0A%5Csqrt%7B%5Cmathbb%20E%5C!%5Cleft%5B%5Cbig%5C%7C%5Cmathcal%20Q%5E%5Cpi-%5Cwidehat%7B%5Cmathcal%20Q%7D%5E%5Cpi_K%5Cbig%5C%7C%5E2_%7B%5C,d%5E%5Cpi_%5Cxi%5Cotimes%5Cpi%7D%5Cright%5D%7D%0A%5C;%5Clesssim%5C;%0A%5Cunderbrace%7B%5Ctfrac%7BK%5E%7B-1/4%7D%7D%7B1-%5Cgamma%7D%7D_%7B%5Ctext%7Bstatistical%7D%7D%0A+%5Cunderbrace%7B%5Ctfrac%7B%5Cvarepsilon_%7B%5Ctext%7Bapp%7D%7D(R)%7D%7B1-%5Cgamma%5Em%7D%7D_%7B%5Ctext%7Bapproximation%7D%7D%0A+%5Cunderbrace%7B%5Cvarepsilon_%7B%5Ctext%7Bpa%7D%7D(%5Cgamma,m,R)%7D_%7B%5Ctext%7Baliasing%7D%7D,%0A"> where <img src="https://latex.codecogs.com/png.latex?%5Cvarepsilon_%7B%5Ctext%7Bapp%7D%7D(R)"> is the best linear-approximation error within radius <img src="https://latex.codecogs.com/png.latex?R">, and the aliasing term contracts geometrically: <img src="https://latex.codecogs.com/png.latex?%0A%5Cvarepsilon_%7B%5Ctext%7Bpa%7D%7D(%5Cgamma,m,R)=%5Cmathcal%20O%5C!%5Cbig(%5Cgamma%5E%7Bm/2%7D%5C,%5Cmathrm%7Bpoly%7D(R,(1-%5Cgamma)%5E%7B-1%7D)%5Cbig).%0A"></p>
 <p><strong>Sample–accuracy trade-off.</strong> Each update uses <img src="https://latex.codecogs.com/png.latex?m"> samples, so total evaluation samples are <img src="https://latex.codecogs.com/png.latex?%5CTheta(mK)">.</p>
 </section>
-<section id="full-actorcritic-performance-finite-time" class="level2" data-number="6">
-<h2 data-number="6" class="anchored" data-anchor-id="full-actorcritic-performance-finite-time"><span class="header-section-number">6</span> Full Actor–Critic Performance (Finite-Time)</h2>
+<section id="full-actorcritic-performance-finite-time" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="full-actorcritic-performance-finite-time"><span class="header-section-number">4</span> Full Actor–Critic Performance (Finite-Time)</h2>
 <p>After <img src="https://latex.codecogs.com/png.latex?T"> outer iterations (with tuned stepsizes), <img src="https://latex.codecogs.com/png.latex?%0A(1-%5Cgamma)%5C,%5Cmin_%7Bt%3CT%7D%5Cmathbb%20E%5C!%5Cbig%5B%5Cmathcal%20V%5E%7B%5Cpi%5E%5Cstar%7D(%5Cxi)-%5Cmathcal%20V%5E%7B%5Cpi_t%7D(%5Cxi)%5Cbig%5D%0A%5C;%5Clesssim%5C;%0A%5Cunderbrace%7BT%5E%7B-1/2%7D%7D_%7B%5Ctext%7Bactor%20optimization%7D%7D%0A+%5Cunderbrace%7B%5Cvarepsilon_%7B%5Ctext%7Bcritic%7D%7D(K,m,R)%7D_%7B%5Ctext%7BTD%20evaluation%7D%7D%0A+%5Cunderbrace%7B%5Cvarepsilon_%7B%5Ctext%7Bactor%7D%7D(N,R)%7D_%7B%5Ctext%7Bcompatible%20approx.%7D%7D%0A+%5Cunderbrace%7B%5Cvarepsilon_%7B%5Ctext%7Binf%7D%7D(%5Cxi)%7D_%7B%5Ctext%7Binference%20penalty%7D%7D.%0A"></p>
 <p>The <strong>inference error</strong> is the price of partial observability: <img src="https://latex.codecogs.com/png.latex?%0A%5Cvarepsilon_%7B%5Ctext%7Binf%7D%7D(%5Cxi)%0A=%20%5Cmathbb%20E%5C!%5Cleft%5B%5Csum_%7Bk%5Cge0%7D%5Cgamma%5Ek%0A%5Cleft%5C%7C%5C,b_k(%5Ccdot)-b_0(%5Ccdot,I_k)%5C,%5Cright%5C%7C_%7B%5Cmathrm%7BTV%7D%7D%0A%5Cright%5D,%5Cqquad%20I_k=(Y_k,Z_k).%0A"></p>
 </section>
-<section id="sliding-window-controllers-memory-vs.-accuracy" class="level2" data-number="7">
-<h2 data-number="7" class="anchored" data-anchor-id="sliding-window-controllers-memory-vs.-accuracy"><span class="header-section-number">7</span> Sliding-Window Controllers (Memory vs.&nbsp;Accuracy)</h2>
+<section id="sliding-window-controllers-memory-vs.-accuracy" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="sliding-window-controllers-memory-vs.-accuracy"><span class="header-section-number">5</span> Sliding-Window Controllers (Memory vs.&nbsp;Accuracy)</h2>
 <p>Under stochastic exploration and filter stability/minorization, the inference error <strong>decays geometrically</strong> with window length <img src="https://latex.codecogs.com/png.latex?n">: <img src="https://latex.codecogs.com/png.latex?%0A%5Cvarepsilon_%7B%5Ctext%7Binf%7D%7D(%5Cxi)%5C;%5Cle%5C;%5Cfrac%7B1%7D%7B1-%5Cgamma%7D%5Ccdot%0A%5Cmathcal%20O%5C!%5CBig(%5Crho%5E%7B%5Clfloor%20n/m_0%5Crfloor%7D%5CBig),%0A"> for constants <img src="https://latex.codecogs.com/png.latex?%5Crho%5Cin(0,1)"> and <img src="https://latex.codecogs.com/png.latex?m_0%5Cge1">. To reach tolerance <img src="https://latex.codecogs.com/png.latex?%5Cepsilon">: <img src="https://latex.codecogs.com/png.latex?%0An=%5Cmathcal%20O%5C!%5Cbig(m_0%5Clog(1/%5Cepsilon)%5Cbig).%0A"></p>
 </section>
-<section id="practical-tuning" class="level2" data-number="8">
-<h2 data-number="8" class="anchored" data-anchor-id="practical-tuning"><span class="header-section-number">8</span> Practical Tuning</h2>
+<section id="practical-tuning" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="practical-tuning"><span class="header-section-number">6</span> Practical Tuning</h2>
 <ul>
 <li><strong>TD horizon <img src="https://latex.codecogs.com/png.latex?m">:</strong> choose <img src="https://latex.codecogs.com/png.latex?m=%5CTheta(%5Clog_%7B1/%5Cgamma%7D(1/%5Cepsilon))"> to make aliasing <img src="https://latex.codecogs.com/png.latex?%5Clesssim%5Cepsilon">.</li>
 <li><strong>Critic steps <img src="https://latex.codecogs.com/png.latex?K"> and actor inner steps <img src="https://latex.codecogs.com/png.latex?N">:</strong> about <img src="https://latex.codecogs.com/png.latex?%5CTheta(%5Cepsilon%5E%7B-4%7D)">.</li>
@@ -103,8 +92,8 @@ Tip
 <li><strong>Window <img src="https://latex.codecogs.com/png.latex?n">:</strong> grows like <img src="https://latex.codecogs.com/png.latex?%5Cmathcal%20O(%5Clog(1/%5Cepsilon))"> under filter stability.</li>
 </ul>
 </section>
-<section id="whats-next-rnn-based-nac-for-pomdps" class="level2" data-number="9">
-<h2 data-number="9" class="anchored" data-anchor-id="whats-next-rnn-based-nac-for-pomdps"><span class="header-section-number">9</span> What’s next: RNN-based NAC for POMDPs</h2>
+<section id="whats-next-rnn-based-nac-for-pomdps" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="whats-next-rnn-based-nac-for-pomdps"><span class="header-section-number">7</span> What’s next: RNN-based NAC for POMDPs</h2>
 <p>A natural extension replaces the hand-engineered memory <img src="https://latex.codecogs.com/png.latex?Z_k"> with a <strong>recurrent hidden state</strong> <img src="https://latex.codecogs.com/png.latex?H_k"> learned end-to-end (RNN-based NAC). The policy becomes <img src="https://latex.codecogs.com/png.latex?%5Cpi_%5Ctheta(a%5Cmid%20Y_k,%20H_k)"> with <img src="https://latex.codecogs.com/png.latex?H_%7Bk+1%7D=f_%5Ctheta(H_k,Y_%7Bk+1%7D,A_k)">, and the natural-gradient machinery is adapted to the recurrent parameterization. I’ll cover how this compares to FSCs (sample complexity vs.&nbsp;representation power, and how partial-observability error shows up) in a follow-up post about our <strong>RNN-based natural actor–critic</strong> paper.</p>
 <hr>
 
@@ -131,9 +120,8 @@ Yüksel, Serdar. 2025. <span>“Another Look at Partially Observed Optimal Stoch
 </div></section></div> ]]></description>
   <category>reinforcement-learning</category>
   <category>POMDP</category>
-  <category>actor-critic</category>
-  <category>theory</category>
-  <guid>https://semihcayci.github.io/posts/nac-for-pomdps.html</guid>
+  <category>temporal difference learning</category>
+  <guid>https://semihcayci.github.io/posts/td-learning-for-pomdps.html</guid>
   <pubDate>Sun, 12 Oct 2025 00:00:00 GMT</pubDate>
 </item>
 <item>
@@ -194,12 +182,12 @@ Yüksel, Serdar. 2025. <span>“Another Look at Partially Observed Optimal Stoch
 </thead>
 <tbody class="list">
 
-<tr data-index="0" data-categories="cmVpbmZvcmNlbWVudC1sZWFybmluZyUyQ1BPTURQJTJDYWN0b3ItY3JpdGljJTJDdGhlb3J5" data-listing-date-sort="1760227200000" data-listing-file-modified-sort="1760496427581" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1225" data-listing-title-sort="Natural Policy Gradient for POMDPs – Part I: Finite-State Controllers" data-listing-filename-sort="nac-for-pomdps.qmd">
+<tr data-index="0" data-categories="cmVpbmZvcmNlbWVudC1sZWFybmluZyUyQ1BPTURQJTJDdGVtcG9yYWwlMjBkaWZmZXJlbmNlJTIwbGVhcm5pbmc=" data-listing-date-sort="1760227200000" data-listing-file-modified-sort="1760497205069" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1185" data-listing-title-sort="Reinforcement Learning for POMDPs – Part I: TD Learning with Internal States" data-listing-filename-sort="td-learning-for-pomdps.qmd">
 <td>
 <span class="listing-date">Oct 12, 2025</span>
 </td>
 <td>
-<a href="../posts/nac-for-pomdps.html" class="title listing-title">Natural Policy Gradient for POMDPs – Part I: Finite-State Controllers</a>
+<a href="../posts/td-learning-for-pomdps.html" class="title listing-title">Reinforcement Learning for POMDPs – Part I: TD Learning with Internal States</a>
 </td>
 <td>
 <span class="listing-author">&nbsp;</span>
@@ -212,7 +200,7 @@ Yüksel, Serdar. 2025. <span>“Another Look at Partially Observed Optimal Stoch
 <div class="listing-no-matching d-none">No matching items</div>
 </div> ]]></description>
   <guid>https://semihcayci.github.io/posts/</guid>
-  <pubDate>Wed, 15 Oct 2025 02:47:32 GMT</pubDate>
+  <pubDate>Wed, 15 Oct 2025 03:00:24 GMT</pubDate>
 </item>
 </channel>
 </rss>

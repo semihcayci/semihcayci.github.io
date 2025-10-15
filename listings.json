@@ -2,14 +2,14 @@
   {
     "listing": "/posts/index.html",
     "items": [
-      "/posts/nac-for-pomdps.html"
+      "/posts/td-learning-for-pomdps.html"
     ]
   },
   {
     "listing": "/index.html",
     "items": [
       "/posts/index.html",
-      "/posts/nac-for-pomdps.html"
+      "/posts/td-learning-for-pomdps.html"
     ]
   }
 ]
