@@ -1,13 +1,13 @@
 ---
-title: "Natural Policy Gradient for POMDPs – Part I: Finite-State Controllers"
+title: "Reinforcement Learning for POMDPs – Part I: TD Learning with Internal States"
 date: 2025-10-12
-description: "Natural actor–critic with finite-state controllers for POMDPs."
-categories: [reinforcement-learning, POMDP, actor-critic, theory]
+description: "How does multi-step TD learning with internal states mitigate partial observability?"
+categories: [reinforcement-learning, POMDP, temporal difference learning]
 toc: true
 draft: false
 ---
 
-> **TL;DR.** In [@cayci2024nac], we studied a natural actor–critic (NAC) method in POMDPs. Critic uses $m$-step TD learning to mitigate perceptual aliasing and the actor uses an internal state to incorporate memory. We establish non-asymptotic bounds for optimization/approximation, evaluation, and inference (partial observability) errors. For sliding-window controllers, the inference error decays geometrically with the window size under certain ergodicity conditions.
+> **TL;DR.** A classic result by [@singh1994learning] shows that memoryless TD learning fails in POMDPs. To address this, we studied a natural actor–critic (NAC) method for POMDPs in [@cayci2024nac], with a critic that uses $m$-step TD learning with an internal state to mitigate perceptual aliasing problem. Below, I review this algorithm and provide some follow-up results.
 
 ## Formal POMDP model
 
@@ -68,21 +68,6 @@ with features $\psi(a,y,z)\in\mathbb R^d$. The controller memory updates via som
 $$
 Z_{k+1}=\varphi(Z_k, Y_{k+1}, A_k).
 $$
-
-## Sampling Measure
-
-Let the **discounted visitation distribution** over information states be
-$$
-d^\pi_\xi(y,z)=(1-\gamma)\sum_{k\ge0}\gamma^k\,
-P^\pi\!\big[(Y_k,Z_k)=(y,z)\,\big|\,H_0\sim\xi\big].
-$$
-
-## Algorithm (FS-NAC)
-
-1. **Critic** — run **$m$-step TD(0)** with linear function approximation to estimate $\widehat{\mathcal Q}^{\pi_t}(y,z,a)$.
-2. **Actor** — take a **natural-gradient** step using the critic’s advantage estimate.
-
-
 
 ## Critic: $m$-step TD Learning with an Internal State
 
