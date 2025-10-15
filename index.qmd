@@ -1,10 +1,8 @@
 ---
-title: "Home"
+title: "Notes on Theoretical RL"
 listing:
   contents: posts
   sort: "date desc"
   type: default
   feed: true
 ---
-
-On this page, I will share some of my recent research interests in an informal way. For any questions, you can contact me by email.
