@@ -126,7 +126,7 @@ Yüksel, Serdar. 2025. <span>“Another Look at Partially Observed Optimal Stoch
   <pubDate>Sun, 12 Oct 2025 00:00:00 GMT</pubDate>
 </item>
 <item>
-  <title>All Posts</title>
+  <title>Posts</title>
   <link>https://semihcayci.github.io/posts/</link>
   <description><![CDATA[ 
 
@@ -183,7 +183,7 @@ Yüksel, Serdar. 2025. <span>“Another Look at Partially Observed Optimal Stoch
 </thead>
 <tbody class="list">
 
-<tr data-index="0" data-categories="cmVpbmZvcmNlbWVudC1sZWFybmluZyUyQ1BPTURQJTJDdGVtcG9yYWwlMjBkaWZmZXJlbmNlJTIwbGVhcm5pbmc=" data-listing-date-sort="1760227200000" data-listing-file-modified-sort="1760516565287" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1217" data-listing-title-sort="Reinforcement Learning for POMDPs – Part I: TD Learning with Internal States" data-listing-filename-sort="td-learning-for-pomdps.qmd">
+<tr data-index="0" data-categories="cmVpbmZvcmNlbWVudC1sZWFybmluZyUyQ1BPTURQJTJDdGVtcG9yYWwlMjBkaWZmZXJlbmNlJTIwbGVhcm5pbmc=" data-listing-date-sort="1760227200000" data-listing-file-modified-sort="1760516584172" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1217" data-listing-title-sort="Reinforcement Learning for POMDPs – Part I: TD Learning with Internal States" data-listing-filename-sort="td-learning-for-pomdps.qmd">
 <td>
 <span class="listing-date">Oct 12, 2025</span>
 </td>
@@ -201,7 +201,7 @@ Yüksel, Serdar. 2025. <span>“Another Look at Partially Observed Optimal Stoch
 <div class="listing-no-matching d-none">No matching items</div>
 </div> ]]></description>
   <guid>https://semihcayci.github.io/posts/</guid>
-  <pubDate>Wed, 15 Oct 2025 08:22:57 GMT</pubDate>
+  <pubDate>Wed, 15 Oct 2025 08:23:21 GMT</pubDate>
 </item>
 </channel>
 </rss>

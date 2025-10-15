@@ -9,7 +9,7 @@
   {
     "objectID": "posts/index.html",
     "href": "posts/index.html",
-    "title": "All Posts",
+    "title": "Posts",
     "section": "",
     "text": "Order By\n      Default\n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Title\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nDate\n\n\n\nTitle\n\n\n\nAuthor\n\n\n\n\n\n\n\n\nOct 12, 2025\n\n\nReinforcement Learning for POMDPs – Part I: TD Learning with Internal States\n\n\n \n\n\n\n\n\n\nNo matching items"
   },
@@ -18,7 +18,7 @@
     "href": "index.html",
     "title": "Notes on Theoretical RL",
     "section": "",
-    "text": "All Posts\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nReinforcement Learning for POMDPs – Part I: TD Learning with Internal States\n\n\nHow does multi-step TD learning with internal states mitigate partial observability?\n\n\n\n\n\nOct 12, 2025\n\n\n\n\n\nNo matching items"
+    "text": "Posts\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nReinforcement Learning for POMDPs – Part I: TD Learning with Internal States\n\n\nHow does multi-step TD learning with internal states mitigate partial observability?\n\n\n\n\n\nOct 12, 2025\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/td-learning-for-pomdps.html",
