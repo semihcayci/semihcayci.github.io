@@ -91,7 +91,7 @@ as $m\rightarrow\infty$ due to the law of total variance for nested $\sigma$-alg
 
 In summary, we have
 \begin{align*}
-  \mathbb{E}[(V_{S_0}^\star - v^\star)^2] &= (V_1^\star-V_0^\star)^2 Var(\mathbf{1}_{\{S_0=1\}})
+  \mathbb{E}[(V_{S_0}^\star - v^\star)^2] &= (V_1^\star-V_0^\star)^2 Var(\mathbf{1}_{\{S_0=1\}})\\
 &\geq (V_1^\star-V_0^\star)^2\mathbb E[Var(\mathbf{1}_{\{S_0=1\}}|\mathcal F_m)] \downarrow (V_1^\star-V_0^\star)^2\mathbb E[Var(\mathbf{1}_{\{S_0=1\}}|\mathcal F_\infty)].
 \end{align*}
 
