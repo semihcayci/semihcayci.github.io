@@ -10,7 +10,7 @@ execute:
   echo: false
 
 website:
-  title: "Semih Cayci — Blog"
+  title: "Notes on Theoretical RL"
   site-url: https://semihcayci.github.io/
   navbar:
     right:
