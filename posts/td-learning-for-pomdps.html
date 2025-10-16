@@ -293,23 +293,7 @@ Tip
 <p><strong>Example 2 (When TD(0) fails to learn <span class="math inline">\(V(z_0)\)</span>).</strong> Consider the two-state HMRP with <span class="math inline">\(\mathcal S = \{0,1\}\)</span>, <span class="math inline">\(r(s) = s\)</span> and <span class="math inline">\(\Phi(1|s) = c_s\in(0,1)\)</span>. Let <span class="math inline">\(P(0|1) = P(1|0) = 0.01\)</span>, and <span class="math inline">\(\gamma = 0.99\)</span>. Consider an internal state <span class="math inline">\(Z_k = (Y_{k-1}, Y_k)\)</span>. We want to compute <span class="math inline">\(V(z_0) = \mathbb{E}[\sum_k \gamma^k r(S_k)|Z_0=z_0]\)</span>. For this purpose, one can use tabular-TD(0) with the surrogate state <span class="math inline">\(Z_k=(Y_{k-1},Y_k)\)</span>. In this case, the limit point of TD(0) would be the unique fixed point of <span class="math display">\[(T_1v)(z_0):=P(S_0=1|Z_0=z_0) + \gamma \sum_{z_1\in\{0,1\}^2}v(z_1)P(Z_1=z_1|Z_0=z_0).\]</span> Now, let’s diagnose why the true value is <strong>not</strong> the fixed point of the Bellman equation. Note that we can write <span class="math display">\[\begin{align*}
 V(z_0) &amp;= \mathbb E[r(S_0)|Z_0=z_0] + \gamma \mathbb{E}[\sum_{k=0}^\infty \gamma^kr(S_{k+1})|Z_0=z_0]\\
 &amp;= \mathbb E[r(S_0)|Z_0=z_0] + \gamma \mathbb{E}\left[\mathbb{E}[\sum_{k=0}^\infty \gamma^kr(S_{k+1})|Z_1, Z_0=z_0]\big|Z_0=z_0\right]
-\end{align*}\]</span> Note that <span class="math inline">\((Z_0,Z_1) = (Y_{-1},Y_0,Y_1)\)</span>. Thus, <span class="math inline">\(\mathbb{E}[\sum_{k=0}^\infty \gamma^kr(S_{k+1})|Z_1, Z_0=z_0] \neq \mathbb{E}[\sum_{k=0}^\infty \gamma^kr(S_{k+1})|Z_1]\)</span>, which implies that <span class="math inline">\(V(z_0)\)</span> is <strong>not</strong> the fixed point of <span class="math inline">\(T_1\)</span>. To see how they differ, for <span class="math inline">\(c_1=0.51\)</span> and <span class="math inline">\(c_0 = 0.49\)</span>, we have the following results: <span class="math display">\[
-v_1(z_0) =
-\begin{cases}
-49.970, &amp; z_0 = (0,0), \\
-50.010, &amp; z_0 = (0,1), \\
-49.990, &amp; z_0 = (1,0), \\
-50.030, &amp; z_0 = (1,1).
-\end{cases}
-\]</span> On the other hand, the true value function <span class="math inline">\(V(z_0)\)</span> is as follows: <span class="math display">\[
-V(z_0) =
-\begin{cases}
-49.336, &amp; z_0 = (0,0), \\
-50.007, &amp; z_0 = (0,1), \\
-49.993, &amp; z_0 = (1,0), \\
-50.664, &amp; z_0 = (1,1).
-\end{cases}
-\]</span> This indicates that a naive application of TD(0) with the internal state <span class="math inline">\(\{Z_k:k\in\mathbb N\}\)</span> does not return the true value function <span class="math inline">\(V(z_0)\)</span>. Thus, in case we want to evaluate the performance of a policy with an internal state <span class="math inline">\(Z_k^c = (Y_{k-1}, A_{k-1})\)</span>, TD(0) suffers from an estimation error.</p>
+\end{align*}\]</span> Note that <span class="math inline">\((Z_0,Z_1) = (Y_{-1},Y_0,Y_1)\)</span>. Thus, <span class="math inline">\(\mathbb{E}[\sum_{k=0}^\infty \gamma^kr(S_{k+1})|Z_1, Z_0=z_0] \neq \mathbb{E}[\sum_{k=0}^\infty \gamma^kr(S_{k+1})|Z_1]\)</span>, which implies that <span class="math inline">\(V(z_0)\)</span> is <strong>not</strong> the fixed point of <span class="math inline">\(T_1\)</span>. To see how they differ, for <span class="math inline">\(c_1=0.51\)</span> and <span class="math inline">\(c_0 = 0.49\)</span>, we have <span class="math inline">\(\sqrt{\sum_{z_0\in\{0,1\}^2}\mu(z_0)|v_1(z_0)-V(z_0)|^2}\approx 0.448863\)</span>, where <span class="math inline">\(\mu\)</span> is the stationary distribution of <span class="math inline">\(Z_k\)</span>. This indicates that a naive application of TD(0) with the internal state <span class="math inline">\(\{Z_k:k\in\mathbb N\}\)</span> does not return the true value function <span class="math inline">\(V(z_0)\)</span>. Thus, in case we want to evaluate the performance of a policy with an internal state <span class="math inline">\(Z_k^c = (Y_{k-1}, A_{k-1})\)</span>, TD(0) suffers from an estimation error.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
