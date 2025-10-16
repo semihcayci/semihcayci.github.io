@@ -5,6 +5,10 @@ description: "How does multi-step TD learning with internal states mitigate part
 categories: [reinforcement-learning, POMDP, temporal difference learning]
 toc: true
 draft: false
+format:
+  html:
+    title-block-banner: "posts/POMDP.png"   # image behind the title
+    title-block-banner-color: "#ffffff"                              # title text color (optional)
 ---
 
 > **TL;DR.** A classic result by [@singh1994learning] shows that memoryless TD learning fails in POMDPs. To address this, we studied a natural actor–critic (NAC) method for POMDPs in [@cayci2024nac], with a critic that uses $m$-step TD learning with an internal state to mitigate perceptual aliasing problem. Below, I review this algorithm and provide some follow-up results.
