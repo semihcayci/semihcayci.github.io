@@ -262,8 +262,8 @@ Z_k^c = (Y_{k-n:k-1},\; A_{k-n:k-1}) \in \mathcal Y^n \times \mathcal A^n,
 \pi_\theta(a \mid y,z) =
 \frac{\exp\{\theta^\top \psi(a,y,z)\}}
 {\sum_{a'} \exp\{\theta^\top \psi(a',y,z)\}},
-\]</span> with features <span class="math inline">\(\psi(a,y,z)\in\mathbb R^d\)</span>. The controller memory updates via some <span class="math inline">\(\varphi\)</span>: <span class="math display">\[
-Z_{k+1}^c=\varphi(Z_k^c, Y_{k+1}, A_k).
+\]</span> with features <span class="math inline">\(\psi(a,y,z)\in\mathbb R^d\)</span>. The controller memory updates via a transition kernel <span class="math inline">\(\varphi\)</span>: <span class="math display">\[
+Z_{k+1}^c\sim\varphi(\cdot\mid Z_k^c, Y_{k}, A_k).
 \]</span></p>
 </section>
 <section id="hidden-markov-reward-processes-hmrp" class="level2" data-number="3">

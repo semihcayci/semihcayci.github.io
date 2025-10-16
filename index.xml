@@ -49,7 +49,7 @@ Partial observability implies that the optimal policy <img src="https://latex.co
 <p><img src="https://latex.codecogs.com/png.latex?%0AZ_k%5Ec%20=%20(Y_%7Bk-n:k-1%7D,%5C;%20A_%7Bk-n:k-1%7D)%20%5Cin%20%5Cmathcal%20Y%5En%20%5Ctimes%20%5Cmathcal%20A%5En,%0A"></p>
 <p>which summarizes the last <img src="https://latex.codecogs.com/png.latex?n"> observations/actions, where <img src="https://latex.codecogs.com/png.latex?n"> is a design parameter that governs the tradeoff between memory complexity and optimality in solving POMDPs.</p></li>
 </ul>
-<p>The actor uses a <strong>linear-softmax FSC</strong>: <img src="https://latex.codecogs.com/png.latex?%0A%5Cpi_%5Ctheta(a%20%5Cmid%20y,z)%20=%0A%5Cfrac%7B%5Cexp%5C%7B%5Ctheta%5E%5Ctop%20%5Cpsi(a,y,z)%5C%7D%7D%0A%7B%5Csum_%7Ba'%7D%20%5Cexp%5C%7B%5Ctheta%5E%5Ctop%20%5Cpsi(a',y,z)%5C%7D%7D,%0A"> with features <img src="https://latex.codecogs.com/png.latex?%5Cpsi(a,y,z)%5Cin%5Cmathbb%20R%5Ed">. The controller memory updates via some <img src="https://latex.codecogs.com/png.latex?%5Cvarphi">: <img src="https://latex.codecogs.com/png.latex?%0AZ_%7Bk+1%7D%5Ec=%5Cvarphi(Z_k%5Ec,%20Y_%7Bk+1%7D,%20A_k).%0A"></p>
+<p>The actor uses a <strong>linear-softmax FSC</strong>: <img src="https://latex.codecogs.com/png.latex?%0A%5Cpi_%5Ctheta(a%20%5Cmid%20y,z)%20=%0A%5Cfrac%7B%5Cexp%5C%7B%5Ctheta%5E%5Ctop%20%5Cpsi(a,y,z)%5C%7D%7D%0A%7B%5Csum_%7Ba'%7D%20%5Cexp%5C%7B%5Ctheta%5E%5Ctop%20%5Cpsi(a',y,z)%5C%7D%7D,%0A"> with features <img src="https://latex.codecogs.com/png.latex?%5Cpsi(a,y,z)%5Cin%5Cmathbb%20R%5Ed">. The controller memory updates via a transition kernel <img src="https://latex.codecogs.com/png.latex?%5Cvarphi">: <img src="https://latex.codecogs.com/png.latex?%0AZ_%7Bk+1%7D%5Ec%5Csim%5Cvarphi(%5Ccdot%5Cmid%20Z_k%5Ec,%20Y_%7Bk%7D,%20A_k).%0A"></p>
 </section>
 <section id="hidden-markov-reward-processes-hmrp" class="level2" data-number="3">
 <h2 data-number="3" class="anchored" data-anchor-id="hidden-markov-reward-processes-hmrp"><span class="header-section-number">3</span> Hidden Markov Reward Processes (HMRP)</h2>
@@ -217,7 +217,7 @@ Yüksel, Serdar. 2025. <span>“Another Look at Partially Observed Optimal Stoch
 </thead>
 <tbody class="list">
 
-<tr data-index="0" data-categories="cmVpbmZvcmNlbWVudC1sZWFybmluZyUyQ1BPTURQJTJDdGVtcG9yYWwlMjBkaWZmZXJlbmNlJTIwbGVhcm5pbmc=" data-listing-date-sort="1760227200000" data-listing-file-modified-sort="1760612249014" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1580" data-listing-title-sort="RL for POMDPs – Part I: TD Learning with Internal States" data-listing-filename-sort="td-learning-for-pomdps.qmd">
+<tr data-index="0" data-categories="cmVpbmZvcmNlbWVudC1sZWFybmluZyUyQ1BPTURQJTJDdGVtcG9yYWwlMjBkaWZmZXJlbmNlJTIwbGVhcm5pbmc=" data-listing-date-sort="1760227200000" data-listing-file-modified-sort="1760612416428" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1583" data-listing-title-sort="RL for POMDPs – Part I: TD Learning with Internal States" data-listing-filename-sort="td-learning-for-pomdps.qmd">
 <td>
 <span class="listing-date">Oct 12, 2025</span>
 </td>
@@ -235,7 +235,7 @@ Yüksel, Serdar. 2025. <span>“Another Look at Partially Observed Optimal Stoch
 <div class="listing-no-matching d-none">No matching items</div>
 </div> ]]></description>
   <guid>https://semihcayci.github.io/posts/</guid>
-  <pubDate>Thu, 16 Oct 2025 10:57:55 GMT</pubDate>
+  <pubDate>Thu, 16 Oct 2025 11:00:33 GMT</pubDate>
 </item>
 </channel>
 </rss>
