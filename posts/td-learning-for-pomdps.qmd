@@ -93,27 +93,7 @@ On the other hand, the value function for a given $z_0$ is $$V(z_0) = V_0^\star 
 V(z_0) &= \mathbb E[r(S_0)|Z_0=z_0] + \gamma \mathbb{E}[\sum_{k=0}^\infty \gamma^kr(S_{k+1})|Z_0=z_0]\\
 &= \mathbb E[r(S_0)|Z_0=z_0] + \gamma \mathbb{E}\left[\mathbb{E}[\sum_{k=0}^\infty \gamma^kr(S_{k+1})|Z_1, Z_0=z_0]\big|Z_0=z_0\right]
 \end{align*}
-Note that $(Z_0,Z_1) = (Y_{-1},Y_0,Y_1)$. Thus, $\mathbb{E}[\sum_{k=0}^\infty \gamma^kr(S_{k+1})|Z_1, Z_0=z_0] \neq \mathbb{E}[\sum_{k=0}^\infty \gamma^kr(S_{k+1})|Z_1]$, which implies that $V(z_0)$ is **not** the fixed point of $T_1$. To see how they differ, for $c_1=0.51$ and $c_0 = 0.49$, we have the following results:
-$$
-v_1(z_0) =
-\begin{cases}
-49.970, & z_0 = (0,0), \\
-50.010, & z_0 = (0,1), \\
-49.990, & z_0 = (1,0), \\
-50.030, & z_0 = (1,1).
-\end{cases}
-$$
-On the other hand, the true value function $V(z_0)$ is as follows:
-$$
-V(z_0) =
-\begin{cases}
-49.336, & z_0 = (0,0), \\
-50.007, & z_0 = (0,1), \\
-49.993, & z_0 = (1,0), \\
-50.664, & z_0 = (1,1).
-\end{cases}
-$$
-This indicates that a naive application of TD(0) with the internal state $\{Z_k:k\in\mathbb N\}$ does not return the true value function $V(z_0)$. Thus, in case we want to evaluate the performance of a policy with an internal state $Z_k^c = (Y_{k-1}, A_{k-1})$, TD(0) suffers from an estimation error. 
+Note that $(Z_0,Z_1) = (Y_{-1},Y_0,Y_1)$. Thus, $\mathbb{E}[\sum_{k=0}^\infty \gamma^kr(S_{k+1})|Z_1, Z_0=z_0] \neq \mathbb{E}[\sum_{k=0}^\infty \gamma^kr(S_{k+1})|Z_1]$, which implies that $V(z_0)$ is **not** the fixed point of $T_1$. To see how they differ, for $c_1=0.51$ and $c_0 = 0.49$, we have $\sqrt{\sum_{z_0\in\{0,1\}^2}\mu(z_0)|v_1(z_0)-V(z_0)|^2}\approx 0.448863$, where $\mu$ is the stationary distribution of $Z_k$. This indicates that a naive application of TD(0) with the internal state $\{Z_k:k\in\mathbb N\}$ does not return the true value function $V(z_0)$. Thus, in case we want to evaluate the performance of a policy with an internal state $Z_k^c = (Y_{k-1}, A_{k-1})$, TD(0) suffers from an estimation error. 
 
 ::: callout-tip
 **Why $m$-step TD?** Examples 1 and 2 show that, in POMDPs, one-step bootstrapping suffers from **perceptual aliasing** (same observation $Y_k$, different latent state $S_k$). We will see in the following that looking $m$ steps ahead stabilizes the target and reduces this bias.
