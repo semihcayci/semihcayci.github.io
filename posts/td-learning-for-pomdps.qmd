@@ -5,21 +5,6 @@ description: "How does multi-step TD learning with internal states mitigate part
 categories: [reinforcement-learning, POMDP, temporal difference learning]
 toc: true
 draft: false
-format:
-  html:
-    theme: cosmo       # optional
-    math: mathjax      # or 'katex'
-    number-sections: true
-    theorem: true      # <--- REQUIRED
-format: html
-theorems: true          # <— enable theorem blocks (plural)
-# optional tweaks:
-  theorems:
-#   numbering: by-section
-     names:
-       theorem: Theorem
-#     lemma: Lemma
-#     proof: Proof
 ---
 
 > **TL;DR.** A classic result by [@singh1994learning] shows that memoryless TD learning fails in POMDPs. To address this, we studied a natural actor–critic (NAC) method for POMDPs in [@cayci2024nac], with a critic that uses $m$-step TD learning with an internal state to mitigate perceptual aliasing problem. Below, I review this algorithm and provide some follow-up results.
@@ -136,7 +121,7 @@ Now, let us focus on $m$-step TD learning with an internal state $Z_k$ for the a
 Let $$(T_mv)(z) = \bar{r}_m(z) + \gamma^m(K_mv)(z),$$ where $\bar{r}_m(z) := \mathbb E[\sum_{k=0}^{m-1}r(S_k)|Z_0=z]$ and $(K_mv)(z):=\mathbb{E}[v(Z_m)|Z_0=z]$. Then, it is straightforward to show that $T_m$ is a contractive operator with modulus $\gamma^m$, and admits a unique fixed point $$V(z) = \mathbb E[\sum_{k=0}^\infty \gamma^k r(S_k)|Z_0=z] = \sum_{k=0}^\infty (\gamma^mK_m)^k\bar{r}_m(z)$$ for any $m\in\mathbb N$. Let $\xi$ be the stationary distribution of $\{Z_k:k\in\mathbb N\}$, which exists given $S_k$ is an ergodic unichain. Under a non-degenerate $\mathbb{E}_{Z_t\sim \xi}[\psi(Z_t)\otimes\psi(Z_t)]\succ 0$, $m$-step TD learning with the internal state $Z_t$ converges to the unique fixed point $v_m$ of the equation $$v = \Pi\{\bar{r}_m+\gamma^m K_m v\},$$ where $\Pi$ be the ortogonal projection onto the subspace $\mathcal V := \{z\mapsto \langle \psi(z),w\rangle: w \in \mathbb R^d$ with respect to $L^2(\xi)$. 
 Thus, we have the following result.
 
-::: {.theorem}
+::: callout-important
 For any $m\in\mathbb{Z}_+$, $m$-step TD(0) with an internal state $\{Z_k:k\in\mathbb N\}$ converges to $v_m$, which satisfies
 $$\|v_m - \Pi V\|_{L^2(\xi)} \leq \frac{\gamma^m}{1+\gamma^m}\|V-\Pi V\|_{L^2(\xi)}.$$ 
 :::
