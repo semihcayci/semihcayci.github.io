@@ -88,27 +88,32 @@ It is straightforward to construct an example which shows that (memoryless) TD l
 
 On the other hand, the value function for a given $z_0$ is $$V(z_0) = V_0^\star + (V_1^\star-V_0^\star)P(S_0=1|Z_0=z_0) = \frac{\gamma p + (1-\gamma)P(S_0=1|Z_0=z_0)}{(1-\gamma)\Big[\gamma(p+q)+1-\gamma\Big]},$$ since $V(z_0) = V_0^\star+(V_1^\star-V_0^\star)P(S_0=1|Z_0=z_0)$. Also, $V_{S_0}^\star = V_0^\star + (V_1^\star-V_0^\star)\mathbf{1}_{\{S_0=1\}}$. Therefore, $$\mathbb{E}[(V_{S_0}^\star-v^\star)^2] = (V_1^\star-V_0^\star)^2\mathbb{E}[(\frac{p}{p+q}-\mathbf{1}_{\{S_0=1\}})^2]=Var(\mathbf{1}_{\{S_0=1\}})(V_1^\star-V_0^\star)^2.$$
 
-**Example 2 (When TD(0) fails to learn $V(z_0)$).** Consider the two-state HMRP with $\mathcal S = \{0,1\}$, $r(s) = s$ and $\Phi(1|s) = c_s\in(0,1)$ now. Let $P(0|1) = P(1|0) = 1/2$, and $\gamma = 0.9$. Consider an internal state $Z_k = (Y_{k-1}, Y_k)$. We want to compute $V(z_0) = \mathbb{E}[\sum_k \gamma^k r(S_k)|Z_0=z_0]$. For this purpose, one can use tabular-TD(0) with the surrogate state $Z_k=(Y_{k-1},Y_k)$. In this case, the limit point of TD(0) would be the unique fixed point of $$v_1(z_0) = P(S_0=1|Z_0=z_0) + \gamma \sum_{z_1\in\{0,1\}^2}v(z_1)P(Z_1=z_1|Z_0=z_0).$$ Substituting $c_0 = 1/4, c_1 = 3/4$, we obtain the fixed point 
+**Example 2 (When TD(0) fails to learn $V(z_0)$).** Consider the two-state HMRP with $\mathcal S = \{0,1\}$, $r(s) = s$ and $\Phi(1|s) = c_s\in(0,1)$. Let $P(0|1) = P(1|0) = 0.01$, and $\gamma = 0.99$. Consider an internal state $Z_k = (Y_{k-1}, Y_k)$. We want to compute $V(z_0) = \mathbb{E}[\sum_k \gamma^k r(S_k)|Z_0=z_0]$. For this purpose, one can use tabular-TD(0) with the surrogate state $Z_k=(Y_{k-1},Y_k)$. In this case, the limit point of TD(0) would be the unique fixed point of $$(T_1v)(z_0):=P(S_0=1|Z_0=z_0) + \gamma \sum_{z_1\in\{0,1\}^2}v(z_1)P(Z_1=z_1|Z_0=z_0).$$ Now, let's diagnose why the true value is **not** the fixed point of the Bellman equation. Note that we can write 
+\begin{align*}
+V(z_0) &= \mathbb E[r(S_0)|Z_0=z_0] + \gamma \mathbb{E}[\sum_{k=0}^\infty \gamma^kr(S_{k+1})|Z_0=z_0]\\
+&= \mathbb E[r(S_0)|Z_0=z_0] + \gamma \mathbb\left[\mathbb{E}[\sum_{k=0}^\infty \gamma^kr(S_{k+1})|Z_1, Z_0=z_0]\big|Z_0=z_0\right]
+\end{align*}
+Note that $(Z_0,Z_1) = (Y_{-1},Y_0,Y_1)$. Thus, $\mathbb{E}[\sum_{k=0}^\infty \gamma^kr(S_{k+1})|Z_1, Z_0=z_0] \neq \mathbb{E}[\sum_{k=0}^\infty \gamma^kr(S_{k+1})|Z_1]$, which implies that $V(z_0)$ is **not** the fixed point of $T_1$. To see how they differ, for $c_1=0.51$ and $c_0 = 0.49$, we have the following results:
 $$
 v_1(z_0) =
 \begin{cases}
-4.1396, & z_0 = (0,0), \\
-5.2739, & z_0 = (0,1), \\
-4.7261, & z_0 = (1,0), \\
-5.8604, & z_0 = (1,1).
+49.970, & z_0 = (0,0), \\
+50.010, & z_0 = (0,1), \\
+49.990, & z_0 = (1,0), \\
+50.030, & z_0 = (1,1).
 \end{cases}
 $$
 On the other hand, the true value function $V(z_0)$ is as follows:
 $$
 V(z_0) =
 \begin{cases}
-1.6306, & z_0 = (0,0), \\
-5.0561, & z_0 = (0,1), \\
-4.9439, & z_0 = (1,0), \\
-8.3694, & z_0 = (1,1).
+49.336, & z_0 = (0,0), \\
+50.007, & z_0 = (0,1), \\
+49.993, & z_0 = (1,0), \\
+50.664, & z_0 = (1,1).
 \end{cases}
 $$
-This indicates that a naive application of TD(0) with the internal state $\{Z_k:k\in\mathbb N\}$ does not return the true value function $V(z_0)$. Thus, in case we want to evaluate the performance of a policy with an internal state $Z_k^c = (Y_{k-1}, A_{k-1})$, TD(0) is not useful. 
+This indicates that a naive application of TD(0) with the internal state $\{Z_k:k\in\mathbb N\}$ does not return the true value function $V(z_0)$. Thus, in case we want to evaluate the performance of a policy with an internal state $Z_k^c = (Y_{k-1}, A_{k-1})$, TD(0) suffers from an estimation error. 
 
 ::: callout-tip
 **Why $m$-step TD?** Examples 1 and 2 show that, in POMDPs, one-step bootstrapping suffers from **perceptual aliasing** (same observation $Y_k$, different latent state $S_k$). We will see in the following that looking $m$ steps ahead stabilizes the target and reduces this bias.
