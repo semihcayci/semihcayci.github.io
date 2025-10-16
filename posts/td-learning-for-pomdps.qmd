@@ -91,7 +91,7 @@ On the other hand, the value function for a given $z_0$ is $$V(z_0) = V_0^\star 
 **Example 2 (When TD(0) fails to learn $V(z_0)$).** Consider the two-state HMRP with $\mathcal S = \{0,1\}$, $r(s) = s$ and $\Phi(1|s) = c_s\in(0,1)$. Let $P(0|1) = P(1|0) = 0.01$, and $\gamma = 0.99$. Consider an internal state $Z_k = (Y_{k-1}, Y_k)$. We want to compute $V(z_0) = \mathbb{E}[\sum_k \gamma^k r(S_k)|Z_0=z_0]$. For this purpose, one can use tabular-TD(0) with the surrogate state $Z_k=(Y_{k-1},Y_k)$. In this case, the limit point of TD(0) would be the unique fixed point of $$(T_1v)(z_0):=P(S_0=1|Z_0=z_0) + \gamma \sum_{z_1\in\{0,1\}^2}v(z_1)P(Z_1=z_1|Z_0=z_0).$$ Now, let's diagnose why the true value is **not** the fixed point of the Bellman equation. Note that we can write 
 \begin{align*}
 V(z_0) &= \mathbb E[r(S_0)|Z_0=z_0] + \gamma \mathbb{E}[\sum_{k=0}^\infty \gamma^kr(S_{k+1})|Z_0=z_0]\\
-&= \mathbb E[r(S_0)|Z_0=z_0] + \gamma \mathbb\left[\mathbb{E}[\sum_{k=0}^\infty \gamma^kr(S_{k+1})|Z_1, Z_0=z_0]\big|Z_0=z_0\right]
+&= \mathbb E[r(S_0)|Z_0=z_0] + \gamma \mathbb{E}\left[\mathbb{E}[\sum_{k=0}^\infty \gamma^kr(S_{k+1})|Z_1, Z_0=z_0]\big|Z_0=z_0\right]
 \end{align*}
 Note that $(Z_0,Z_1) = (Y_{-1},Y_0,Y_1)$. Thus, $\mathbb{E}[\sum_{k=0}^\infty \gamma^kr(S_{k+1})|Z_1, Z_0=z_0] \neq \mathbb{E}[\sum_{k=0}^\infty \gamma^kr(S_{k+1})|Z_1]$, which implies that $V(z_0)$ is **not** the fixed point of $T_1$. To see how they differ, for $c_1=0.51$ and $c_0 = 0.49$, we have the following results:
 $$
