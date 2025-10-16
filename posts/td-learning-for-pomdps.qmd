@@ -88,17 +88,33 @@ It is straightforward to construct an example which shows that (memoryless) TD l
 
 On the other hand, the value function for a given $z_0$ is $$V(z_0) = V_0^\star + (V_1^\star-V_0^\star)P(S_0=1|Z_0=z_0) = \frac{\gamma p + (1-\gamma)P(S_0=1|Z_0=z_0)}{(1-\gamma)\Big[\gamma(p+q)+1-\gamma\Big]},$$ since $V(z_0) = V_0^\star+(V_1^\star-V_0^\star)P(S_0=1|Z_0=z_0)$. Also, $V_{S_0}^\star = V_0^\star + (V_1^\star-V_0^\star)\mathbf{1}_{\{S_0=1\}}$. Therefore, $$\mathbb{E}[(V_{S_0}^\star-v^\star)^2] = (V_1^\star-V_0^\star)^2\mathbb{E}[(\frac{p}{p+q}-\mathbf{1}_{\{S_0=1\}})^2]=Var(\mathbf{1}_{\{S_0=1\}})(V_1^\star-V_0^\star)^2.$$
 
-**Example 2 (When TD(0) fails to learn $V(z_0)$).** Consider the two-state HMRP with $\mathcal S = \{0,1\}$, $r(s) = s$ and $\Phi(1|s) = c_s\in(0,1)$ now. Let $P(0|1) = P(1|0) = 1/2$, and $\gamma = 0.9$. Consider an internal state $Z_k = (Y_{k-1}, Y_k)$. We want to compute $V(z_0) = \mathbb{E}[\sum_k \gamma^k r(S_k)|Z_0=z_0]$. For this purpose, one can use TD(0) with $f(z_0;w)=\langle w, \psi(z_0)\rangle$ for a feature map $\psi:\mathcal{Y}^2\rightarrow \mathbb{R}^d$. 
-
-In the proof of Theorem 4.1 in [@cayci2024nac], we characterize the issues related to the fixed point of single-step TD(0) for general POMDPs.
-
-On the other hand, the value function for a given $z_0$ is $$V(z_0) = V_0^\star + (V_1^\star-V_0^\star)P(S_0=1|Z_0=z_0) = \frac{\gamma p + (1-\gamma)P(S_0=1|Z_0=z_0)}{(1-\gamma)\Big[\gamma(p+q)+1-\gamma\Big]},$$ since $V(z_0) = V_0^\star+(V_1^\star-V_0^\star)P(S_0=1|Z_0=z_0)$. Also, $V_{S_0}^\star = V_0^\star + (V_1^\star-V_0^\star)\mathbf{1}_{\{S_0=1\}}$. Therefore, $$\mathbb{E}[(V_{S_0}^\star-v^\star)^2] = (V_1^\star-V_0^\star)^2\mathbb{E}[(\frac{p}{p+q}-\mathbf{1}_{\{S_0=1\}})^2]=Var(\mathbf{1}_{\{S_0=1\}})(V_1^\star-V_0^\star)^2.$$
+**Example 2 (When TD(0) fails to learn $V(z_0)$).** Consider the two-state HMRP with $\mathcal S = \{0,1\}$, $r(s) = s$ and $\Phi(1|s) = c_s\in(0,1)$ now. Let $P(0|1) = P(1|0) = 1/2$, and $\gamma = 0.9$. Consider an internal state $Z_k = (Y_{k-1}, Y_k)$. We want to compute $V(z_0) = \mathbb{E}[\sum_k \gamma^k r(S_k)|Z_0=z_0]$. For this purpose, one can use tabular-TD(0) with the surrogate state $Z_k=(Y_{k-1},Y_k)$. In this case, the limit point of TD(0) would be the unique fixed point of $$v_1(z_0) = P(S_0=1|Z_0=z_0) + \gamma \sum_{z_1\in\{0,1\}^2}v(z_1)P(Z_1=z_1|Z_0=z_0).$$ Substituting $c_0 = 1/4, c_1 = 3/4$, we obtain the fixed point 
+$$
+v_1(z_0) =
+\begin{cases}
+4.1396, & z_0 = (0,0), \\
+5.2739, & z_0 = (0,1), \\
+4.7261, & z_0 = (1,0), \\
+5.8604, & z_0 = (1,1).
+\end{cases}
+On the other hand, the true value function $V(z_0)$ is as follows:
+$$
+\[
+V(z_0) =
+\begin{cases}
+1.6306, & z_0 = (0,0), \\
+5.0561, & z_0 = (0,1), \\
+4.9439, & z_0 = (1,0), \\
+8.3694, & z_0 = (1,1).
+\end{cases}
+\]
+This indicates that a naive application of TD(0) with the internal state $\{Z_k:k\in\mathbb N\}$ does not return the true value function $V(z_0)$. Thus, in case we want to evaluate the performance of a policy with an internal state $Z_k^c = (Y_{k-1}, A_{k-1})$, TD(0) is not useful. 
 
 ::: callout-tip
-**Why $m$-step TD?** In POMDPs, one-step bootstrapping suffers from **perceptual aliasing** (same observation $Y_k$, different latent state $S_k$). Looking $m$ steps ahead stabilizes the target and reduces this bias.
+**Why $m$-step TD?** Examples 1 and 2 show that, in POMDPs, one-step bootstrapping suffers from **perceptual aliasing** (same observation $Y_k$, different latent state $S_k$). We will see in the following that looking $m$ steps ahead stabilizes the target and reduces this bias.
 :::
 
-Now, let us focus on $m$-step TD learning with an internal state $Z_k$ for the above problem, where $m\in\mathbb{Z}_+$. Note that the internal state may match the controller state $Z_k^c$, or it can be used to obtain an estimate of $V_s^\star$. 
+Now, let us focus on $m$-step TD learning with an internal state $Z_k$ for the above problem, where $m\in\mathbb{Z}_+$. Note that the internal state may match the controller state $Z_k^c$ (in the case of control, see Section 3), or it can be used to obtain an estimate of $V_s^\star$. 
 
 Let us focus on the limit point. To that end, let $$(T_mv)(z) = \bar{r}_m(z) + \gamma^m(K_mv)(z),$$ where $\bar{r}_m(z) := \mathbb E[\sum_{k=0}^{m-1}r(S_k)|Z_0=z]$ and $(K_mv)(z):=\mathbb{E}[v(Z_m)|Z_0=z]$. Then, it is straightforward to show that $T_m$ is a contractive operator with modulus $\gamma^m$, and admits a unique fixed point $$V(z) = \mathbb E[\sum_{k=0}^\infty \gamma^k r(S_k)|Z_0=z] = \sum_{k=0}^\infty (\gamma^mK_m)^k\bar{r}_m(z)$$ for any $m\in\mathbb N$. Let $\xi$ be the stationary distribution of $\{Z_k:k\in\mathbb N\}$, which exists given $S_k$ is an ergodic unichain. Under a non-degenerate $\mathbb{E}_{Z_t\sim \xi}[\psi(Z_t)\otimes\psi(Z_t)]\succ 0$, $m$-step TD learning with the internal state $Z_t$ converges to the unique fixed point $v_m$ of the equation $$v = \Pi\{\bar{r}_m+\gamma^m K_m v\},$$ where $\Pi$ be the ortogonal projection onto the subspace $\mathcal V := \{z\mapsto \langle \psi(z),w\rangle: w \in \mathbb R^d$ with respect to $L^2(\xi)$. Thus, one obtains $$\|v_m - \Pi V\|_{L^2(\xi)} \leq \frac{\gamma^m}{1+\gamma^m}\|V-\Pi V\|_{L^2(\xi)}.$$ As such, in case we are interested in policy evaluation for an FSC, this formulation implies the near optimality of $m$-step TD learning, which uses the internal state of the controller as the critic internal state, with an additional error term $\mathcal{O}(\gamma^m)$.
 
