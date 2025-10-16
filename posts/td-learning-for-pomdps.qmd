@@ -97,9 +97,9 @@ v_1(z_0) =
 4.7261, & z_0 = (1,0), \\
 5.8604, & z_0 = (1,1).
 \end{cases}
+$$
 On the other hand, the true value function $V(z_0)$ is as follows:
 $$
-\[
 V(z_0) =
 \begin{cases}
 1.6306, & z_0 = (0,0), \\
@@ -107,7 +107,7 @@ V(z_0) =
 4.9439, & z_0 = (1,0), \\
 8.3694, & z_0 = (1,1).
 \end{cases}
-\]
+$$
 This indicates that a naive application of TD(0) with the internal state $\{Z_k:k\in\mathbb N\}$ does not return the true value function $V(z_0)$. Thus, in case we want to evaluate the performance of a policy with an internal state $Z_k^c = (Y_{k-1}, A_{k-1})$, TD(0) is not useful. 
 
 ::: callout-tip
