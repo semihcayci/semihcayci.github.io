@@ -64,9 +64,9 @@ $$
 \frac{\exp\{\theta^\top \psi(a,y,z)\}}
 {\sum_{a'} \exp\{\theta^\top \psi(a',y,z)\}},
 $$
-with features $\psi(a,y,z)\in\mathbb R^d$. The controller memory updates via some $\varphi$:
+with features $\psi(a,y,z)\in\mathbb R^d$. The controller memory updates via a transition kernel $\varphi$:
 $$
-Z_{k+1}^c=\varphi(Z_k^c, Y_{k+1}, A_k).
+Z_{k+1}^c\sim\varphi(\cdot\mid Z_k^c, Y_{k}, A_k).
 $$
 
 ## Hidden Markov Reward Processes (HMRP)
