@@ -11,8 +11,6 @@ format:
     number-sections: true
     code-fold: true
     theorem: true
-  pdf:
-    theorem: true
 ---
 
 > **TL;DR.** A classic result by [@singh1994learning] shows that memoryless TD learning fails in POMDPs. To address this, we studied a natural actor–critic (NAC) method for POMDPs in [@cayci2024nac], with a critic that uses $m$-step TD learning with an internal state to mitigate perceptual aliasing problem. Below, I review this algorithm and provide some follow-up results.
