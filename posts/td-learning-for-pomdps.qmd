@@ -7,11 +7,12 @@ toc: true
 draft: false
 format:
   html:
-    title-block-banner: "posts/POMDP.png"   # image behind the title
-    title-block-banner-color: "#ffffff"                              # title text color (optional)
+    css: styles.css   # we'll add a tiny style below
 ---
 
 > **TL;DR.** A classic result by [@singh1994learning] shows that memoryless TD learning fails in POMDPs. To address this, we studied a natural actor–critic (NAC) method for POMDPs in [@cayci2024nac], with a critic that uses $m$-step TD learning with an internal state to mitigate perceptual aliasing problem. Below, I review this algorithm and provide some follow-up results.
+
+![](posts/POMDP.png){fig-alt="Partial observability scene" width="100%" column="page" .banner-img}
 
 ## Formal POMDP model
 
