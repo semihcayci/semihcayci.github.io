@@ -289,7 +289,7 @@ Tip
 </div>
 <p><strong>Example 1 (When TD(0) fails to learn <span class="math inline">\(V_s^\star\)</span>).</strong> Here we consider an HMRP with <span class="math inline">\(\mathcal S = \{0,1\}\)</span>, <span class="math inline">\(r(s) = s\)</span> and <span class="math inline">\(\Phi(1|s) = 1\)</span> for all <span class="math inline">\(s\in\mathcal{S}\)</span>. Let <span class="math inline">\(P(0|1) = q\)</span> and <span class="math inline">\(P(1|0) = p\)</span> for some <span class="math inline">\(p, q \in (0,1)\)</span>, and <span class="math inline">\(\gamma \in (0, 1)\)</span> be the discount factor. As TD(0) cannot distinguish different latent states due to the noisy observation and the lack of memory, it converges to <span class="math inline">\(v^\star = \frac{1}{1-\gamma}\cdot \frac{p}{q+p} = V_0^\star + \frac{p}{p+q}(V_1^\star-V_0^\star)\)</span>. In the proof of Theorem 4.1 in <span class="citation" data-cites="cayci2024nac">(<a href="#ref-cayci2024nac" role="doc-biblioref">Cayci, He, and Srikant 2024</a>)</span>, we characterize the issues related to the fixed point of single-step TD(0) for general POMDPs.</p>
 <p>On the other hand, the value function for a given <span class="math inline">\(z_0\)</span> is <span class="math display">\[V(z_0) = V_0^\star + (V_1^\star-V_0^\star)P(S_0=1|Z_0=z_0) = \frac{\gamma p + (1-\gamma)P(S_0=1|Z_0=z_0)}{(1-\gamma)\Big[\gamma(p+q)+1-\gamma\Big]},\]</span> since <span class="math inline">\(V(z_0) = V_0^\star+(V_1^\star-V_0^\star)P(S_0=1|Z_0=z_0)\)</span>. Also, <span class="math inline">\(V_{S_0}^\star = V_0^\star + (V_1^\star-V_0^\star)\mathbf{1}_{\{S_0=1\}}\)</span>. Therefore, <span class="math display">\[\mathbb{E}[(V_{S_0}^\star-v^\star)^2] = (V_1^\star-V_0^\star)^2\mathbb{E}[(\frac{p}{p+q}-\mathbf{1}_{\{S_0=1\}})^2]=Var(\mathbf{1}_{\{S_0=1\}})(V_1^\star-V_0^\star)^2.\]</span></p>
-<strong>Example 2 (When TD(0) fails to learn <span class="math inline">\(V(z_0)\)</span>).</strong> Consider the two-state HMRP with <span class="math inline">\(\mathcal S = \{0,1\}\)</span>, <span class="math inline">\(r(s) = s\)</span> and <span class="math inline">\(\Phi(1|s) = c_s\in(0,1)\)</span> now. Let <span class="math inline">\(P(0|1) = P(1|0) = 1/2\)</span>, and <span class="math inline">\(\gamma = 0.9\)</span>. Consider an internal state <span class="math inline">\(Z_k = (Y_{k-1}, Y_k)\)</span>. We want to compute <span class="math inline">\(V(z_0) = \mathbb{E}[\sum_k \gamma^k r(S_k)|Z_0=z_0]\)</span>. For this purpose, one can use tabular-TD(0) with the surrogate state <span class="math inline">\(Z_k=(Y_{k-1},Y_k)\)</span>. In this case, the limit point of TD(0) would be the unique fixed point of <span class="math display">\[v_1(z_0) = P(S_0=1|Z_0=z_0) + \gamma \sum_{z_1\in\{0,1\}^2}v(z_1)P(Z_1=z_1|Z_0=z_0).\]</span> Substituting <span class="math inline">\(c_0 = 1/4, c_1 = 3/4\)</span>, we obtain the fixed point <span class="math display">\[
+<p><strong>Example 2 (When TD(0) fails to learn <span class="math inline">\(V(z_0)\)</span>).</strong> Consider the two-state HMRP with <span class="math inline">\(\mathcal S = \{0,1\}\)</span>, <span class="math inline">\(r(s) = s\)</span> and <span class="math inline">\(\Phi(1|s) = c_s\in(0,1)\)</span> now. Let <span class="math inline">\(P(0|1) = P(1|0) = 1/2\)</span>, and <span class="math inline">\(\gamma = 0.9\)</span>. Consider an internal state <span class="math inline">\(Z_k = (Y_{k-1}, Y_k)\)</span>. We want to compute <span class="math inline">\(V(z_0) = \mathbb{E}[\sum_k \gamma^k r(S_k)|Z_0=z_0]\)</span>. For this purpose, one can use tabular-TD(0) with the surrogate state <span class="math inline">\(Z_k=(Y_{k-1},Y_k)\)</span>. In this case, the limit point of TD(0) would be the unique fixed point of <span class="math display">\[v_1(z_0) = P(S_0=1|Z_0=z_0) + \gamma \sum_{z_1\in\{0,1\}^2}v(z_1)P(Z_1=z_1|Z_0=z_0).\]</span> Substituting <span class="math inline">\(c_0 = 1/4, c_1 = 3/4\)</span>, we obtain the fixed point <span class="math display">\[
 v_1(z_0) =
 \begin{cases}
 4.1396, &amp; z_0 = (0,0), \\
@@ -297,15 +297,15 @@ v_1(z_0) =
 4.7261, &amp; z_0 = (1,0), \\
 5.8604, &amp; z_0 = (1,1).
 \end{cases}
-On the other hand, the true value function $V(z_0)$ is as follows:
-\]</span> [ V(z_0) =
-<span class="math display">\[\begin{cases}
+\]</span> On the other hand, the true value function <span class="math inline">\(V(z_0)\)</span> is as follows: <span class="math display">\[
+V(z_0) =
+\begin{cases}
 1.6306, &amp; z_0 = (0,0), \\
 5.0561, &amp; z_0 = (0,1), \\
 4.9439, &amp; z_0 = (1,0), \\
 8.3694, &amp; z_0 = (1,1).
-\end{cases}\]</span>
-<p>] This indicates that a naive application of TD(0) with the internal state <span class="math inline">\(\{Z_k:k\in\mathbb N\}\)</span> does not return the true value function <span class="math inline">\(V(z_0)\)</span>. Thus, in case we want to evaluate the performance of a policy with an internal state <span class="math inline">\(Z_k^c = (Y_{k-1}, A_{k-1})\)</span>, TD(0) is not useful.</p>
+\end{cases}
+\]</span> This indicates that a naive application of TD(0) with the internal state <span class="math inline">\(\{Z_k:k\in\mathbb N\}\)</span> does not return the true value function <span class="math inline">\(V(z_0)\)</span>. Thus, in case we want to evaluate the performance of a policy with an internal state <span class="math inline">\(Z_k^c = (Y_{k-1}, A_{k-1})\)</span>, TD(0) is not useful.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
