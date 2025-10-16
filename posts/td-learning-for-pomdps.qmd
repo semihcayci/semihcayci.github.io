@@ -42,7 +42,7 @@ Partial observability implies that the optimal policy $\pi^\star=(\pi_0^\star,\p
 
 ## Setting and Goal
 
-At first, we restrict policies to **finite-state controllers (FSCs)** that keep internal memory $Z_k^c$ and act from $(Y_k, Z_k^c)$. The internal memory is updated in a Markovian way: $Z_{k+1}^c~\varphi(\cdot\mid z_k, y_k, a_k)$ given $Z_k^c=z_k,Y_k=y_k,A_k=a_k$.
+At first, we restrict policies to **finite-state controllers (FSCs)** that keep internal memory $Z_k^c$ and act from $(Y_k, Z_k^c)$. The internal memory is updated in a Markovian way: $Z_{k+1}^c\sim\varphi(\cdot\mid z_k, y_k, a_k)$ given $Z_k^c=z_k,Y_k=y_k,A_k=a_k$.
 
 - Learn the best policy within a fixed FSC class $\pi_{Z,\varphi}$:
   
@@ -78,13 +78,15 @@ Consider a finite-state controller with an internal state $Z_k^c$. Then, we have
 
 ## Critic: $m$-step TD Learning with an Internal State
 
-It is straightforward to construct an example which shows that (memoryless) TD learning cannot learn the value functions in a POMDP, which is known as the perceptual aliasing pathology [@singh1994learning]. For a concrete demonstration, let us focus on learning the value function in an HMRP: $$V(z_0):=\mathbb E[\sum_{k=0}^\infty \gamma^k r(S_k)|Z_0^c=z_0]\mbox{ and }V_s^\star:=\mathbb E[\sum_{k=0}^\infty r(S_k)|S_0=s]$$ for an internal state $Z_t^c$ (e.g., $Z_t^c = (Y_{t-n+1},\ldots,Y_t)$), where $(S_k, r(S_k), Y_k)$ is an HMRP.
+It is straightforward to construct an example which shows that (memoryless) TD learning cannot learn the value functions in a POMDP, which is known as the perceptual aliasing pathology [@singh1994learning]. For a concrete demonstration, let us focus on learning the value function in an HMRP: $$V(z_0):=\mathbb E[\sum_{k=0}^\infty \gamma^k r(S_k)|Z_0=z_0]\mbox{ and }V_s^\star:=\mathbb E[\sum_{k=0}^\infty r(S_k)|S_0=s]$$ for an internal state $Z_k$ (e.g., $Z_t = (Y_{t-n+1},\ldots,Y_t)$), where $(S_k, r(S_k), Y_k)$ is an HMRP.
 
 ::: callout-tip
 **Two objectives.** In the above display, if we want to perform policy evaluation for an FSC with $\{Z_k^c:k\in\mathbb N\}$, we would be interested in $V(z_0)$. Additionally, we can use $m$-step TD Learning for estimating the value function $V_s^\star$. We discuss both problems in what follows.
 :::
 
-**Example 1 (When TD(0) fails).** Here we consider an HMRP with $\mathcal S = \{0,1\}$, $r(s) = s$ and $\Phi(1|s) = 1$ for all $s\in\mathcal{S}$. Let $P(0|1) = p$ and $P(1|0) = q$ for some $p, q \in (0,1)$, and $\gamma \in (0, 1)$ be the discount factor. As TD(0) cannot distinguish different latent states due to the noisy observation and the lack of memory, it converges to $v^\star = \frac{1}{1-\gamma}\cdot \frac{p}{q+p} = V_0^\star + \frac{p}{p+q}(V_1^\star-V_0^\star)$. On the other hand, the value function for a given internal state $z_0$ is $$V(z_0) = V_0^\star + (V_1^\star-V_0^\star)P(S_0=1|Z_0^c=z_0) = \frac{\gamma p + (1-\gamma)P(S_0=1|Z_0=z_0)}{(1-\gamma)\Big[\gamma(p+q)+1-\gamma\Big]}\neq v^\star,$$ since $V(z_0) = V_0^\star+(V_1^\star-V_0^\star)P(S_0=1|Z_0^c=z_0)$. Also, $V_{S_0}^\star = V_0^\star + (V_1^\star-V_0^\star)\mathbf{1}_{\{S_0=1\}}$. Therefore, $$\mathbb{E}[(V_{S_0}^\star-v^\star)^2] = (V_1^\star-V_0^\star)^2\mathbb{E}[(\frac{p}{p+q}-\mathbf{1}_{\{S_0=1\}})^2]=Var(\mathbf{1}_{\{S_0=1\}})(V_1^\star-V_0^\star)^2.$$
+**Example 1 (When TD(0) fails).** Here we consider an HMRP with $\mathcal S = \{0,1\}$, $r(s) = s$ and $\Phi(1|s) = 1$ for all $s\in\mathcal{S}$. Let $P(0|1) = q$ and $P(1|0) = p$ for some $p, q \in (0,1)$, and $\gamma \in (0, 1)$ be the discount factor. As TD(0) cannot distinguish different latent states due to the noisy observation and the lack of memory, it converges to $v^\star = \frac{1}{1-\gamma}\cdot \frac{p}{q+p} = V_0^\star + \frac{p}{p+q}(V_1^\star-V_0^\star)$. In the proof of Theorem 4.1 in [@cayci2024nac], we characterize the issues related to the fixed point of single-step TD(0) for general POMDPs.
+
+On the other hand, the value function for a given $z_0$ is $$V(z_0) = V_0^\star + (V_1^\star-V_0^\star)P(S_0=1|Z_0^c=z_0) = \frac{\gamma p + (1-\gamma)P(S_0=1|Z_0=z_0)}{(1-\gamma)\Big[\gamma(p+q)+1-\gamma\Big]}\neq v^\star,$$ since $V(z_0) = V_0^\star+(V_1^\star-V_0^\star)P(S_0=1|Z_0^c=z_0)$. Also, $V_{S_0}^\star = V_0^\star + (V_1^\star-V_0^\star)\mathbf{1}_{\{S_0=1\}}$. Therefore, $$\mathbb{E}[(V_{S_0}^\star-v^\star)^2] = (V_1^\star-V_0^\star)^2\mathbb{E}[(\frac{p}{p+q}-\mathbf{1}_{\{S_0=1\}})^2]=Var(\mathbf{1}_{\{S_0=1\}})(V_1^\star-V_0^\star)^2.$$
 
 ::: callout-tip
 **Why $m$-step TD?** In POMDPs, one-step bootstrapping suffers from **perceptual aliasing** (same observation $Y_k$, different latent state $S_k$). Looking $m$ steps ahead stabilizes the target and reduces this bias.
