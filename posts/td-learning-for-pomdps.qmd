@@ -46,11 +46,11 @@ where $\lambda\in\mathcal{P}(\mathcal{Y})$ is the distribution of $Y_0$.
 **Why challenging?**  
 Partial observability implies that the optimal policy $\pi^\star=(\pi_0^\star,\pi_1^\star,\ldots)$ is non-stationary, therefore $\pi_k^\star$ depends on the complete trajectory $(Y_{0:k},A_{0:k-1})$ for each $k\in\mathbb N$ via the Bayes belief $b_k(s)=\Pr(S_k=s\mid Y_{0:k},A_{0:k-1})$. As such, some very intuitive ideas for partially observable reinforcement learning (PORL) fails:
 
-\begin{\itemize}
-  \item Tabular parameterization has a memory complexity of $\mathcal{O}(|\mathcal{Y}|^{k+1}|\mathcal{A}|^k)$ at time $k$, growing exponentially. Even for small action-observation spaces, this would be an intractable solution.
-  \item Reactive (i.e., memoryless) methods for MDPs fail if they are used in POMDPs due to the discrepancy between the partial observation and the latent state (see examples below).
-  \item A classical result attributed to [@astrom1965] (see [@yuksel2025another] for further information) shows that a POMDP can be formulated as an MDP with a distribution-valued state $b_k$. However, since the state-space for this induced MDP is huge (remember that it is a probability simplex over $\mathcal S$), the conventional RL tools is highly impractical to solve this belief-MDP formulation.
-\end{itemize}
+  - Tabular parameterization has a memory complexity of $\mathcal{O}(|\mathcal{Y}|^{k+1}|\mathcal{A}|^k)$ at time $k$, growing exponentially. Even for small action-observation spaces, this would be an intractable solution.
+
+  - Reactive (i.e., memoryless) methods for MDPs fail if they are used in POMDPs due to the discrepancy between the partial observation and the latent state (see examples below).
+
+  - A classical result attributed to [@astrom1965] (see [@yuksel2025another] for further information) shows that a POMDP can be formulated as an MDP with a distribution-valued state $b_k$. However, since the state-space for this induced MDP is huge (remember that it is a probability simplex over $\mathcal S$), the conventional RL tools is highly impractical to solve this belief-MDP formulation.
 
 An alternative and more elegant idea is to incorporate memory into the policies [@murphy2000survey] and design/adapt RL algorithms enriched with this memory structure. Suppose that we have an internal state $Z_k^c$, which summarizes/compresses $(Y_{0:k-1},A_{0:k-1})$ for each $k$. In policy-based PORL, the idea is to use a parametric policy $\pi_\theta(\cdot\mid Y_k, Z_k^c)$ based on the internal state $Z_k^c$.
 
