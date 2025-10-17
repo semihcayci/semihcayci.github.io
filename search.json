@@ -1,19 +1,5 @@
 [
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "I am Semih Cayci, a math enthusiast working on theoretical ML problems."
-  },
-  {
-    "objectID": "posts/index.html",
-    "href": "posts/index.html",
-    "title": "Posts",
-    "section": "",
-    "text": "Order By\n      Default\n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Title\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nDate\n\n\n\nTitle\n\n\n\nAuthor\n\n\n\n\n\n\n\n\nOct 12, 2025\n\n\nRL for POMDPs – Part I: TD Learning with Internal States\n\n\n \n\n\n\n\n\n\nNo matching items"
-  },
-  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Notes on Theoretical RL",
@@ -25,7 +11,7 @@
     "href": "posts/td-learning-for-pomdps.html",
     "title": "RL for POMDPs – Part I: TD Learning with Internal States",
     "section": "",
-    "text": "TL;DR. A classic result by (Singh, Jaakkola, and Jordan 1994) shows that memoryless TD learning fails in POMDPs. To address this, we studied a natural actor–critic (NAC) method for POMDPs in (Cayci, He, and Srikant 2024), with a critic that uses \\(m\\)-step TD learning with an internal state to mitigate perceptual aliasing problem. Below, I review this algorithm and provide some follow-up results."
+    "text": "TL;DR. A classic result by (Singh, Jaakkola, and Jordan 1994) shows that memoryless TD learning fails in POMDPs. One fix is to use multi-step TD learning with an internal (memory) state to mitigate perceptual aliasing. This idea is studied in this post in a simple Hidden Markov Model setting with examples."
   },
   {
     "objectID": "posts/td-learning-for-pomdps.html#formal-pomdp-model",
@@ -61,5 +47,19 @@
     "title": "RL for POMDPs – Part I: TD Learning with Internal States",
     "section": "5 What’s next: NAC with Finite-State Controllers for POMDPs",
     "text": "5 What’s next: NAC with Finite-State Controllers for POMDPs\nIn the next step, we will show how FSC’s yield improved performance (even global near-optimality) for NAC under certain ergodicity conditions. The discussion will be based on stochastic filtering, and establish a trade-off between memory complexity and optimality gap, governed by the size of the internal state space."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "I am Semih Cayci, a math enthusiast working on theoretical ML problems."
+  },
+  {
+    "objectID": "posts/index.html",
+    "href": "posts/index.html",
+    "title": "Posts",
+    "section": "",
+    "text": "Order By\n      Default\n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Title\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nDate\n\n\n\nTitle\n\n\n\nAuthor\n\n\n\n\n\n\n\n\nOct 12, 2025\n\n\nRL for POMDPs – Part I: TD Learning with Internal States\n\n\n \n\n\n\n\n\n\nNo matching items"
   }
 ]

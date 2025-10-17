@@ -62,7 +62,7 @@ div.csl-indent {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-355c415dd6b9922ddaf04a2341011fe1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-90a5c7d34a1c9615a3434e04330a0ac3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -218,7 +218,7 @@ window.Quarto = {
 
 
 <blockquote class="blockquote">
-<p><strong>TL;DR.</strong> A classic result by <span class="citation" data-cites="singh1994learning">(<a href="#ref-singh1994learning" role="doc-biblioref">Singh, Jaakkola, and Jordan 1994</a>)</span> shows that memoryless TD learning fails in POMDPs. To address this, we studied a natural actor–critic (NAC) method for POMDPs in <span class="citation" data-cites="cayci2024nac">(<a href="#ref-cayci2024nac" role="doc-biblioref">Cayci, He, and Srikant 2024</a>)</span>, with a critic that uses <span class="math inline">\(m\)</span>-step TD learning with an internal state to mitigate perceptual aliasing problem. Below, I review this algorithm and provide some follow-up results.</p>
+<p><strong>TL;DR.</strong> A classic result by <span class="citation" data-cites="singh1994learning">(<a href="#ref-singh1994learning" role="doc-biblioref">Singh, Jaakkola, and Jordan 1994</a>)</span> shows that memoryless TD learning fails in POMDPs. One fix is to use multi-step TD learning with an internal (memory) state to mitigate perceptual aliasing. This idea is studied in this post in a simple Hidden Markov Model setting with examples.</p>
 </blockquote>
 <p><img src="POMDP.png" class="banner-img img-fluid" style="width:50.0%" data-column="page" alt="Partial observability scene"></p>
 <section id="formal-pomdp-model" class="level2" data-number="1">
@@ -373,9 +373,6 @@ Important
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-astrom1965" class="csl-entry" role="listitem">
 Åström, Karl J. 1965. <span>“Optimal Control of Markov Processes with Incomplete State Information i.”</span> <em>Journal of Mathematical Analysis and Applications</em> 10 (1): 174–205. <a href="https://doi.org/10.1016/0022-247X(65)90154-X">https://doi.org/10.1016/0022-247X(65)90154-X</a>.
-</div>
-<div id="ref-cayci2024nac" class="csl-entry" role="listitem">
-Cayci, Semih, Niao He, and R. Srikant. 2024. <span>“Finite-Time Analysis of Natural Actor-Critic for POMDPs.”</span> <em>SIAM Journal on Mathematics of Data Science</em>.
 </div>
 <div id="ref-murphy2000survey" class="csl-entry" role="listitem">
 Murphy, Kevin P. 2000. <span>“A Survey of POMDP Solution Techniques.”</span> <em>Environment</em> 2 (10).

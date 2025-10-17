@@ -20,7 +20,7 @@
 
 
 <blockquote class="blockquote">
-<p><strong>TL;DR.</strong> A classic result by <span class="citation" data-cites="singh1994learning">(Singh, Jaakkola, and Jordan 1994)</span> shows that memoryless TD learning fails in POMDPs. To address this, we studied a natural actor–critic (NAC) method for POMDPs in <span class="citation" data-cites="cayci2024nac">(Cayci, He, and Srikant 2024)</span>, with a critic that uses <img src="https://latex.codecogs.com/png.latex?m">-step TD learning with an internal state to mitigate perceptual aliasing problem. Below, I review this algorithm and provide some follow-up results.</p>
+<p><strong>TL;DR.</strong> A classic result by <span class="citation" data-cites="singh1994learning">(Singh, Jaakkola, and Jordan 1994)</span> shows that memoryless TD learning fails in POMDPs. One fix is to use multi-step TD learning with an internal (memory) state to mitigate perceptual aliasing. This idea is studied in this post in a simple Hidden Markov Model setting with examples.</p>
 </blockquote>
 <p><img src="https://semihcayci.github.io/posts/POMDP.png" class="banner-img img-fluid" style="width:50.0%" data-column="page" alt="Partial observability scene"></p>
 <section id="formal-pomdp-model" class="level2" data-number="1">
@@ -149,9 +149,6 @@ Important
 <div id="ref-astrom1965" class="csl-entry">
 Åström, Karl J. 1965. <span>“Optimal Control of Markov Processes with Incomplete State Information i.”</span> <em>Journal of Mathematical Analysis and Applications</em> 10 (1): 174–205. <a href="https://doi.org/10.1016/0022-247X(65)90154-X">https://doi.org/10.1016/0022-247X(65)90154-X</a>.
 </div>
-<div id="ref-cayci2024nac" class="csl-entry">
-Cayci, Semih, Niao He, and R. Srikant. 2024. <span>“Finite-Time Analysis of Natural Actor-Critic for POMDPs.”</span> <em>SIAM Journal on Mathematics of Data Science</em>.
-</div>
 <div id="ref-murphy2000survey" class="csl-entry">
 Murphy, Kevin P. 2000. <span>“A Survey of POMDP Solution Techniques.”</span> <em>Environment</em> 2 (10).
 </div>
@@ -226,7 +223,7 @@ Yüksel, Serdar. 2025. <span>“Another Look at Partially Observed Optimal Stoch
 </thead>
 <tbody class="list">
 
-<tr data-index="0" data-categories="cmVpbmZvcmNlbWVudC1sZWFybmluZyUyQ1BPTURQJTJDdGVtcG9yYWwlMjBkaWZmZXJlbmNlJTIwbGVhcm5pbmc=" data-listing-date-sort="1760227200000" data-listing-file-modified-sort="1760674586745" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9" data-listing-word-count-sort="1701" data-listing-title-sort="RL for POMDPs – Part I: TD Learning with Internal States" data-listing-filename-sort="td-learning-for-pomdps.qmd">
+<tr data-index="0" data-categories="cmVpbmZvcmNlbWVudC1sZWFybmluZyUyQ1BPTURQJTJDdGVtcG9yYWwlMjBkaWZmZXJlbmNlJTIwbGVhcm5pbmc=" data-listing-date-sort="1760227200000" data-listing-file-modified-sort="1760674742892" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9" data-listing-word-count-sort="1693" data-listing-title-sort="RL for POMDPs – Part I: TD Learning with Internal States" data-listing-filename-sort="td-learning-for-pomdps.qmd">
 <td>
 <span class="listing-date">Oct 12, 2025</span>
 </td>
@@ -244,7 +241,7 @@ Yüksel, Serdar. 2025. <span>“Another Look at Partially Observed Optimal Stoch
 <div class="listing-no-matching d-none">No matching items</div>
 </div> ]]></description>
   <guid>https://semihcayci.github.io/posts/</guid>
-  <pubDate>Fri, 17 Oct 2025 04:16:49 GMT</pubDate>
+  <pubDate>Fri, 17 Oct 2025 04:19:26 GMT</pubDate>
 </item>
 </channel>
 </rss>
