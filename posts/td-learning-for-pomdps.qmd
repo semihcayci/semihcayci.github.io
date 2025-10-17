@@ -51,7 +51,7 @@ Partial observability implies that the optimal policy $\pi^\star=(\pi_0^\star,\p
   \item A classical result attributed to [@astrom1965] (see [@yuksel2025another] for further information) shows that a POMDP can be formulated as an MDP with a distribution-valued state $b_k$. However, since the state-space for this induced MDP is huge (remember that it is a probability simplex over $\mathcal S$), the conventional RL tools is highly impractical to solve this belief-MDP formulation.
 \end{itemize}
 
-An alternative and more elegant idea is to incorporate memory into the policies [@murphy2000survey] and design/adapt RL algorithms enriched with this memory structure. Suppose that we have an internal state $Z_k^c$, which summarizes/compresses $(Y_{0:k-1},A_{0:k-1})$ for each $k$. In policy-based PORL, the idea is to use a parametric policy $\pi_k(\cdot\mid Y_k, Z_k^c)$ based on the internal state $Z_k^c$.
+An alternative and more elegant idea is to incorporate memory into the policies [@murphy2000survey] and design/adapt RL algorithms enriched with this memory structure. Suppose that we have an internal state $Z_k^c$, which summarizes/compresses $(Y_{0:k-1},A_{0:k-1})$ for each $k$. In policy-based PORL, the idea is to use a parametric policy $\pi_\theta(\cdot\mid Y_k, Z_k^c)$ based on the internal state $Z_k^c$.
 
 ## Setting and Goal
 
@@ -82,7 +82,7 @@ $$
 Z_{k+1}^c\sim\varphi(\cdot\mid Z_k^c, Y_{k}, A_k).
 $$
 
-In order to compute a low-variance estimate of the (natural) policy gradient for this linear-softmax FSC within an actor-critic framework, we need to evaluate $\mathcal{Q}_\theta(A_k,Y_k,Z_k^c)$ under this internal state representation. This blog post is about this part, the critic.
+In order to compute a low-variance estimate of the (natural) policy gradient for this linear-softmax FSC within an actor-critic framework, we need to evaluate $\mathcal{Q}^{\pi_\theta}(A_k,Y_k,Z_k^c)$ under this internal state representation. This blog post is about this part, the critic.
 
 ## Hidden Markov Reward Processes (HMRP)
 A common simplification in TD learning analyses in an MDP setting is to consider a Markov reward process (MRP). Since the augmented state $X_k:=(S_k,A_k)$ under a given stationary policy forms a Markov chain, the analyses automatically extend to policy evaluation (known as SARSA) since $(X_k,r(X_k))$ forms an MRP. 
