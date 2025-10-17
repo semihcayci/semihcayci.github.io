@@ -36,9 +36,10 @@
 <li>reward <img src="https://latex.codecogs.com/png.latex?r(s,a)%5Cin%5B0,1%5D"> (w.l.o.g.),</li>
 <li>discount factor <img src="https://latex.codecogs.com/png.latex?%5Cgamma%5Cin(0,1)">.</li>
 </ul>
-<p>To avoid measure-theoretic concerns, let us consider finite <img src="https://latex.codecogs.com/png.latex?%5Cmathcal%20S,%20%5Cmathcal%20Y,%20%5Cmathcal%20A">. These simplifications can later be relaxed, but the problem itself is quite challenging; thus we need to avoid clutter as much as possible. The generative process is <img src="https://latex.codecogs.com/png.latex?%0AS_%7Bk+1%7D%5Csim%20P(%5Ccdot%5Cmid%20S_k,A_k),%5Cqquad%0AY_%7Bk%7D%5Csim%20%5CPhi(%5Ccdot%5Cmid%20S_k),%5Cqquad%0AR_k=r(S_k,A_k),%0A"> and the goal is to maximize <img src="https://latex.codecogs.com/png.latex?%0A%5Cmathcal%20V%5E%5Cpi(%5Clambda)=%5Cmathbb%20E_%5Clambda%5E%5Cpi%5C!%5Cleft%5B%5Csum_%7Bk%5Cge0%7D%5Cgamma%5Ek%5C,r(S_k,A_k)%5Cright%5D,%0A"> where <img src="https://latex.codecogs.com/png.latex?%5Clambda%5Cin%5Cmathcal%7BP%7D(%5Cmathcal%7BY%7D%7D"> is the distribution of <img src="https://latex.codecogs.com/png.latex?Y_0">.</p>
-<strong>Why challenging?</strong><br>
-Partial observability implies that the optimal policy <img src="https://latex.codecogs.com/png.latex?%5Cpi%5E%5Cstar=(%5Cpi_0%5E%5Cstar,%5Cpi_1%5E%5Cstar,%5Cldots)"> is non-stationary, therefore <img src="https://latex.codecogs.com/png.latex?%5Cpi_k%5E%5Cstar"> depends on the complete trajectory <img src="https://latex.codecogs.com/png.latex?(Y_%7B0:k%7D,A_%7B0:k-1%7D)"> for each <img src="https://latex.codecogs.com/png.latex?k%5Cin%5Cmathbb%20N"> via the Bayes belief <img src="https://latex.codecogs.com/png.latex?b_k(s)=%5CPr(S_k=s%5Cmid%20Y_%7B0:k%7D,A_%7B0:k-1%7D)">. As such, some very intuitive ideas for partially observable reinforcement learning (PORL) fails: \begin{}
+<p>To avoid measure-theoretic concerns, let us consider finite <img src="https://latex.codecogs.com/png.latex?%5Cmathcal%20S,%20%5Cmathcal%20Y,%20%5Cmathcal%20A">. These simplifications can later be relaxed, but the problem itself is quite challenging; thus we need to avoid clutter as much as possible. The generative process is <img src="https://latex.codecogs.com/png.latex?%0AS_%7Bk+1%7D%5Csim%20P(%5Ccdot%5Cmid%20S_k,A_k),%5Cqquad%0AY_%7Bk%7D%5Csim%20%5CPhi(%5Ccdot%5Cmid%20S_k),%5Cqquad%0AR_k=r(S_k,A_k),%0A"> and the goal is to maximize <img src="https://latex.codecogs.com/png.latex?%0A%5Cmathcal%20V%5E%5Cpi(%5Clambda)=%5Cmathbb%20E_%5Clambda%5E%5Cpi%5C!%5Cleft%5B%5Csum_%7Bk%5Cge0%7D%5Cgamma%5Ek%5C,r(S_k,A_k)%5Cright%5D,%0A"> where <img src="https://latex.codecogs.com/png.latex?%5Clambda%5Cin%5Cmathcal%7BP%7D(%5Cmathcal%7BY%7D)"> is the distribution of <img src="https://latex.codecogs.com/png.latex?Y_0">.</p>
+<p><strong>Why challenging?</strong><br>
+Partial observability implies that the optimal policy <img src="https://latex.codecogs.com/png.latex?%5Cpi%5E%5Cstar=(%5Cpi_0%5E%5Cstar,%5Cpi_1%5E%5Cstar,%5Cldots)"> is non-stationary, therefore <img src="https://latex.codecogs.com/png.latex?%5Cpi_k%5E%5Cstar"> depends on the complete trajectory <img src="https://latex.codecogs.com/png.latex?(Y_%7B0:k%7D,A_%7B0:k-1%7D)"> for each <img src="https://latex.codecogs.com/png.latex?k%5Cin%5Cmathbb%20N"> via the Bayes belief <img src="https://latex.codecogs.com/png.latex?b_k(s)=%5CPr(S_k=s%5Cmid%20Y_%7B0:k%7D,A_%7B0:k-1%7D)">. As such, some very intuitive ideas for partially observable reinforcement learning (PORL) fails:</p>
+\begin{}
 Tabular parameterization has a memory complexity of <img src="https://latex.codecogs.com/png.latex?%5Cmathcal%7BO%7D(%7C%5Cmathcal%7BY%7D%7C%5E%7Bk+1%7D%7C%5Cmathcal%7BA%7D%7C%5Ek)"> at time <img src="https://latex.codecogs.com/png.latex?k">, growing exponentially. Even for small action-observation spaces, this would be an intractable solution.
 Reactive (i.e., memoryless) methods for MDPs fail if they are used in POMDPs due to the discrepancy between the partial observation and the latent state (see examples below).
 <p>A classical result attributed to <span class="citation" data-cites="astrom1965">(Åström 1965)</span> (see <span class="citation" data-cites="yuksel2025another">(Yüksel 2025)</span> for further information) shows that a POMDP can be formulated as an MDP with a distribution-valued state <img src="https://latex.codecogs.com/png.latex?b_k">. However, since the state-space for this induced MDP is huge (remember that it is a probability simplex over <img src="https://latex.codecogs.com/png.latex?%5Cmathcal%20S">), the conventional RL tools is highly impractical to solve this belief-MDP formulation. \end{itemize}</p>
@@ -223,7 +224,7 @@ Yüksel, Serdar. 2025. <span>“Another Look at Partially Observed Optimal Stoch
 </thead>
 <tbody class="list">
 
-<tr data-index="0" data-categories="cmVpbmZvcmNlbWVudC1sZWFybmluZyUyQ1BPTURQJTJDdGVtcG9yYWwlMjBkaWZmZXJlbmNlJTIwbGVhcm5pbmc=" data-listing-date-sort="1760227200000" data-listing-file-modified-sort="1760673462603" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9" data-listing-word-count-sort="1678" data-listing-title-sort="RL for POMDPs – Part I: TD Learning with Internal States" data-listing-filename-sort="td-learning-for-pomdps.qmd">
+<tr data-index="0" data-categories="cmVpbmZvcmNlbWVudC1sZWFybmluZyUyQ1BPTURQJTJDdGVtcG9yYWwlMjBkaWZmZXJlbmNlJTIwbGVhcm5pbmc=" data-listing-date-sort="1760227200000" data-listing-file-modified-sort="1760673538295" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9" data-listing-word-count-sort="1678" data-listing-title-sort="RL for POMDPs – Part I: TD Learning with Internal States" data-listing-filename-sort="td-learning-for-pomdps.qmd">
 <td>
 <span class="listing-date">Oct 12, 2025</span>
 </td>
@@ -241,7 +242,7 @@ Yüksel, Serdar. 2025. <span>“Another Look at Partially Observed Optimal Stoch
 <div class="listing-no-matching d-none">No matching items</div>
 </div> ]]></description>
   <guid>https://semihcayci.github.io/posts/</guid>
-  <pubDate>Fri, 17 Oct 2025 03:57:59 GMT</pubDate>
+  <pubDate>Fri, 17 Oct 2025 03:59:18 GMT</pubDate>
 </item>
 </channel>
 </rss>

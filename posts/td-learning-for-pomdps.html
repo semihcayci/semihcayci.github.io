@@ -62,7 +62,7 @@ div.csl-indent {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-355c415dd6b9922ddaf04a2341011fe1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-90a5c7d34a1c9615a3434e04330a0ac3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -242,9 +242,10 @@ Y_{k}\sim \Phi(\cdot\mid S_k),\qquad
 R_k=r(S_k,A_k),
 \]</span> and the goal is to maximize <span class="math display">\[
 \mathcal V^\pi(\lambda)=\mathbb E_\lambda^\pi\!\left[\sum_{k\ge0}\gamma^k\,r(S_k,A_k)\right],
-\]</span> where <span class="math inline">\(\lambda\in\mathcal{P}(\mathcal{Y}}\)</span> is the distribution of <span class="math inline">\(Y_0\)</span>.</p>
-<strong>Why challenging?</strong><br>
-Partial observability implies that the optimal policy <span class="math inline">\(\pi^\star=(\pi_0^\star,\pi_1^\star,\ldots)\)</span> is non-stationary, therefore <span class="math inline">\(\pi_k^\star\)</span> depends on the complete trajectory <span class="math inline">\((Y_{0:k},A_{0:k-1})\)</span> for each <span class="math inline">\(k\in\mathbb N\)</span> via the Bayes belief <span class="math inline">\(b_k(s)=\Pr(S_k=s\mid Y_{0:k},A_{0:k-1})\)</span>. As such, some very intuitive ideas for partially observable reinforcement learning (PORL) fails: \begin{}
+\]</span> where <span class="math inline">\(\lambda\in\mathcal{P}(\mathcal{Y})\)</span> is the distribution of <span class="math inline">\(Y_0\)</span>.</p>
+<p><strong>Why challenging?</strong><br>
+Partial observability implies that the optimal policy <span class="math inline">\(\pi^\star=(\pi_0^\star,\pi_1^\star,\ldots)\)</span> is non-stationary, therefore <span class="math inline">\(\pi_k^\star\)</span> depends on the complete trajectory <span class="math inline">\((Y_{0:k},A_{0:k-1})\)</span> for each <span class="math inline">\(k\in\mathbb N\)</span> via the Bayes belief <span class="math inline">\(b_k(s)=\Pr(S_k=s\mid Y_{0:k},A_{0:k-1})\)</span>. As such, some very intuitive ideas for partially observable reinforcement learning (PORL) fails:</p>
+\begin{}
 Tabular parameterization has a memory complexity of <span class="math inline">\(\mathcal{O}(|\mathcal{Y}|^{k+1}|\mathcal{A}|^k)\)</span> at time <span class="math inline">\(k\)</span>, growing exponentially. Even for small action-observation spaces, this would be an intractable solution.
 Reactive (i.e., memoryless) methods for MDPs fail if they are used in POMDPs due to the discrepancy between the partial observation and the latent state (see examples below).
 <p>A classical result attributed to <span class="citation" data-cites="astrom1965">(<a href="#ref-astrom1965" role="doc-biblioref">Åström 1965</a>)</span> (see <span class="citation" data-cites="yuksel2025another">(<a href="#ref-yuksel2025another" role="doc-biblioref">Yüksel 2025</a>)</span> for further information) shows that a POMDP can be formulated as an MDP with a distribution-valued state <span class="math inline">\(b_k\)</span>. However, since the state-space for this induced MDP is huge (remember that it is a probability simplex over <span class="math inline">\(\mathcal S\)</span>), the conventional RL tools is highly impractical to solve this belief-MDP formulation. \end{itemize}</p>

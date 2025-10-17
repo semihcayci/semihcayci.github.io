@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://semihcayci.github.io/about.html</loc>
-    <lastmod>2025-10-17T03:57:42.600Z</lastmod>
-  </url>
-  <url>
-    <loc>https://semihcayci.github.io/posts/index.html</loc>
-    <lastmod>2025-10-17T03:57:42.603Z</lastmod>
-  </url>
-  <url>
     <loc>https://semihcayci.github.io/index.html</loc>
-    <lastmod>2025-10-17T03:57:42.600Z</lastmod>
+    <lastmod>2025-10-17T03:58:58.292Z</lastmod>
   </url>
   <url>
     <loc>https://semihcayci.github.io/posts/td-learning-for-pomdps.html</loc>
-    <lastmod>2025-10-17T03:57:42.603Z</lastmod>
+    <lastmod>2025-10-17T03:58:58.295Z</lastmod>
+  </url>
+  <url>
+    <loc>https://semihcayci.github.io/about.html</loc>
+    <lastmod>2025-10-17T03:58:58.292Z</lastmod>
+  </url>
+  <url>
+    <loc>https://semihcayci.github.io/posts/index.html</loc>
+    <lastmod>2025-10-17T03:58:58.295Z</lastmod>
   </url>
 </urlset>
