@@ -62,7 +62,7 @@ div.csl-indent {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-355c415dd6b9922ddaf04a2341011fe1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-90a5c7d34a1c9615a3434e04330a0ac3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -241,10 +241,14 @@ S_{k+1}\sim P(\cdot\mid S_k,A_k),\qquad
 Y_{k}\sim \Phi(\cdot\mid S_k),\qquad
 R_k=r(S_k,A_k),
 \]</span> and the goal is to maximize <span class="math display">\[
-\mathcal V^\pi(\xi)=\mathbb E_\xi^\pi\!\left[\sum_{k\ge0}\gamma^k\,r(S_k,A_k)\right].
-\]</span></p>
-<p><strong>Why challenging?</strong><br>
-Partial observability implies that the optimal policy <span class="math inline">\(\pi^\star=(\pi_0^\star,\pi_1^\star,\ldots)\)</span> is non-stationary, therefore <span class="math inline">\(\pi_k^\star\)</span> depends on the complete trajectory <span class="math inline">\((Y_{0:k},A_{0:k-1})\)</span> for each <span class="math inline">\(k\in\mathbb N\)</span> via the Bayes belief <span class="math inline">\(b_k(s)=\Pr(S_k=s\mid Y_{0:k},A_{0:k-1})\)</span>. Reactive (i.e., memoryless) methods for MDPs fail miserably if they are used in POMDPs due to the discrepancy between the partial observation and the latent state (see <strong>Example 1</strong> below). A classical result attributed to <span class="citation" data-cites="astrom1965">(<a href="#ref-astrom1965" role="doc-biblioref">Åström 1965</a>)</span> (see <span class="citation" data-cites="yuksel2025another">(<a href="#ref-yuksel2025another" role="doc-biblioref">Yüksel 2025</a>)</span> for further information) shows that a POMDP can be formulated as an MDP with a distribution-valued state <span class="math inline">\(b_k\)</span>. However, since the state-space for this induced MDP is huge (remember that it is a probability simplex over <span class="math inline">\(\mathcal S\)</span>), the conventional RL tools is highly impractical to solve POMDPs via this belief-MDP formulation. An alternative and more elegant idea is to incorporate memory into the policies <span class="citation" data-cites="murphy2000survey">(<a href="#ref-murphy2000survey" role="doc-biblioref">Murphy 2000</a>)</span> and design/adapt RL algorithms enriched with this memory structure. Suppose that we have an internal state <span class="math inline">\(Z_k^c\)</span>, which summarizes/compresses <span class="math inline">\((Y_{0:k-1},A_{0:k-1})\)</span> for each <span class="math inline">\(k\)</span>. The idea is to use a parametric policy <span class="math inline">\(\pi_k(\cdot\mid Y_k, Z_k^c)\)</span> based on the internal state <span class="math inline">\(Z_k^c\)</span>.</p>
+\mathcal V^\pi(\lambda)=\mathbb E_\lambda^\pi\!\left[\sum_{k\ge0}\gamma^k\,r(S_k,A_k)\right],
+\]</span> where <span class="math inline">\(\lambda\in\mathcal{P}(\mathcal{Y}}\)</span> is the distribution of <span class="math inline">\(Y_0\)</span>.</p>
+<strong>Why challenging?</strong><br>
+Partial observability implies that the optimal policy <span class="math inline">\(\pi^\star=(\pi_0^\star,\pi_1^\star,\ldots)\)</span> is non-stationary, therefore <span class="math inline">\(\pi_k^\star\)</span> depends on the complete trajectory <span class="math inline">\((Y_{0:k},A_{0:k-1})\)</span> for each <span class="math inline">\(k\in\mathbb N\)</span> via the Bayes belief <span class="math inline">\(b_k(s)=\Pr(S_k=s\mid Y_{0:k},A_{0:k-1})\)</span>. As such, some very intuitive ideas for partially observable reinforcement learning (PORL) fails: \begin{}
+Tabular parameterization has a memory complexity of <span class="math inline">\(\mathcal{O}(|\mathcal{Y}|^{k+1}|\mathcal{A}|^k)\)</span> at time <span class="math inline">\(k\)</span>, growing exponentially. Even for small action-observation spaces, this would be an intractable solution.
+Reactive (i.e., memoryless) methods for MDPs fail if they are used in POMDPs due to the discrepancy between the partial observation and the latent state (see examples below).
+<p>A classical result attributed to <span class="citation" data-cites="astrom1965">(<a href="#ref-astrom1965" role="doc-biblioref">Åström 1965</a>)</span> (see <span class="citation" data-cites="yuksel2025another">(<a href="#ref-yuksel2025another" role="doc-biblioref">Yüksel 2025</a>)</span> for further information) shows that a POMDP can be formulated as an MDP with a distribution-valued state <span class="math inline">\(b_k\)</span>. However, since the state-space for this induced MDP is huge (remember that it is a probability simplex over <span class="math inline">\(\mathcal S\)</span>), the conventional RL tools is highly impractical to solve this belief-MDP formulation. \end{itemize}</p>
+<p>An alternative and more elegant idea is to incorporate memory into the policies <span class="citation" data-cites="murphy2000survey">(<a href="#ref-murphy2000survey" role="doc-biblioref">Murphy 2000</a>)</span> and design/adapt RL algorithms enriched with this memory structure. Suppose that we have an internal state <span class="math inline">\(Z_k^c\)</span>, which summarizes/compresses <span class="math inline">\((Y_{0:k-1},A_{0:k-1})\)</span> for each <span class="math inline">\(k\)</span>. In policy-based PORL, the idea is to use a parametric policy <span class="math inline">\(\pi_k(\cdot\mid Y_k, Z_k^c)\)</span> based on the internal state <span class="math inline">\(Z_k^c\)</span>.</p>
 </section>
 <section id="setting-and-goal" class="level2" data-number="2">
 <h2 data-number="2" class="anchored" data-anchor-id="setting-and-goal"><span class="header-section-number">2</span> Setting and Goal</h2>
@@ -267,6 +271,7 @@ Z_k^c = (Y_{k-n:k-1},\; A_{k-n:k-1}) \in \mathcal Y^n \times \mathcal A^n,
 \]</span> with features <span class="math inline">\(\psi(a,y,z)\in\mathbb R^d\)</span>. The controller memory updates via a transition kernel <span class="math inline">\(\varphi\)</span>: <span class="math display">\[
 Z_{k+1}^c\sim\varphi(\cdot\mid Z_k^c, Y_{k}, A_k).
 \]</span></p>
+<p>In order to compute a low-variance estimate of the (natural) policy gradient for this linear-softmax FSC within an actor-critic framework, we need to evaluate <span class="math inline">\(\mathcal{Q}_\theta(A_k,Y_k,Z_k^c)\)</span> under this internal state representation. This blog post is about this part, the critic.</p>
 </section>
 <section id="hidden-markov-reward-processes-hmrp" class="level2" data-number="3">
 <h2 data-number="3" class="anchored" data-anchor-id="hidden-markov-reward-processes-hmrp"><span class="header-section-number">3</span> Hidden Markov Reward Processes (HMRP)</h2>
