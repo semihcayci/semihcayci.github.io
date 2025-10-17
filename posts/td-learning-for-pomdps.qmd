@@ -10,7 +10,7 @@ format:
     css: styles.css   # we'll add a tiny style below
 ---
 
-> **TL;DR.** A classic result by [@singh1994learning] shows that memoryless TD learning fails in POMDPs. To address this, we studied a natural actor–critic (NAC) method for POMDPs in [@cayci2024nac], with a critic that uses $m$-step TD learning with an internal state to mitigate perceptual aliasing problem. Below, I review this algorithm and provide some follow-up results.
+> **TL;DR.** A classic result by [@singh1994learning] shows that memoryless TD learning fails in POMDPs. One fix is to use multi-step TD learning with an internal (memory) state to mitigate perceptual aliasing. This idea is studied in this post in a simple Hidden Markov Model setting with examples.
 
 ![](POMDP.png){fig-alt="Partial observability scene" width="50%" column="page" .banner-img}
 
