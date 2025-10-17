@@ -25,7 +25,7 @@
 <p><img src="https://semihcayci.github.io/posts/POMDP.png" class="banner-img img-fluid" style="width:50.0%" data-column="page" alt="Partial observability scene"></p>
 <section id="formal-pomdp-model" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="formal-pomdp-model"><span class="header-section-number">1</span> Formal POMDP model</h2>
-<p>Let us consider a discounted POMDP <img src="https://latex.codecogs.com/png.latex?%0A%5Cmathcal%7BM%7D=%5Cbig(%5Cmathcal%20S,%5Cmathcal%20A,%5Cmathcal%20Y,%5C;%20P,%5C;%20O,%5C;%20r,%5C;%20%5Cgamma%5Cbig),%0A"></p>
+<p>Let us consider a discounted POMDP <img src="https://latex.codecogs.com/png.latex?%0A%5Cmathcal%7BM%7D=%5Cbig(%5Cmathcal%20S,%5Cmathcal%20A,%5Cmathcal%20Y,%5C;%20P,%5C;%20%5CPhi,%5C;%20r,%5C;%20%5Cgamma%5Cbig),%0A"></p>
 <p>with:</p>
 <ul>
 <li>state <img src="https://latex.codecogs.com/png.latex?S_k%5Cin%5Cmathcal%20S">,</li>
@@ -222,7 +222,7 @@ Yüksel, Serdar. 2025. <span>“Another Look at Partially Observed Optimal Stoch
 </thead>
 <tbody class="list">
 
-<tr data-index="0" data-categories="cmVpbmZvcmNlbWVudC1sZWFybmluZyUyQ1BPTURQJTJDdGVtcG9yYWwlMjBkaWZmZXJlbmNlJTIwbGVhcm5pbmc=" data-listing-date-sort="1760227200000" data-listing-file-modified-sort="1760685558186" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9" data-listing-word-count-sort="1664" data-listing-title-sort="RL for POMDPs – Part I: TD Learning with Internal States" data-listing-filename-sort="td-learning-for-pomdps.qmd">
+<tr data-index="0" data-categories="cmVpbmZvcmNlbWVudC1sZWFybmluZyUyQ1BPTURQJTJDdGVtcG9yYWwlMjBkaWZmZXJlbmNlJTIwbGVhcm5pbmc=" data-listing-date-sort="1760227200000" data-listing-file-modified-sort="1760685656679" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9" data-listing-word-count-sort="1664" data-listing-title-sort="RL for POMDPs – Part I: TD Learning with Internal States" data-listing-filename-sort="td-learning-for-pomdps.qmd">
 <td>
 <span class="listing-date">Oct 12, 2025</span>
 </td>
@@ -240,7 +240,7 @@ Yüksel, Serdar. 2025. <span>“Another Look at Partially Observed Optimal Stoch
 <div class="listing-no-matching d-none">No matching items</div>
 </div> ]]></description>
   <guid>https://semihcayci.github.io/posts/</guid>
-  <pubDate>Fri, 17 Oct 2025 07:19:33 GMT</pubDate>
+  <pubDate>Fri, 17 Oct 2025 07:21:14 GMT</pubDate>
 </item>
 </channel>
 </rss>
