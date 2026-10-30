@@ -1,4 +1,5 @@
 title: blank
+homepage_title: Semih Cayci — Personal Webpage
 first_name: Semih
 middle_name: ""
 last_name: Cayci
@@ -9,7 +10,7 @@ footer_text: RWTH Aachen University · Mathematics of Machine Learning<br>Built 
   · Hosted on <a href="https://pages.github.com/">GitHub Pages</a>
 keywords: Semih Cayci, mathematics of machine learning, RWTH Aachen, reinforcement learning, deep learning theory, optimization
 lang: en
-icon: favicon.svg
+icon: mml.png
 apple_touch_icon: null
 url: https://semihcayci.github.io
 baseurl: ""
