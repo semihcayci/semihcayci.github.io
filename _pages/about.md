@@ -2,7 +2,7 @@
 layout: about
 title: About
 permalink: /
-subtitle: Junior Professor for Mathematics of Machine Learning<br><a href="https://www.rwth-aachen.de/">RWTH
+subtitle: Assistant Professor for Mathematics of Machine Learning<br><a href="https://www.rwth-aachen.de/">RWTH
   Aachen University</a>
 profile:
   align: right
@@ -18,9 +18,9 @@ latest_posts:
   enabled: false
 ---
 
-I am a Junior Professor for **Mathematics of Machine Learning** at RWTH Aachen University.
+I am an Assistant Professor for **Mathematics of Machine Learning** at RWTH Aachen University.
 
-My research concerns the mathematical foundations of learning algorithms, with a focus on **deep learning theory, reinforcement learning, and optimization**. I use tools from applied probability and optimization to study how these algorithms learn and when they converge.
+My research concerns the theoretical and algorithmic foundations of learning algorithms, with a focus on **deep learning theory, reinforcement learning, and optimization**.
 
 Before joining RWTH in 2022, I was an NSF TRIPODS Postdoctoral Research Fellow at the University of Illinois at Urbana-Champaign. I received my PhD in Electrical and Computer Engineering from The Ohio State University in 2020.
 
