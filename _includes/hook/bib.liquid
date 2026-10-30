@@ -1,16 +1,34 @@
-{% if page.layout == 'about' and entry.key == 'cayci2026geometric' %}
+{% assign illustration_file = nil %}
+{% if page.layout == 'about' %}
+  {% case entry.key %}
+    {% when 'cayci2024convergence' %}
+      {% assign illustration_file = 'policy-space.png' %}
+      {% assign illustration_label = 'View the policy-gradient illustration at full size (opens in a new tab)' %}
+      {% assign illustration_alt = 'Policy simplex comparing policy gradient and natural policy gradient trajectories toward an entropy-regularized optimum' %}
+      {% assign illustration_width = 2000 %}
+      {% assign illustration_height = 798 %}
+    {% when 'cayci2026geometric' %}
+      {% assign illustration_file = 'manifold.png' %}
+      {% assign illustration_label = 'View the Gauss–Newton illustration at full size (opens in a new tab)' %}
+      {% assign illustration_alt = 'Schematic comparing Gauss–Newton and gradient flow in parameter space and on the prediction manifold' %}
+      {% assign illustration_width = 1536 %}
+      {% assign illustration_height = 1024 %}
+  {% endcase %}
+{% endif %}
+{% if illustration_file %}
+  {% assign illustration_path = illustration_file | prepend: '/assets/img/publication_preview/' %}
   <a
     class="publication-illustration"
-    href="{{ '/assets/img/publication_preview/manifold.png' | relative_url }}"
+    href="{{ illustration_path | relative_url }}"
     target="_blank"
     rel="noopener"
-    aria-label="View the Gauss–Newton illustration at full size (opens in a new tab)"
+    aria-label="{{ illustration_label }}"
   >
     <img
-      src="{{ '/assets/img/publication_preview/manifold.png' | relative_url }}"
-      alt="Schematic comparing Gauss–Newton and gradient flow in parameter space and on the prediction manifold"
-      width="1536"
-      height="1024"
+      src="{{ illustration_path | relative_url }}"
+      alt="{{ illustration_alt }}"
+      width="{{ illustration_width }}"
+      height="{{ illustration_height }}"
       loading="lazy"
       decoding="async"
     >
