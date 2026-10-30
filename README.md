@@ -59,6 +59,8 @@ bundle exec al-folio upgrade overrides audit
 bundle exec jekyll build
 ```
 
+The local plugin `_plugins/style_cache.rb` includes the site's Sass files in the stylesheet version. This ensures returning visitors receive updated styling; al-folio 1.0.15 otherwise hashes only its bundled theme styles.
+
 See the [al-folio documentation](https://github.com/alshedivat/al-folio/tree/main/docs).
 
 ## Content sources
