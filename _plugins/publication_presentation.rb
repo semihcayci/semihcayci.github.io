@@ -3,11 +3,11 @@ require "nokogiri"
 # Keep visual, reading, and keyboard order consistent in the generated HTML.
 module PublicationPresentation
   SELECTED_ORDER = %w[
-    cayci2024convergence
     cayci2026geometric
     cayci2026stochasticgaussnewton
     cayci2025recurrent
     muller2026optimal
+    cayci2024convergence
   ].freeze
 
   PUBLISHED_ORDER = %w[
