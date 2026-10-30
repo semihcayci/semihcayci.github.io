@@ -1,0 +1,275 @@
+:root,
+html[data-theme="dark"] {
+  color-scheme: light;
+  --global-bg-color: #ffffff;
+  --global-text-color: #202b35;
+  --global-text-color-light: #596674;
+  --global-theme-color: #00549f;
+  --global-hover-color: #003e75;
+  --global-divider-color: #dce3e9;
+  --global-card-bg-color: #ffffff;
+  --global-footer-bg-color: #ffffff;
+  --global-footer-text-color: #596674;
+  --global-footer-link-color: #00549f;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 17px;
+  line-height: 1.75;
+  font-weight: 400;
+}
+h1,
+h2,
+h3 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+h1.post-title {
+  font-size: clamp(2.4rem, 5vw, 3.3rem);
+  margin-bottom: 0.6rem;
+}
+h1.post-title .font-weight-bold {
+  font-weight: 400 !important;
+}
+.post-header {
+  margin-bottom: 2rem;
+}
+.post-header .desc {
+  color: var(--global-text-color-light);
+  line-height: 1.6;
+  font-size: 1.05rem;
+}
+.post article > h2,
+.post article > .clearfix h2 {
+  margin-top: 2.5rem;
+  margin-bottom: 1.2rem;
+  font-size: 1.8rem;
+}
+p {
+  margin-bottom: 1.2rem;
+}
+a {
+  text-underline-offset: 0.19em;
+}
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid #00549f;
+  outline-offset: 4px;
+}
+#navbar {
+  box-shadow: none;
+  border-bottom: 1px solid var(--global-divider-color);
+  background: #ffffff;
+}
+#navbar .nav-link {
+  font-size: 0.95rem;
+  font-weight: 400;
+  padding-inline: 0.7rem;
+}
+#navbar .nav-item.active > .nav-link {
+  color: #00549f;
+  font-weight: 600;
+}
+.navbar-brand {
+  font-family: Georgia, "Times New Roman", serif;
+}
+body > .container[role="main"] {
+  margin-top: 3.6rem !important;
+  min-height: 68vh;
+}
+.profile {
+  width: 24%;
+  margin-left: 2.5rem;
+  margin-bottom: 1.5rem;
+}
+.profile img {
+  box-shadow: none !important;
+  border-radius: 4px !important;
+}
+.profile .more-info {
+  font-family: inherit;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  margin-top: 1rem;
+}
+.profile .more-info p {
+  color: var(--global-text-color-light);
+  margin-bottom: 0.7rem;
+}
+.profile-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.3rem;
+  font-size: 0.9rem;
+  margin: 1.7rem 0 2rem;
+}
+.research-summary {
+  border-top: 1px solid var(--global-divider-color);
+  padding-top: 1.2rem;
+  margin: 1.8rem 0 2.5rem;
+}
+.research-summary h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.65rem;
+}
+.research-summary p {
+  font-size: 0.92rem;
+}
+.publications h2.bibliography {
+  font-family: inherit;
+  color: var(--global-text-color-light);
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+.publications ol.bibliography li {
+  margin-bottom: 1.7rem;
+}
+.publications ol.bibliography li .title {
+  font-size: 1.02rem;
+  font-weight: 600;
+  line-height: 1.55;
+}
+.publications .author,
+.publications .periodical {
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+.publications .links a.btn {
+  border-radius: 3px;
+  font-size: 0.72rem;
+  padding: 0.2rem 0.55rem;
+}
+footer.sticky-bottom {
+  border-top: 1px solid var(--global-divider-color);
+  margin-top: 3rem;
+  padding-block: 1.4rem;
+}
+footer .container {
+  font-size: 0.78rem;
+  line-height: 1.8;
+}
+@media (max-width: 767px) {
+  body {
+    font-size: 16px;
+  }
+  body > .container[role="main"] {
+    margin-top: 2.3rem !important;
+    padding-inline: 1.25rem;
+  }
+  .profile {
+    width: 32%;
+    margin-left: 1.2rem;
+  }
+  table:not(.table) {
+    width: 100%;
+  }
+  table:not(.table) td,
+  table:not(.table) th {
+    font-size: 0.88rem;
+    padding-right: 0.7rem;
+  }
+}
+@media (max-width: 575px) {
+  .profile {
+    float: none !important;
+    width: 145px;
+    margin: 0 0 1.8rem;
+  }
+  .profile .more-info {
+    display: none;
+  }
+  #navbar .nav-link {
+    padding-block: 0.65rem;
+  }
+}
+
+.cv .card {
+  border: 0;
+  border-top: 1px solid var(--global-divider-color);
+  border-radius: 0;
+  box-shadow: none;
+  padding: 1.5rem 0 !important;
+}
+.cv .card-title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+.cv .list-group-item {
+  background: transparent;
+  border: 0;
+  padding-block: 0.7rem;
+}
+.cv .badge {
+  background: #edf3f8;
+  color: #00549f;
+  font-weight: 500;
+}
+
+// Collapse navigation until the name and all six links fit on one line.
+@media (max-width: 767px) {
+  #navbar.navbar-expand-sm,
+  #navbar > .container {
+    flex-wrap: wrap;
+  }
+  #navbar .navbar-toggler-main {
+    display: block;
+    margin-left: auto;
+  }
+  #navbar .navbar-collapse-main {
+    display: none !important;
+    flex-basis: 100%;
+    text-align: left;
+  }
+  #navbar .navbar-collapse-main.show {
+    display: block !important;
+  }
+  #navbar .navbar-menu-list {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    margin-left: 0;
+  }
+  #navbar .nav-link {
+    padding-block: 0.65rem;
+  }
+}
+.publication-section:not(:has(.bibliography > li:not(.unloaded))) {
+  display: none;
+}
+
+// Layered !important rules take precedence over unlayered !important rules.
+// Put the collapse override ahead of the theme's component layer.
+@layer theme {
+  @media (max-width: 767px) {
+    #navbar .navbar-collapse-main {
+      display: none !important;
+    }
+    #navbar .navbar-collapse-main.show {
+      display: block !important;
+    }
+  }
+}
+@media (max-width: 767px) {
+  .cv .row {
+    display: block;
+  }
+  .cv .row > div {
+    width: 100%;
+    max-width: 100%;
+  }
+  .cv .date-column {
+    text-align: left !important;
+    margin-bottom: 0.65rem;
+  }
+  .cv .date-column table {
+    width: auto;
+  }
+  .cv .date-column .location {
+    margin-bottom: 0.35rem;
+  }
+  .cv .table-cv td {
+    overflow-wrap: anywhere;
+  }
+}
