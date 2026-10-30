@@ -6,7 +6,7 @@ nav: true
 nav_order: 2
 ---
 
-Journal articles, conference papers, and preprints. [Download the complete BibTeX bibliography]({{ '/assets/bibliography/semih-cayci.bib' | relative_url }}).
+Journal articles, conference papers, and preprints.
 
 {% include bib_search.liquid %}
 
