@@ -20,7 +20,7 @@ latest_posts:
 
 I am an Assistant Professor for **Mathematics of Machine Learning** at RWTH Aachen University.
 
-My research concerns the theoretical and algorithmic foundations of learning algorithms, with a focus on **deep learning theory, reinforcement learning, and optimization**.
+My research concerns the mathematical foundations of machine learning, with a focus on **deep learning theory, reinforcement learning, and optimization**.
 
 Before joining RWTH in 2022, I was an NSF TRIPODS Postdoctoral Research Fellow at the University of Illinois at Urbana-Champaign. I received my PhD in Electrical and Computer Engineering from The Ohio State University in 2020.
 
