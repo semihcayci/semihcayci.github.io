@@ -13,6 +13,12 @@
       {% assign illustration_alt = 'Schematic comparing Gauss–Newton and gradient flow in parameter space and on the prediction manifold' %}
       {% assign illustration_width = 1536 %}
       {% assign illustration_height = 1024 %}
+    {% when 'cayci2026stochasticgaussnewton' %}
+      {% assign illustration_file = 'stochastic-gauss-newton.png' %}
+      {% assign illustration_label = 'View the stochastic Gauss–Newton illustration at full size (opens in a new tab)' %}
+      {% assign illustration_alt = 'Schematic of stochastic Gauss–Newton trajectories in parameter space for training sets differing by one sample, with a larger-damping comparison inset' %}
+      {% assign illustration_width = 1536 %}
+      {% assign illustration_height = 1024 %}
   {% endcase %}
 {% endif %}
 {% if illustration_file %}
