@@ -1,0 +1,93 @@
+cv:
+  name: Semih Cayci
+  label: Junior Professor for Mathematics of Machine Learning
+  email: cayci@mathc.rwth-aachen.de
+  website: https://semihcayci.github.io
+  sections:
+    Experience:
+      - company: RWTH Aachen University
+        position: Tenure-Track Junior Professor (W1) for Mathematics of Machine Learning
+        location: Aachen, Germany
+        start_date: 2022-10
+        end_date: Present
+        summary: Department of Mathematics. Positive interim evaluation in 2025.
+      - company: University of Illinois at Urbana-Champaign
+        position: NSF TRIPODS Postdoctoral Fellow
+        location: Urbana, IL, USA
+        start_date: 2020-08
+        end_date: 2022-08
+        summary: Coordinated Science Laboratory; Illinois Institute for Data Science and Dynamical Systems (IDS2).
+        highlights:
+          - "Hosts: Rayadurgam Srikant (UIUC) and Niao He (ETH Zurich)."
+      - company: Mitsubishi Electric Research Laboratories (MERL)
+        position: Intern Scientist
+        location: Cambridge, MA, USA
+        start_date: 2017-06
+        end_date: 2017-09
+        summary: "Host: Toshiaki Koike-Akino."
+    Education:
+      - institution: The Ohio State University
+        area: Electrical and Computer Engineering
+        studyType: PhD
+        location: Columbus, OH, USA
+        start_date: 2014
+        end_date: 2020
+        highlights:
+          - "Dissertation: Online Learning for Optimal Control of Communication and Computing Systems."
+          - "Advisor: Atilla Eryilmaz."
+      - institution: Bilkent University
+        area: Electrical and Electronics Engineering
+        studyType: MSc
+        location: Ankara, Turkey
+        start_date: 2010
+        end_date: 2013
+        highlights:
+          - "Thesis: Lossless Data Compression with Polar Codes."
+          - "Advisors: Erdal Arıkan and Orhan Arıkan."
+      - institution: Bogazici University
+        area: Electrical and Electronics Engineering
+        studyType: BSc
+        location: Istanbul, Turkey
+        start_date: 2005
+        end_date: 2010
+    Research interests:
+      - bullet: "Mathematical foundations of artificial intelligence: deep learning and reinforcement learning, optimization theory, and
+          applied stochastic analysis."
+    Grants:
+      - label: 2026–2027
+        details: "NVIDIA Academic Grant: GPU-Accelerated Benchmarking of Learning-Based Routing under Heavy Tails. PI: Semih Cayci. Two
+          NVIDIA DGX Spark systems."
+      - label: 2024–2025
+        details: "ERS, RWTH Aachen: Mathematical and Practical Properties of Policy-Based Reinforcement Learning (OPSF854). Co-PIs: Semih
+          Cayci and Sebastian Trimpe."
+    Professional service:
+      - label: Organization
+        details: Publicity chair, ACM SIGMETRICS 2026 and 2027; publicity co-chair, IEEE WiOpt 2026.
+      - label: Program committees
+        details: IEEE INFOCOM 2027; AAAI 2026 and 2027; ACM MobiHoc 2025; COLT 2022; IEEE WiOpt 2021.
+      - label: University service
+        details: Hiring committees for W2 Professorships in Mathematical Optimization and Industrial Mathematics, RWTH Aachen University.
+      - label: Reviewing
+        details: JMLR; SIAM journals on Control and Optimization and Mathematics of Data Science; Mathematics of Operations Research;
+          ICML; NeurIPS; AISTATS; ICLR; COLT, among others.
+    Memberships:
+      - bullet: "ELLIS and ELLIS NRW; RWTH Center for Artificial Intelligence; SFB 1481: Sparsity and Singular Structures; EDDy Research
+          and Teaching Group."
+    Selected awards and fellowships:
+      - label: "2026"
+        details: NVIDIA Academic Grant.
+      - label: "2020"
+        details: NSF TRIPODS Postdoctoral Fellowship, University of Illinois at Urbana-Champaign.
+      - label: "2016"
+        details: Dr. Burn Lin Travel Grant Award, The Ohio State University.
+      - label: 2010–2014
+        details: Bilkent University Graduate School Scholarship.
+      - label: 2005–2010
+        details: Turkish Ministry of Education Merit Scholarship.
+    Selected invited lectures:
+      - label: June 2026
+        details: Policy Gradient Methods. Reinforcement Learning Summer School, Milan.
+      - label: March 2024
+        details: Towards Robust and Sample-Efficient Reinforcement Learning Using Policy Optimization. Airbus Operations, Hamburg.
+      - label: May 2023
+        details: Theoretical Aspects of Deep Learning. SFB 1481 Spring School, Kloster Steinfeld.
