@@ -75,6 +75,18 @@ input:focus-visible {
 .navbar-brand {
   font-family: Georgia, "Times New Roman", serif;
 }
+#navbar .navbar-affiliation {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  margin-right: 1.5rem;
+  padding-block: 0;
+}
+#navbar .navbar-affiliation img {
+  display: block;
+  width: 190px;
+  height: auto;
+}
 body > .container[role="main"] {
   margin-top: 3.6rem !important;
   min-height: 68vh;
