@@ -27,8 +27,8 @@ Before joining RWTH in 2022, I was an NSF TRIPODS Postdoctoral Research Fellow a
 <div class="profile-links">
   <a href="{{ '/assets/pdf/semih-cayci-cv.pdf' | relative_url }}">CV (PDF)</a>
   <a href="mailto:cayci@mathc.rwth-aachen.de">Email</a>
-  <a href="[https://rwthcontacts.rwth-aachen.de/person/PER-RCTNBL9](https://www.mathematik.rwth-aachen.de/cms/mathematik/fachgruppe/institute-lehrstuehle/professuren/~btbp/professuren-campus-/?gguid=PER-RCTNBL9&allou=1)">RWTH profile</a>
-  <a href="[https://orcid.org/0000-0001-7928-0794](https://scholar.google.com/citations?hl=en&user=pt_pXpcAAAAJ&view_op=list_works)">Google Scholar</a>
+  <a href="[https://www.mathematik.rwth-aachen.de/cms/mathematik/fachgruppe/institute-lehrstuehle/professuren/~btbp/professuren-campus-/?gguid=PER-RCTNBL9&allou=1](https://www.mathematik.rwth-aachen.de/cms/mathematik/fachgruppe/institute-lehrstuehle/professuren/~btbp/professuren-campus-/?gguid=PER-RCTNBL9&allou=1)">RWTH profile</a>
+  <a href="[https://scholar.google.com/citations?hl=en&user=pt_pXpcAAAAJ&view_op=list_works](https://scholar.google.com/citations?hl=en&user=pt_pXpcAAAAJ&view_op=list_works)">Google Scholar</a>
 </div>
 
 <div class="research-summary" markdown="1">
