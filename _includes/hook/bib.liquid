@@ -1,0 +1,18 @@
+{% if page.layout == 'about' and entry.key == 'cayci2026geometric' %}
+  <a
+    class="publication-illustration"
+    href="{{ '/assets/img/publication_preview/manifold.png' | relative_url }}"
+    target="_blank"
+    rel="noopener"
+    aria-label="View the Gauss–Newton illustration at full size (opens in a new tab)"
+  >
+    <img
+      src="{{ '/assets/img/publication_preview/manifold.png' | relative_url }}"
+      alt="Schematic comparing Gauss–Newton and gradient flow in parameter space and on the prediction manifold"
+      width="1536"
+      height="1024"
+      loading="lazy"
+      decoding="async"
+    >
+  </a>
+{% endif %}
