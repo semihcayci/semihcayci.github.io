@@ -19,6 +19,12 @@
       {% assign illustration_alt = 'Schematic of stochastic Gauss–Newton trajectories in parameter space for training sets differing by one sample, with a larger-damping comparison inset' %}
       {% assign illustration_width = 1536 %}
       {% assign illustration_height = 1024 %}
+    {% when 'cayci2025recurrent' %}
+      {% assign illustration_file = 'recurrent-npg.png' %}
+      {% assign illustration_label = 'View the recurrent natural policy gradient schematic at full size (opens in a new tab)' %}
+      {% assign illustration_alt = 'Black-and-white schematic of recurrent policies for a POMDP, showing hidden states, noisy observations, rewards, recurrent memory, and action inputs across two time steps' %}
+      {% assign illustration_width = 1672 %}
+      {% assign illustration_height = 941 %}
   {% endcase %}
 {% endif %}
 {% if illustration_file %}
