@@ -30,6 +30,7 @@ This customized workflow uses GitHub's Pages artifact deployment. Do not follow 
 | Online CV                                  | `_data/cv.yml`                        |
 | Downloadable selected CV                   | `assets/pdf/semih-cayci-cv.pdf`       |
 | Portrait                                   | `assets/img/semih-cayci.jpg`          |
+| RWTH/MML logo and navigation link           | `assets/img/rwth-mml-logo.png`, `_includes/header.liquid` |
 | Colors, typography, responsive refinements | `_sass/_personal.scss`                |
 
 Add `bibtex_show = {true}` to display a paper's citation, and `selected = {true}` to feature it on the homepage. Use `category = {publication}` for published records and `category = {preprint}` with `@misc` for preprints. Add `html`, `pdf`, and `code` fields for available links. Update the downloadable bibliography alongside the display bibliography.
@@ -51,7 +52,7 @@ Visit `http://127.0.0.1:4000`. Node is used by al-folio's JavaScript minifier; n
 
 Based on al-folio starter commit `929fbf71c5a45b13e9b5a20dfa425ce9e9de7935` and `al_folio_core` 1.0.15. Dependencies are pinned in `Gemfile` and `Gemfile.lock`.
 
-The only shadowed theme file is `assets/css/main.scss`, which imports `_sass/_personal.scss` after the theme styles. It is tracked in `.al-folio-overrides.yml`. When updating dependencies, run:
+The local theme overrides are `assets/css/main.scss`, which imports `_sass/_personal.scss` after the theme styles, and `_includes/header.liquid`, which adds the linked RWTH/MML logo to the navigation bar. They are tracked in `.al-folio-overrides.yml`. When updating dependencies, run:
 
 ```sh
 bundle exec al-folio upgrade audit --no-fail
