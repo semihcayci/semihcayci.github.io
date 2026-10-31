@@ -4,6 +4,13 @@ title: Research
 permalink: /research/
 nav: true
 nav_order: 1
+_styles: |
+  .post article > h3 {
+    font-size: 1.3rem;
+    line-height: 1.4;
+    margin-top: 1.6rem;
+    margin-bottom: 0.6rem;
+  }
 ---
 
 My research develops mathematical foundations for deep learning and reinforcement learning.
