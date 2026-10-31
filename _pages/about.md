@@ -37,6 +37,6 @@ Before joining RWTH in 2022, I was an NSF TRIPODS Postdoctoral Research Fellow a
 
 ### Research themes
 
-[Geometry-aware optimization for deep learning]({{ '/research/#learning-and-generalization' | relative_url }}) · [Reinforcement learning: MDPs and POMDPs]({{ '/research/#reinforcement-learning' | relative_url }}) · [Geometry and optimization]({{ '/research/#geometry-and-optimization' | relative_url }})
+[Optimization theory for deep learning]({{ '/research/#optimization-theory-for-deep-learning' | relative_url }}) · [Policy optimization for MDPs and mean-field games]({{ '/research/#policy-optimization-for-mdps-and-mean-field-games' | relative_url }}) · [Reinforcement learning for POMDPs]({{ '/research/#reinforcement-learning-for-pomdps' | relative_url }})
 
 </div>
