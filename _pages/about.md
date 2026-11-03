@@ -28,7 +28,7 @@ Before joining RWTH in 2022, I was an NSF TRIPODS Postdoctoral Research Fellow a
 
 <div class="profile-links">
   <a href="{{ '/assets/pdf/semih-cayci-cv.pdf' | relative_url }}">CV (PDF)</a>
-  <a href="mailto:cayci@mathc.rwth-aachen.de">Email</a>
+  <a href="mailto:cayci@mathc.rwth-aachen.de">Contact</a>
   <a href="https://www.mathematik.rwth-aachen.de/cms/mathematik/fachgruppe/institute-lehrstuehle/professuren/~btbp/professuren-campus-/?gguid=PER-RCTNBL9&amp;allou=1">RWTH profile</a>
   <a href="https://scholar.google.com/citations?hl=en&amp;user=pt_pXpcAAAAJ&amp;view_op=list_works">Google Scholar</a>
 </div>
