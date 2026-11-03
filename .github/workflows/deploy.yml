@@ -35,9 +35,12 @@ jobs:
         run: bundle exec jekyll build --trace
       - name: Check required pages
         run: |
-          for page in index.html research/index.html publications/index.html teaching/index.html group/index.html cv/index.html; do
+          for page in index.html research/index.html publications/index.html teaching/index.html; do
             test -s "_site/$page" || exit 1
           done
+          test ! -e _site/group/index.html
+          test ! -e _site/cv/index.html
+          test -s _site/assets/pdf/semih-cayci-cv.pdf
           test -s _site/assets/css/main.css
           test -s _site/assets/img/semih-cayci.jpg
       - name: Upload website
