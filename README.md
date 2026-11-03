@@ -4,7 +4,7 @@ An al-folio website prepared for **https://semihcayci.github.io**.
 
 ## Pages
 
-About, Research, Publications, Teaching, Group, and CV. White background, dark text, a blue accent, and a responsive layout.
+About, Research, Publications, and Teaching, with a direct CV (PDF) link. White background, dark text, a blue accent, and a responsive layout.
 
 ## Publishing
 
@@ -26,9 +26,7 @@ This customized workflow uses GitHub's Pages artifact deployment. Do not follow 
 | Publications                               | `_bibliography/papers.bib`            |
 | Downloadable original bibliography         | `assets/bibliography/semih-cayci.bib` |
 | Teaching                                   | `_pages/teaching.md`                  |
-| Group and supervision                      | `_pages/group.md`                     |
-| Online CV                                  | `_data/cv.yml`                        |
-| Downloadable selected CV                   | `assets/pdf/semih-cayci-cv.pdf`       |
+| Downloadable CV                            | `assets/pdf/semih-cayci-cv.pdf`       |
 | Portrait                                   | `assets/img/semih-cayci.jpg`          |
 | RWTH/MML logo and navigation link           | `assets/img/rwth-mml-logo.png`, `_includes/header.liquid` |
 | Browser-tab icon and homepage title         | `assets/img/mml.png`, `icon` and `homepage_title` in `_config.yml` |
@@ -36,7 +34,7 @@ This customized workflow uses GitHub's Pages artifact deployment. Do not follow 
 
 Add `bibtex_show = {true}` to display a paper's citation, and `selected = {true}` to feature it on the homepage. Use `category = {publication}` for published records and `category = {preprint}` with `@misc` for preprints. Add `html`, `pdf`, and `code` fields for available links. Update the downloadable bibliography alongside the display bibliography.
 
-The PDF is a two-page selected public CV adapted from the supplied LaTeX source; it is separate from the online CV data. Replace it when updating the CV.
+The navigation and homepage link directly to the author-supplied CV PDF. Replace `assets/pdf/semih-cayci-cv.pdf` when updating the CV; there is no separate CV page.
 
 ## Preview locally
 
@@ -67,6 +65,6 @@ See the [al-folio documentation](https://github.com/alshedivat/al-folio/tree/mai
 
 ## Content sources
 
-Professional content and all 31 bibliography records come from the CV and BibTeX supplied by Semih Cayci on 30 October 2026. Commented-out LaTeX material was not used. The selected CV focuses on appointments, education, teaching, supervision, service, awarded grants, and awards. The photograph is from the [RWTH EDDy profile](https://www.eddy.rwth-aachen.de/people/cayci/).
+Professional content and all 31 bibliography records come from the CV and BibTeX supplied by Semih Cayci on 30 October 2026. Commented-out LaTeX material was not used. The downloadable CV is the unchanged `CV_SemihCayci.pdf` supplied on 3 November 2026. The photograph is from the [RWTH EDDy profile](https://www.eddy.rwth-aachen.de/people/cayci/).
 
 The al-folio theme is distributed under the MIT license; see `LICENSE`.
