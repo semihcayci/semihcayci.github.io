@@ -10,9 +10,10 @@ module PublicationPresentation
     muller2026optimal
   ].freeze
 
-  SELECTED_VENUES = {
-    "cayci2026geometric" => "International Conference on Machine Learning (ICML)",
-    "cayci2026stochasticgaussnewton" => "International Conference on Artificial Intelligence and Statistics (AISTATS)"
+  CONFERENCE_VENUES = {
+    "International Conference on Machine Learning" => "ICML",
+    "International Conference on Artificial Intelligence and Statistics" => "AISTATS",
+    "Advances in Neural Information Processing Systems" => "NeurIPS"
   }.freeze
 
   PUBLISHED_ORDER = %w[
@@ -50,10 +51,14 @@ module PublicationPresentation
 
     if page.data["layout"] == "about"
       reorder(html.at_css(".publications ol.bibliography"), SELECTED_ORDER)
-      SELECTED_VENUES.each do |key, name|
-        venue = html.at_css("##{key} .periodical em")
-        venue.content = name if venue
-      end
+    end
+
+    html.css(".publications .periodical em").each do |venue|
+      conference = CONFERENCE_VENUES.find { |name, _| venue.text.include?(name) }
+      next unless conference
+
+      name, abbreviation = conference
+      venue.content = "#{name} (#{abbreviation})"
     end
 
     html.css("#published-papers-section ol.bibliography").each do |list|
