@@ -4,11 +4,16 @@ require "nokogiri"
 module PublicationPresentation
   SELECTED_ORDER = %w[
     cayci2026geometric
+    cayci2024convergence
     cayci2026stochasticgaussnewton
     cayci2025recurrent
     muller2026optimal
-    cayci2024convergence
   ].freeze
+
+  SELECTED_VENUE_ABBREVIATIONS = {
+    "cayci2026geometric" => "ICML",
+    "cayci2026stochasticgaussnewton" => "AISTATS"
+  }.freeze
 
   PUBLISHED_ORDER = %w[
     cayci2026geometric
@@ -45,6 +50,13 @@ module PublicationPresentation
 
     if page.data["layout"] == "about"
       reorder(html.at_css(".publications ol.bibliography"), SELECTED_ORDER)
+      SELECTED_VENUE_ABBREVIATIONS.each do |key, abbreviation|
+        venue = html.at_css("##{key} .periodical em")
+        next unless venue
+
+        label = "(#{abbreviation})"
+        venue.content = "#{venue.text} #{label}" unless venue.text.include?(label)
+      end
     end
 
     html.css("#published-papers-section ol.bibliography").each do |list|
