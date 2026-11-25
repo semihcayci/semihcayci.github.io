@@ -16,6 +16,7 @@ My teaching at RWTH Aachen focuses on the mathematical foundations of machine le
 | **Mathematical Foundations of Deep Learning**          | Summer 2026 · Winter 2023/24                  |
 | **Mathematical Foundations of Reinforcement Learning** | Winter 2026/27 · Summer 2025 · Winter 2022/23 |
 | **Stochastic Analysis**                                | Winter 2024/25                                |
+| **Optimization A (Nonlinear Optimization)**            | Planned for Summer 2027                      |
 | **Higher Mathematics for Mechanical Engineers**        | Planned for Winter 2027/28, in German         |
 
 Course registration and official announcements are available through [RWTHonline](https://online.rwth-aachen.de/) and [RWTHmoodle](https://moodle.rwth-aachen.de/).
