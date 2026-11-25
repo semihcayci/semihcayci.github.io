@@ -51,9 +51,10 @@ module PublicationPresentation
 
     if page.data["layout"] == "about"
       reorder(html.at_css(".publications ol.bibliography"), SELECTED_ORDER)
-      html.css("#cayci2025recurrent .links a").each do |link|
-        link.remove if link.text.strip == "Code"
-      end
+    end
+
+    html.css("#cayci2025recurrent .links a").each do |link|
+      link.remove if link.text.strip == "Code"
     end
 
     html.css(".publications .periodical em").each do |venue|
